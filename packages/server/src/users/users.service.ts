@@ -10,13 +10,19 @@ export class UsersService {
     @InjectRepository(UserEntity)
     private usersRepository: Repository<UserEntity>,
   ) {}
-  createOne() {
+  createUser(
+    email: string,
+    password: string,
+    displayName: string,
+    username: string,
+  ) {
     this.logger.log('Creating User');
-    const userEntity = this.usersRepository.create({
-      firstName: 'one',
-      lastName: 'two',
-      isActive: false,
+
+    const user = this.usersRepository.create({
+      email,
+      password,
+      displayName,
+      username,
     });
-    return this.usersRepository.save(userEntity);
   }
 }
