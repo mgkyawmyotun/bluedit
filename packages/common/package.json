@@ -26,5 +26,8 @@
   },
   "dependencies": {
     "yup": "^0.32.1"
+  },
+  "devDependencies": {
+    "@types/cache-manager": "^2.10.3"
   }
 }
