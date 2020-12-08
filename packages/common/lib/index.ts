@@ -1,3 +1,1 @@
-export const hello = () => {
-  console.log('Hello From Common folder');
-};
+export * from './userValidation';

@@ -13,6 +13,7 @@ const common: any = {
 const DEV_CONNECTION = TypeOrmModule.forRoot({
   ...common,
   autoLoadEntities: true,
+  migrations: '',
   database: 'bluedit',
 });
 

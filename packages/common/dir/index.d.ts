@@ -1,2 +1,2 @@
-export declare const hello: () => void;
+export * from './userValidation';
 //# sourceMappingURL=index.d.ts.map
