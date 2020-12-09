@@ -37,3 +37,11 @@ export class Error {
   @Field(type => String)
   message: string;
 }
+
+@InputType()
+export class UserLoginInput {
+  @Field(type => String)
+  email;
+  @Field(type => String)
+  password: string;
+}
