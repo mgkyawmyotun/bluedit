@@ -2,22 +2,36 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type User {
+  displayName: String!
+  username: String!
+  email: String!
+  password: String!
+}
+
 type Error {
   path: String!
   message: String!
 }
 
 type Query {
-  me: String!
+  me: User
+  logout: String
 }
 
 type Mutation {
-  createUser(userInput: UserInputType!): Error
+  register(userInput: UserInputType!): Error
+  login(loginInput: UserLoginInput!): Error
 }
 
 input UserInputType {
   displayName: String!
   username: String!
+  email: String!
+  password: String!
+}
+
+input UserLoginInput {
   email: String!
   password: String!
 }

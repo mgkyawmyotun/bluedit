@@ -5,3 +5,8 @@ export const userValidationSchema = yup.object().shape({
   email: yup.string().email().max(255).required(),
   password: yup.string().min(5).required(),
 });
+
+export const userLoginValidationSchema = yup.object().shape({
+  email: yup.string().email().max(255).required(),
+  password: yup.string().min(5).required(),
+});

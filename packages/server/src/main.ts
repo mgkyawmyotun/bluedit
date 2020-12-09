@@ -1,13 +1,14 @@
 import { NestFactory } from '@nestjs/core';
-import * as redis from 'cache-manager-redis-store';
 import * as connectRedis from 'connect-redis';
 import * as session from 'express-session';
+import * as redis from 'redis';
 import { AppModule } from './app.module';
-import { isDev, SESSION_SECRECT } from './config';
+import { SESSION_SECRECT } from './config';
 
 const RedisStore = connectRedis(session);
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors();
   app.use(
     session({
       name: 'bid',
@@ -16,11 +17,11 @@ async function bootstrap() {
       saveUninitialized: false,
       cookie: {
         httpOnly: true,
-        secure: isDev,
+        secure: false,
         maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
       },
       store: new RedisStore({
-        client: redis,
+        client: redis.createClient(),
         host: 'localhost',
         port: 6379,
       }),

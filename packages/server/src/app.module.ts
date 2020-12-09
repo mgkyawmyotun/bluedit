@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
+import { Request } from 'express';
+import { Session } from 'express-session';
 import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -13,6 +15,11 @@ import { UsersModule } from './users/users.module';
     GraphQLModule.forRoot({
       include: [UsersModule],
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      context: ({ req }): { session: Session; req: Request } => ({
+        session: req.session,
+        req: req,
+      }),
+      cors: true,
     }),
   ],
   controllers: [AppController],
