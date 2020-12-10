@@ -1,8 +1,9 @@
-import { FacebookOutlined, GoogleOutlined } from '@ant-design/icons';
+import { FacebookFilled } from '@ant-design/icons';
 import { Button, Col, Divider, Form, Input, Row } from 'antd';
 import Layout, { Content } from 'antd/lib/layout/layout';
 import Sider from 'antd/lib/layout/Sider';
 import React, { FC } from 'react';
+import FacebookLogin from 'react-facebook-login';
 
 const Item = Form.Item;
 export const EmailRegister: FC = () => {
@@ -24,24 +25,18 @@ export const EmailRegister: FC = () => {
                 Privacy Policy. CONTINUE
               </p>
             </Row>
-            <Row style={{ marginTop: '100px' }}>
-              <Button
-                type="primary"
-                className="emailRegisterField"
-                icon={<GoogleOutlined />}
-                size={'large'}
-              >
-                Continue With Google
-              </Button>
-            </Row>
+
             <Row style={{ marginTop: '30px' }}>
-              <Button
-                className="emailRegisterField"
-                icon={<FacebookOutlined />}
-                size={'large'}
-              >
-                Continue With FaceBook
-              </Button>
+              <FacebookLogin
+                appId="396718554904229"
+                fields="id,name,email,picture,link"
+                textButton="Continue With FaceBook"
+                cssClass="facebookButton"
+                icon={<FacebookFilled style={{ paddingRight: 10 }} />}
+                callback={(res) => {
+                  console.log(res);
+                }}
+              ></FacebookLogin>
             </Row>
             <Divider dashed> OR </Divider>
             <Row style={{ marginTop: '30px' }}>

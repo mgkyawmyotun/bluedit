@@ -5,10 +5,16 @@ import {
 import { CACHE_MANAGER, Inject, Injectable, Logger } from '@nestjs/common';
 import { CONTEXT } from '@nestjs/graphql';
 import { InjectRepository } from '@nestjs/typeorm';
+import axios from 'axios';
 import * as bcrypt from 'bcrypt';
 import { Cache } from 'cache-manager';
 import { Repository } from 'typeorm';
-import { GraphQLUserContext } from './users.d';
+import { FACEBOOK_APP_ID, FACEBOOK_APP_SECRECT } from './../config';
+import {
+  FaceBookAppResponse,
+  FaceBookUserProfile,
+  GraphQLUserContext,
+} from './users.d';
 import { UserEntity } from './users.entity';
 import { Error, User } from './users.type';
 
@@ -23,7 +29,6 @@ export class UsersService {
   ) {}
   async createUser(user: User): Promise<Error> {
     const { session } = this.context;
-    this.context.getType();
     this.logger.log('Creating User');
     try {
       const result = await userValidationSchema.validate(user);
@@ -60,7 +65,7 @@ export class UsersService {
     const userRepository = this.usersRepository.create(user);
     try {
       const user = await this.usersRepository.save(userRepository);
-      session.user = user.user_id;
+      this.setUserSession(user.user_id);
     } catch (error) {
       return {
         path: 'Internal Server Error',
@@ -76,7 +81,6 @@ export class UsersService {
     return user;
   }
   async login(email: string, password: string) {
-    const { session } = this.context;
     this.logger.log(' User Login');
     try {
       await userLoginValidationSchema.validate({ email, password });
@@ -109,8 +113,7 @@ export class UsersService {
         message: 'Invalid Email or Password',
       };
     }
-    session.user = userAlereadyExists.user_id;
-
+    this.setUserSession(userAlereadyExists.user_id);
     return null;
   }
   async logout() {
@@ -118,5 +121,50 @@ export class UsersService {
       this.logger.error(err);
     });
     return null;
+  }
+  async loginFacebook(accessToken: string): Promise<Error> {
+    const url = `https://graph.facebook.com/debug_token?input_token=${accessToken}&access_token=${FACEBOOK_APP_ID}|${FACEBOOK_APP_SECRECT}`;
+    const { data }: { data: FaceBookAppResponse } = await axios.get(url);
+    const facebookData = data.data;
+    if (!(facebookData.app_id === FACEBOOK_APP_ID && facebookData.is_valid)) {
+      return {
+        path: 'facebook',
+        message: 'Error not valid',
+      };
+    }
+
+    const UserProfileUrl = `https://graph.facebook.com/v9.0/me?fields=id,name,email,picture&access_token=${accessToken}`;
+    const { data: UserData }: { data: FaceBookUserProfile } = await axios.get(
+      UserProfileUrl,
+    );
+    const userAlereadyExists = await this.usersRepository.findOne(
+      {
+        email: UserData.email,
+      },
+      { select: ['user_id'] },
+    );
+    if (userAlereadyExists) {
+      this.setUserSession(userAlereadyExists.user_id);
+      return null;
+    }
+    const user = this.usersRepository.create({
+      displayName: UserData.name,
+      username: UserData.name.replace(/\s/g, '_').toLowerCase(),
+      email: UserData.email,
+      picture_url: UserData.picture.data.url,
+    });
+    try {
+      const { user_id } = await this.usersRepository.save(user);
+      this.setUserSession(user_id);
+    } catch (error) {
+      return {
+        path: 'Internal Server Error',
+        message: 'Try again later ',
+      };
+    }
+  }
+  private setUserSession(user_id: string): void {
+    const { session } = this.context;
+    session.user = user_id;
   }
 }

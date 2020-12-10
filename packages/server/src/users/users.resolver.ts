@@ -22,4 +22,9 @@ export class UsersResolver {
   loginUser(@Args('loginInput') user: UserLoginInput) {
     return this.userService.login(user.email, user.password);
   }
+
+  @Mutation(returns => Error, { nullable: true, name: 'loginFaceBook' })
+  loginFaceBook(@Args('accessToken') accessToken: string) {
+    return this.userService.loginFacebook(accessToken);
+  }
 }
