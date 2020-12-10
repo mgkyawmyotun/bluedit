@@ -45,3 +45,15 @@ export class UserLoginInput {
   @Field(type => String)
   password: string;
 }
+
+@InputType()
+export class UserProfileFaceBook {
+  @Field(type => String)
+  email;
+  @Field(type => String)
+  name: string;
+  @Field(type => String)
+  accessToken: string;
+  @Field(type => String)
+  profile_url: string;
+}

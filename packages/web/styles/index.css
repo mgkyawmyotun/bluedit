@@ -29,3 +29,13 @@ img {
 .emailRegisterFieldInput {
   width: 345px;
 }
+
+.facebookButton {
+  width: 345px;
+  height: 50px;
+  font-size: 18px;
+  color: white;
+  cursor: pointer;
+  background-color: #3578e5;
+  border-style: none;
+}

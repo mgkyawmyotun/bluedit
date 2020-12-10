@@ -16,9 +16,13 @@ export class UserEntity {
 
   @Column('text')
   password: string;
+  @Column('text')
+  picture_url: string;
 
   @BeforeInsert()
   async hashPassword() {
-    this.password = await bcrypt.hash(this.password, 10);
+    if (this.password) {
+      this.password = await bcrypt.hash(this.password, 10);
+    }
   }
 }
