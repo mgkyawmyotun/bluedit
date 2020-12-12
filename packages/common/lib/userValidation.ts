@@ -1,4 +1,5 @@
 import * as yup from 'yup';
+
 export const userValidationSchema = yup.object().shape({
   displayName: yup.string().min(3).max(50).required(),
   username: yup.string().min(3).max(50).required(),

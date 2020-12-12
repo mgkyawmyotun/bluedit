@@ -28,7 +28,6 @@ export class UsersService {
     @Inject(CONTEXT) private context: GraphQLUserContext,
   ) {}
   async createUser(user: User): Promise<Error> {
-    const { session } = this.context;
     this.logger.log('Creating User');
     try {
       const result = await userValidationSchema.validate(user);
