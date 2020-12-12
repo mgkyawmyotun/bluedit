@@ -1,11 +1,12 @@
-import { FacebookFilled } from '@ant-design/icons';
-import { Button, Col, Divider, Form, Input, Row } from 'antd';
+import { Button, Col, Divider, Form, Row } from 'antd';
 import Layout, { Content } from 'antd/lib/layout/layout';
 import Sider from 'antd/lib/layout/Sider';
 import React, { FC } from 'react';
-import FacebookLogin from 'react-facebook-login';
+import { ContinueWithFaceBook } from '../common';
+import { FormField } from '../common/FormField';
 
 const Item = Form.Item;
+const styles: React.CSSProperties = { marginTop: '30px' };
 export const EmailRegister: FC = () => {
   return (
     <Layout color="white">
@@ -26,29 +27,12 @@ export const EmailRegister: FC = () => {
               </p>
             </Row>
 
-            <Row style={{ marginTop: '30px' }}>
-              <FacebookLogin
-                appId="396718554904229"
-                fields="id,name,email,picture,link"
-                textButton="Continue With FaceBook"
-                cssClass="facebookButton"
-                icon={<FacebookFilled style={{ paddingRight: 10 }} />}
-                callback={(res) => {
-                  console.log(res);
-                }}
-              ></FacebookLogin>
+            <Row className="emailRegisterHeight">
+              <ContinueWithFaceBook />
             </Row>
             <Divider dashed> OR </Divider>
-            <Row style={{ marginTop: '30px' }}>
-              <Form>
-                <Item
-                  label="Email"
-                  name="email"
-                  className="emailRegisterFieldInput"
-                >
-                  <Input />
-                </Item>
-              </Form>
+            <Row className="emailRegisterHeight">
+              <FormField />
             </Row>
             <Row>
               <Button
