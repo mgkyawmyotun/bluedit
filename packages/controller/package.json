@@ -1,27 +1,36 @@
 {
-  "name": "@bluedit/controller",
-  "version": "0.0.1",
-  "description": "for share between react and react native",
-  "author": "kyawmyotun <kyawmyotun472001@gmail.com>",
-  "homepage": "https://github.com/mgkyawmyotun/bluedit#readme",
-  "license": "MIT",
-  "main": "dist/index.js",
-  "directories": {
-    "lib": "src",
-    "test": "__tests__"
-  },
-  "files": [
-    "src"
-
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mgkyawmyotun/bluedit.git"
-  },
-  "scripts": {
-    "build": "tsc"
-  },
-  "bugs": {
-    "url": "https://github.com/mgkyawmyotun/bluedit/issues"
-  }
+	"name": "@bluedit/controller",
+	"version": "0.0.1",
+	"description": "for share between react and react native",
+	"author": "kyawmyotun <kyawmyotun472001@gmail.com>",
+	"homepage": "https://github.com/mgkyawmyotun/bluedit#readme",
+	"license": "MIT",
+	"main": "dist/index.js",
+	"directories": {
+		"lib": "src",
+		"test": "__tests__"
+	},
+	"typings": "dist/index.d.ts",
+	"files": [
+		"dist"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/mgkyawmyotun/bluedit.git"
+	},
+	"bundleDependencies": false,
+	"bugs": {
+		"url": "https://github.com/mgkyawmyotun/bluedit/issues"
+	},
+	"dependencies": {
+		"formik": "^2.2.6"
+	},
+	"devDependencies": {
+		"@types/react": "^17.0.0",
+		"react": "^17.0.1",
+		"react-dom": "^17.0.1"
+	},
+	"peerDependencies": {
+		"react": ">=16.8.0"
+	}
 }
