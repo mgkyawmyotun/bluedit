@@ -1,13 +1,18 @@
-import { Button, Col, Divider, Form, Row } from 'antd';
+import { Button, Col, Divider, Row } from 'antd';
 import Layout, { Content } from 'antd/lib/layout/layout';
 import Sider from 'antd/lib/layout/Sider';
 import React, { FC } from 'react';
 import { ContinueWithFaceBook } from '../common';
 import { FormField } from '../common/FormField';
 
-const Item = Form.Item;
-const styles: React.CSSProperties = { marginTop: '30px' };
-export const EmailRegister: FC = () => {
+interface EmailRegisterProps {
+  showNextForm: React.Dispatch<React.SetStateAction<boolean>>;
+  isValidEmail: boolean;
+}
+export const EmailRegister: FC<EmailRegisterProps> = ({
+  showNextForm,
+  isValidEmail,
+}) => {
   return (
     <Layout color="white">
       <Sider width="156px">
@@ -32,13 +37,21 @@ export const EmailRegister: FC = () => {
             </Row>
             <Divider dashed> OR </Divider>
             <Row className="emailRegisterHeight">
-              <FormField />
+              <FormField
+                name="email"
+                type="text"
+                label="Email"
+                className="emailRegisterFieldInput"
+              />
             </Row>
             <Row>
               <Button
                 size="large"
                 type="primary"
                 className="emailRegisterFieldInput"
+                disabled={isValidEmail}
+                onClick={() => showNextForm(true)}
+                htmlType="submit"
               >
                 Continue
               </Button>
