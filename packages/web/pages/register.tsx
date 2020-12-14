@@ -5,7 +5,7 @@ import React, { FC, useState } from 'react';
 import { RegisterFormValues } from '../../controller/dist';
 import { EmailRegister, UserNameRegister } from '../components';
 const Register: FC = () => {
-  const [showNextForm, setShowNextForm] = useState<boolean>(false);
+  const [showNextForm, setShowNextForm] = useState<boolean>(true);
   return (
     <div>
       <Formik
@@ -20,14 +20,20 @@ const Register: FC = () => {
         }}
         validationSchema={userValidationSchema}
       >
-        {({ errors, touched, values }: FormikProps<RegisterFormValues>) => (
-          <Form>
+        {({
+          errors,
+          touched,
+          values,
+          setErrors,
+        }: FormikProps<RegisterFormValues>) => (
+          <Form layout={'vertical'}>
             {!showNextForm && (
               <EmailRegister
                 showNextForm={setShowNextForm}
                 isValidEmail={
                   !errors['email'] && values['email'].length > 0 ? false : true
                 }
+                setError={(value: string) => setErrors({ email: value })}
               ></EmailRegister>
             )}
             {showNextForm && <UserNameRegister />}

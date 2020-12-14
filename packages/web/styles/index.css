@@ -43,3 +43,39 @@ img {
 .emailRegisterHeight {
   margin-top: 30px;
 }
+
+.userNameRegister {
+
+  padding-left: 50px;
+  padding-top: 20px;
+}
+
+.userNameTerm {
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.userNameDivider {
+  width: 100%;
+  border-width: 2px;
+}
+
+.userNameField {
+  width: 345px;
+  height: 40px;
+}
+
+.userNameButtonField {
+  display: flex;
+  height: 200px;
+  background-color: #fcfcfb;
+  border-top: 1px solid hsla(195, 2%, 65%, .36);
+  padding: 8px 16px;
+  align-content: space-between;
+}
+
+.userNameButton {
+  width: 200px;
+
+
+}
