@@ -1,5 +1,5 @@
 import { FC } from 'react';
 
 export const UserNameRegister: FC = () => {
-  return <div></div>;
+  return <h1>Hello From UserNameRegister</h1>;
 };
