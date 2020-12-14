@@ -8,10 +8,12 @@ import { FormField } from '../common/FormField';
 interface EmailRegisterProps {
   showNextForm: React.Dispatch<React.SetStateAction<boolean>>;
   isValidEmail: boolean;
+  setError: (value: string) => void;
 }
 export const EmailRegister: FC<EmailRegisterProps> = ({
   showNextForm,
   isValidEmail,
+  setError,
 }) => {
   return (
     <Layout color="white">
@@ -50,7 +52,9 @@ export const EmailRegister: FC<EmailRegisterProps> = ({
                 type="primary"
                 className="emailRegisterFieldInput"
                 disabled={isValidEmail}
-                onClick={() => showNextForm(true)}
+                onClick={() => {
+                  setError('email Already Exists');
+                }}
                 htmlType="submit"
               >
                 Continue
