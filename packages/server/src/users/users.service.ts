@@ -1,4 +1,5 @@
 import {
+  emailValidation,
   userLoginValidationSchema,
   userValidationSchema,
 } from '@bluedit/common';
@@ -161,6 +162,21 @@ export class UsersService {
         message: 'Try again later ',
       };
     }
+  }
+  async isEmailExists(email: string) {
+    try {
+      await emailValidation.validate({ email });
+    } catch (error) {
+      return false;
+    }
+    const user_id = await this.usersRepository.findOne(
+      { email },
+      { select: ['user_id'] },
+    );
+    if (user_id) {
+      return true;
+    }
+    return false;
   }
   private setUserSession(user_id: string): void {
     const { session } = this.context;
