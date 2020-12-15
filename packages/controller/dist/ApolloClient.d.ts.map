@@ -1,0 +1,1 @@
+{"version":3,"file":"ApolloClient.d.ts","sourceRoot":"","sources":["../src/ApolloClient.tsx"],"names":[],"mappings":"AAAA,OAAO,EAAE,EAAE,EAAE,MAAM,OAAO,CAAC;AAC3B,UAAU,qBAAqB;IAC7B,QAAQ,EAAE,GAAG,CAAC,OAAO,CAAC;CAEvB;AACD,eAAO,MAAM,gBAAgB,EAAE,EAAE,CAAC,qBAAqB,CAMtD,CAAC"}

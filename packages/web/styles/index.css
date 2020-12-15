@@ -51,6 +51,7 @@ img {
 }
 
 .userNameTerm {
+  background-color: #fcfcfb;
   font-size: 18px;
   font-weight: 300;
 }
@@ -66,12 +67,12 @@ img {
 }
 
 .userNameButtonField {
+  margin-top: 20px;
   display: flex;
-  height: 200px;
   background-color: #fcfcfb;
   border-top: 1px solid hsla(195, 2%, 65%, .36);
-  padding: 8px 16px;
-  align-content: space-between;
+  padding: 20px 16px;
+  justify-content: space-between;
 }
 
 .userNameButton {
