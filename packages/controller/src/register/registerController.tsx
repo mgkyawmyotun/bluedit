@@ -1,26 +1,32 @@
-import { Formik, FormikProps } from 'formik';
+import { MutationResult } from '@apollo/client';
 import React, { FC } from 'react';
-import { RegisterFormValues } from '..';
+import {
+  CreateUserMutation,
+  useCreateUserMutation,
+  UserInputType,
+} from '../generated/graphql';
 
+interface Children {
+  submit: (user: UserInputType) => void;
+  results: MutationResult<CreateUserMutation>;
+}
 interface RegisterControllerProps {
-  children: (props: FormikProps<RegisterFormValues>) => JSX.Element;
+  children: ({ submit }: Children) => JSX.Element;
 }
 export const RegisterController: FC<RegisterControllerProps> = ({
   children,
 }) => {
-  return (
-    <Formik
-      initialValues={{
-        username: '',
-        email: '',
-        displayName: '',
-        password: '',
-      }}
-      onSubmit={() => {
-        console.log('Submited');
-      }}
-    >
-      {(props: FormikProps<RegisterFormValues>) => children(props)}
-    </Formik>
-  );
+  const [createUser, results] = useCreateUserMutation();
+  const childrenValues: Children = {
+    submit: (user) => {
+      createUser({
+        variables: {
+          userInput: user,
+        },
+      });
+    },
+    results,
+  };
+
+  return <>{children(childrenValues)}</>;
 };

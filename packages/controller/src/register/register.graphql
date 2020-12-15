@@ -1,0 +1,6 @@
+mutation createUser($userInput: UserInputType!) {
+  register(userInput: $userInput) {
+    message
+    path
+  }
+}
