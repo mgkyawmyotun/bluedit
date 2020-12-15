@@ -1,2 +1,3 @@
+export * from './ApolloClient';
 export * from './register';
 export * from './types';
