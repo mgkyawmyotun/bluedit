@@ -1,7 +1,3 @@
-import { FC } from 'react';
-interface GraphQLConnectorProps {
-    children: JSX.Element;
-}
-export declare const GraphQLConnector: FC<GraphQLConnectorProps>;
-export {};
+import { ApolloClient } from '@apollo/client';
+export declare const client: ApolloClient<import("@apollo/client").NormalizedCacheObject>;
 //# sourceMappingURL=ApolloClient.d.ts.map
