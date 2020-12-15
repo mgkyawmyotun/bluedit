@@ -17,6 +17,7 @@ type Error {
 type Query {
   me: User
   logout: String
+  isEmailExists(email: String!): Boolean!
 }
 
 type Mutation {

@@ -14,6 +14,10 @@ export class UsersResolver {
   logout() {
     return this.userService.logout();
   }
+  @Query(returns => Boolean)
+  isEmailExists(@Args('email') email: string) {
+    return this.userService.isEmailExists(email);
+  }
   @Mutation(returns => Error, { nullable: true, name: 'register' })
   createUser(@Args('userInput') user: UserInputType) {
     return this.userService.createUser(user);

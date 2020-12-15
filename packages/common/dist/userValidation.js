@@ -19,7 +19,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userLoginValidationSchema = exports.userValidationSchema = void 0;
+exports.emailValidation = exports.userLoginValidationSchema = exports.userValidationSchema = void 0;
 var yup = __importStar(require("yup"));
 exports.userValidationSchema = yup.object().shape({
     displayName: yup.string().min(3).max(50).required(),
@@ -37,5 +37,8 @@ exports.userValidationSchema = yup.object().shape({
 exports.userLoginValidationSchema = yup.object().shape({
     email: yup.string().email().max(255).required(),
     password: yup.string().min(5).required(),
+});
+exports.emailValidation = yup.object().shape({
+    email: yup.string().email().required().max(255),
 });
 //# sourceMappingURL=userValidation.js.map
