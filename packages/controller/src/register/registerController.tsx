@@ -1,5 +1,6 @@
 import { MutationResult } from '@apollo/client';
 import React, { FC } from 'react';
+import { client } from '..';
 import {
   CreateUserMutation,
   useCreateUserMutation,
@@ -16,7 +17,7 @@ interface RegisterControllerProps {
 export const RegisterController: FC<RegisterControllerProps> = ({
   children,
 }) => {
-  const [createUser, results] = useCreateUserMutation();
+  const [createUser, results] = useCreateUserMutation({ client: client });
   const childrenValues: Children = {
     submit: (user) => {
       createUser({

@@ -1,23 +1,5 @@
-import { FC } from 'react';
-interface GraphQLConnectorProps {
-  children: JSX.Element;
-  // uri: string;
-}
-export const GraphQLConnector: FC<GraphQLConnectorProps> = ({
-  children,
-  // uri,
-}) => {
-  console.log('Hello');
-  return children;
-};
-
-//  <ApolloProvider
-//       client={
-//         new ApolloClient({
-//           uri,
-//           cache: new InMemoryCache(),
-//         })
-//       }
-//     >
-//       {children}
-//     </ApolloProvider>
+import { ApolloClient, InMemoryCache } from '@apollo/client';
+export const client = new ApolloClient({
+  uri: 'http://localhost:4000/graphql',
+  cache: new InMemoryCache(),
+});

@@ -1,10 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GraphQLConnector = void 0;
-var GraphQLConnector = function (_a) {
-    var children = _a.children;
-    console.log('Hello');
-    return children;
-};
-exports.GraphQLConnector = GraphQLConnector;
+exports.client = void 0;
+var client_1 = require("@apollo/client");
+exports.client = new client_1.ApolloClient({
+    uri: 'http://localhost:4000/graphql',
+    cache: new client_1.InMemoryCache(),
+});
 //# sourceMappingURL=ApolloClient.js.map
