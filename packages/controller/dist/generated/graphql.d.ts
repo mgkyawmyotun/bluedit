@@ -67,13 +67,19 @@ export declare type UserLoginInput = {
 export declare type CreateUserMutationVariables = Exact<{
     userInput: UserInputType;
 }>;
-export declare type CreateUserMutation = {
+export declare type CreateUserMutation = ({
     __typename?: 'Mutation';
 } & {
-    register?: Maybe<{
+    register?: Maybe<({
         __typename?: 'Error';
-    } & Pick<Error, 'message' | 'path'>>;
-};
+    } & Pick<Error, 'message' | 'path'>)>;
+});
+export declare type CheckEmailQueryVariables = Exact<{
+    email: Scalars['String'];
+}>;
+export declare type CheckEmailQuery = ({
+    __typename?: 'Query';
+} & Pick<Query, 'isEmailExists'>);
 export declare const CreateUserDocument: Apollo.DocumentNode;
 export declare type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, CreateUserMutationVariables>;
 export declare function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserMutation, CreateUserMutationVariables>): Apollo.MutationTuple<CreateUserMutation, Exact<{
@@ -82,4 +88,14 @@ export declare function useCreateUserMutation(baseOptions?: Apollo.MutationHookO
 export declare type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
 export declare type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
 export declare type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
+export declare const CheckEmailDocument: Apollo.DocumentNode;
+export declare function useCheckEmailQuery(baseOptions: Apollo.QueryHookOptions<CheckEmailQuery, CheckEmailQueryVariables>): Apollo.QueryResult<CheckEmailQuery, Exact<{
+    email: string;
+}>>;
+export declare function useCheckEmailLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CheckEmailQuery, CheckEmailQueryVariables>): Apollo.QueryTuple<CheckEmailQuery, Exact<{
+    email: string;
+}>>;
+export declare type CheckEmailQueryHookResult = ReturnType<typeof useCheckEmailQuery>;
+export declare type CheckEmailLazyQueryHookResult = ReturnType<typeof useCheckEmailLazyQuery>;
+export declare type CheckEmailQueryResult = Apollo.QueryResult<CheckEmailQuery, CheckEmailQueryVariables>;
 //# sourceMappingURL=graphql.d.ts.map

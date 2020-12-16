@@ -4,7 +4,7 @@ import { RegisterForm } from '../components/register/RegisterForm';
 const Register: FC = () => {
   return (
     <RegisterController>
-      {({ submit, results }) => <RegisterForm />}
+      {(props) => <RegisterForm {...props} />}
     </RegisterController>
   );
 };

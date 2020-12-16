@@ -1,13 +1,9 @@
-import * as Apollo from '@apollo/client';
 import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]: Maybe<T[SubKey]> };
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -38,6 +34,7 @@ export type Query = {
   isEmailExists: Scalars['Boolean'];
 };
 
+
 export type QueryIsEmailExistsArgs = {
   email: Scalars['String'];
 };
@@ -49,13 +46,16 @@ export type Mutation = {
   loginFaceBook?: Maybe<Error>;
 };
 
+
 export type MutationRegisterArgs = {
   userInput: UserInputType;
 };
 
+
 export type MutationLoginArgs = {
   loginInput: UserLoginInput;
 };
+
 
 export type MutationLoginFaceBookArgs = {
   accessToken: Scalars['String'];
@@ -77,22 +77,35 @@ export type CreateUserMutationVariables = Exact<{
   userInput: UserInputType;
 }>;
 
-export type CreateUserMutation = { __typename?: 'Mutation' } & {
-  register?: Maybe<{ __typename?: 'Error' } & Pick<Error, 'message' | 'path'>>;
-};
+
+export type CreateUserMutation = (
+  { __typename?: 'Mutation' }
+  & { register?: Maybe<(
+    { __typename?: 'Error' }
+    & Pick<Error, 'message' | 'path'>
+  )> }
+);
+
+export type CheckEmailQueryVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+
+export type CheckEmailQuery = (
+  { __typename?: 'Query' }
+  & Pick<Query, 'isEmailExists'>
+);
+
 
 export const CreateUserDocument = gql`
-  mutation createUser($userInput: UserInputType!) {
-    register(userInput: $userInput) {
-      message
-      path
-    }
+    mutation createUser($userInput: UserInputType!) {
+  register(userInput: $userInput) {
+    message
+    path
   }
-`;
-export type CreateUserMutationFn = Apollo.MutationFunction<
-  CreateUserMutation,
-  CreateUserMutationVariables
->;
+}
+    `;
+export type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, CreateUserMutationVariables>;
 
 /**
  * __useCreateUserMutation__
@@ -111,22 +124,40 @@ export type CreateUserMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useCreateUserMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreateUserMutation,
-    CreateUserMutationVariables
-  >
-) {
-  return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(
-    CreateUserDocument,
-    baseOptions
-  );
-}
-export type CreateUserMutationHookResult = ReturnType<
-  typeof useCreateUserMutation
->;
+export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserMutation, CreateUserMutationVariables>) {
+        return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument, baseOptions);
+      }
+export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
 export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
-export type CreateUserMutationOptions = Apollo.BaseMutationOptions<
-  CreateUserMutation,
-  CreateUserMutationVariables
->;
+export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
+export const CheckEmailDocument = gql`
+    query checkEmail($email: String!) {
+  isEmailExists(email: $email)
+}
+    `;
+
+/**
+ * __useCheckEmailQuery__
+ *
+ * To run a query within a React component, call `useCheckEmailQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCheckEmailQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCheckEmailQuery({
+ *   variables: {
+ *      email: // value for 'email'
+ *   },
+ * });
+ */
+export function useCheckEmailQuery(baseOptions: Apollo.QueryHookOptions<CheckEmailQuery, CheckEmailQueryVariables>) {
+        return Apollo.useQuery<CheckEmailQuery, CheckEmailQueryVariables>(CheckEmailDocument, baseOptions);
+      }
+export function useCheckEmailLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CheckEmailQuery, CheckEmailQueryVariables>) {
+          return Apollo.useLazyQuery<CheckEmailQuery, CheckEmailQueryVariables>(CheckEmailDocument, baseOptions);
+        }
+export type CheckEmailQueryHookResult = ReturnType<typeof useCheckEmailQuery>;
+export type CheckEmailLazyQueryHookResult = ReturnType<typeof useCheckEmailLazyQuery>;
+export type CheckEmailQueryResult = Apollo.QueryResult<CheckEmailQuery, CheckEmailQueryVariables>;
