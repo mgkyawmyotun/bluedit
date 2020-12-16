@@ -19,7 +19,11 @@ import { UsersModule } from './users/users.module';
         session: req.session,
         req: req,
       }),
-      cors: true,
+
+      cors: {
+        origin: 'http://localhost:3000',
+        credentials: true,
+      },
     }),
   ],
   controllers: [AppController],
