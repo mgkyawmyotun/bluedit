@@ -64,6 +64,16 @@ export declare type UserLoginInput = {
     email: Scalars['String'];
     password: Scalars['String'];
 };
+export declare type UserQueryVariables = Exact<{
+    [key: string]: never;
+}>;
+export declare type UserQuery = ({
+    __typename?: 'Query';
+} & {
+    me?: Maybe<({
+        __typename?: 'User';
+    } & Pick<User, 'username' | 'displayName' | 'password' | 'email'>)>;
+});
 export declare type CreateUserMutationVariables = Exact<{
     userInput: UserInputType;
 }>;
@@ -80,6 +90,16 @@ export declare type CheckEmailQueryVariables = Exact<{
 export declare type CheckEmailQuery = ({
     __typename?: 'Query';
 } & Pick<Query, 'isEmailExists'>);
+export declare const UserDocument: Apollo.DocumentNode;
+export declare function useUserQuery(baseOptions?: Apollo.QueryHookOptions<UserQuery, UserQueryVariables>): Apollo.QueryResult<UserQuery, Exact<{
+    [key: string]: never;
+}>>;
+export declare function useUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserQuery, UserQueryVariables>): Apollo.QueryTuple<UserQuery, Exact<{
+    [key: string]: never;
+}>>;
+export declare type UserQueryHookResult = ReturnType<typeof useUserQuery>;
+export declare type UserLazyQueryHookResult = ReturnType<typeof useUserLazyQuery>;
+export declare type UserQueryResult = Apollo.QueryResult<UserQuery, UserQueryVariables>;
 export declare const CreateUserDocument: Apollo.DocumentNode;
 export declare type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, CreateUserMutationVariables>;
 export declare function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserMutation, CreateUserMutationVariables>): Apollo.MutationTuple<CreateUserMutation, Exact<{

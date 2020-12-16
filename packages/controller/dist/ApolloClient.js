@@ -5,5 +5,6 @@ var client_1 = require("@apollo/client");
 exports.client = new client_1.ApolloClient({
     uri: 'http://localhost:4000/graphql',
     cache: new client_1.InMemoryCache(),
+    credentials: 'include',
 });
 //# sourceMappingURL=ApolloClient.js.map
