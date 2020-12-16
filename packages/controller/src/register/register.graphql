@@ -4,3 +4,6 @@ mutation createUser($userInput: UserInputType!) {
     path
   }
 }
+query checkEmail($email: String!) {
+  isEmailExists(email: $email)
+}

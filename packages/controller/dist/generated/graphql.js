@@ -23,13 +23,22 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.useCreateUserMutation = exports.CreateUserDocument = void 0;
-var Apollo = __importStar(require("@apollo/client"));
+exports.useCheckEmailLazyQuery = exports.useCheckEmailQuery = exports.CheckEmailDocument = exports.useCreateUserMutation = exports.CreateUserDocument = void 0;
 var client_1 = require("@apollo/client");
-exports.CreateUserDocument = client_1.gql(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  mutation createUser($userInput: UserInputType!) {\n    register(userInput: $userInput) {\n      message\n      path\n    }\n  }\n"], ["\n  mutation createUser($userInput: UserInputType!) {\n    register(userInput: $userInput) {\n      message\n      path\n    }\n  }\n"])));
+var Apollo = __importStar(require("@apollo/client"));
+exports.CreateUserDocument = client_1.gql(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    mutation createUser($userInput: UserInputType!) {\n  register(userInput: $userInput) {\n    message\n    path\n  }\n}\n    "], ["\n    mutation createUser($userInput: UserInputType!) {\n  register(userInput: $userInput) {\n    message\n    path\n  }\n}\n    "])));
 function useCreateUserMutation(baseOptions) {
     return Apollo.useMutation(exports.CreateUserDocument, baseOptions);
 }
 exports.useCreateUserMutation = useCreateUserMutation;
-var templateObject_1;
+exports.CheckEmailDocument = client_1.gql(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n    query checkEmail($email: String!) {\n  isEmailExists(email: $email)\n}\n    "], ["\n    query checkEmail($email: String!) {\n  isEmailExists(email: $email)\n}\n    "])));
+function useCheckEmailQuery(baseOptions) {
+    return Apollo.useQuery(exports.CheckEmailDocument, baseOptions);
+}
+exports.useCheckEmailQuery = useCheckEmailQuery;
+function useCheckEmailLazyQuery(baseOptions) {
+    return Apollo.useLazyQuery(exports.CheckEmailDocument, baseOptions);
+}
+exports.useCheckEmailLazyQuery = useCheckEmailLazyQuery;
+var templateObject_1, templateObject_2;
 //# sourceMappingURL=graphql.js.map

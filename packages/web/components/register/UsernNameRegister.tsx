@@ -3,9 +3,15 @@ import React, { FC } from 'react';
 import { FormField } from '../common/FormField';
 interface UserNameRegisterProps {
   showNextForm: React.Dispatch<React.SetStateAction<boolean>>;
+  submit: () => void;
+  isSubmitting: boolean;
+  isValid: boolean;
 }
 export const UserNameRegister: FC<UserNameRegisterProps> = ({
   showNextForm,
+  submit,
+  isSubmitting,
+  isValid,
 }) => {
   return (
     <>
@@ -41,8 +47,18 @@ export const UserNameRegister: FC<UserNameRegisterProps> = ({
           />
         </Col>
         <Col className="userNameButtonField" span={24}>
-          <Button onClick={() => showNextForm(false)}>Back</Button>
-          <Button type="primary" className="userNameButton">
+          <Button onClick={() => showNextForm(false)} size={'large'}>
+            Back
+          </Button>
+          <Button
+            type="primary"
+            className="userNameButton"
+            size={'large'}
+            htmlType="submit"
+            onClick={submit}
+            loading={isSubmitting}
+            disabled={!isValid}
+          >
             Sing Up
           </Button>
         </Col>

@@ -9,9 +9,11 @@ interface EmailRegisterProps {
   showNextForm: React.Dispatch<React.SetStateAction<boolean>>;
   isValidEmail: boolean;
   setError: (value: string) => void;
+  checkEmail: () => Promise<boolean>;
 }
 export const EmailRegister: FC<EmailRegisterProps> = ({
   showNextForm,
+  checkEmail,
   isValidEmail,
   setError,
 }) => {
@@ -52,8 +54,13 @@ export const EmailRegister: FC<EmailRegisterProps> = ({
                 type="primary"
                 className="emailRegisterFieldInput"
                 disabled={isValidEmail}
-                onClick={() => {
-                  setError('email Already Exists');
+                onClick={async () => {
+                  const result = await checkEmail();
+                  if (result) {
+                    setError('email already exists');
+                    return;
+                  }
+                  showNextForm(true);
                 }}
                 htmlType="submit"
               >

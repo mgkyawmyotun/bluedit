@@ -18,6 +18,7 @@ export const FormField: FC<FormFieldProps> = ({
     name,
     type: props.type,
   });
+  const value = field.value as unknown;
   return (
     <Form.Item
       label={props.label}
@@ -26,14 +27,28 @@ export const FormField: FC<FormFieldProps> = ({
       help={meta.touched && meta.error}
       validateStatus={meta.error && meta.touched ? 'error' : undefined}
     >
-      <Input
-        placeholder={props.label}
-        name={field.name}
-        onChange={field.onChange}
-        onBlur={field.onBlur}
-        addonBefore={addonBefore}
-        className={props.className}
-      />
+      {field.name === 'password' ? (
+        <Input.Password
+          placeholder={props.label}
+          name={field.name}
+          onChange={field.onChange}
+          onBlur={field.onBlur}
+          addonBefore={addonBefore}
+          className={props.className}
+          value={value + ''}
+        />
+      ) : (
+        <Input
+          placeholder={props.label}
+          name={field.name}
+          onChange={field.onChange}
+          onBlur={field.onBlur}
+          addonBefore={addonBefore}
+          className={props.className}
+          value={value + ''}
+          allowClear
+        />
+      )}
     </Form.Item>
   );
 };

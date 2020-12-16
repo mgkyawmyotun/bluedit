@@ -1,12 +1,17 @@
-import { MutationResult } from '@apollo/client';
+import { ApolloQueryResult, FetchResult, MutationFunctionOptions } from '@apollo/client';
 import { FC } from 'react';
-import { CreateUserMutation, UserInputType } from '../generated/graphql';
+import { CheckEmailQuery, CreateUserMutation, Exact, UserInputType } from '../generated/graphql';
 interface Children {
-    submit: (user: UserInputType) => void;
-    results: MutationResult<CreateUserMutation>;
+    submit: (options?: MutationFunctionOptions<CreateUserMutation, Exact<{
+        userInput: UserInputType;
+    }>> | undefined) => Promise<FetchResult<CreateUserMutation>>;
+    checkEmail: (variables?: Partial<Exact<{
+        email: string;
+    }>> | undefined) => Promise<ApolloQueryResult<CheckEmailQuery>>;
 }
+export declare type RegisterProps = Children;
 interface RegisterControllerProps {
-    children: ({ submit }: Children) => JSX.Element;
+    children: ({ submit, checkEmail }: Children) => JSX.Element;
 }
 export declare const RegisterController: FC<RegisterControllerProps>;
 export {};
