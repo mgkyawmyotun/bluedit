@@ -1,15 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MeController = void 0;
+exports.FaceBookController = void 0;
 var ApolloClient_1 = require("../ApolloClient");
 var graphql_1 = require("../generated/graphql");
-var MeController = function (_a) {
+var FaceBookController = function (_a) {
     var children = _a.children;
-    var result = graphql_1.useUserQuery({
-        fetchPolicy: 'network-only',
+    var submit = graphql_1.useContinueWithFaceBookMutation({
         client: ApolloClient_1.GraphQlClient.getClient(),
-    });
-    return children(result);
+    })[0];
+    return children(submit);
 };
-exports.MeController = MeController;
+exports.FaceBookController = FaceBookController;
 //# sourceMappingURL=index.js.map

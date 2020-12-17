@@ -1,6 +1,6 @@
 import { QueryResult } from '@apollo/client';
 import { FC } from 'react';
-import { client } from '../ApolloClient';
+import { GraphQlClient } from '../ApolloClient';
 import { Exact, UserQuery, useUserQuery } from '../generated/graphql';
 interface MeControllerProps {
   children: (
@@ -15,7 +15,7 @@ interface MeControllerProps {
 export const MeController: FC<MeControllerProps> = ({ children }) => {
   const result = useUserQuery({
     fetchPolicy: 'network-only',
-    client: client,
+    client: GraphQlClient.getClient(),
   });
   return children(result);
 };

@@ -120,6 +120,19 @@ export type CheckEmailQuery = (
   & Pick<Query, 'isEmailExists'>
 );
 
+export type ContinueWithFaceBookMutationVariables = Exact<{
+  accessToken: Scalars['String'];
+}>;
+
+
+export type ContinueWithFaceBookMutation = (
+  { __typename?: 'Mutation' }
+  & { loginFaceBook?: Maybe<(
+    { __typename?: 'Error' }
+    & Pick<Error, 'path' | 'message'>
+  )> }
+);
+
 
 export const LoginUserDocument = gql`
     mutation LoginUser($loginInput: UserLoginInput!) {
@@ -253,3 +266,36 @@ export function useCheckEmailLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type CheckEmailQueryHookResult = ReturnType<typeof useCheckEmailQuery>;
 export type CheckEmailLazyQueryHookResult = ReturnType<typeof useCheckEmailLazyQuery>;
 export type CheckEmailQueryResult = Apollo.QueryResult<CheckEmailQuery, CheckEmailQueryVariables>;
+export const ContinueWithFaceBookDocument = gql`
+    mutation ContinueWithFaceBook($accessToken: String!) {
+  loginFaceBook(accessToken: $accessToken) {
+    path
+    message
+  }
+}
+    `;
+export type ContinueWithFaceBookMutationFn = Apollo.MutationFunction<ContinueWithFaceBookMutation, ContinueWithFaceBookMutationVariables>;
+
+/**
+ * __useContinueWithFaceBookMutation__
+ *
+ * To run a mutation, you first call `useContinueWithFaceBookMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useContinueWithFaceBookMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [continueWithFaceBookMutation, { data, loading, error }] = useContinueWithFaceBookMutation({
+ *   variables: {
+ *      accessToken: // value for 'accessToken'
+ *   },
+ * });
+ */
+export function useContinueWithFaceBookMutation(baseOptions?: Apollo.MutationHookOptions<ContinueWithFaceBookMutation, ContinueWithFaceBookMutationVariables>) {
+        return Apollo.useMutation<ContinueWithFaceBookMutation, ContinueWithFaceBookMutationVariables>(ContinueWithFaceBookDocument, baseOptions);
+      }
+export type ContinueWithFaceBookMutationHookResult = ReturnType<typeof useContinueWithFaceBookMutation>;
+export type ContinueWithFaceBookMutationResult = Apollo.MutationResult<ContinueWithFaceBookMutation>;
+export type ContinueWithFaceBookMutationOptions = Apollo.BaseMutationOptions<ContinueWithFaceBookMutation, ContinueWithFaceBookMutationVariables>;

@@ -1,0 +1,1 @@
+{"version":3,"file":"FaceBookController.d.ts","sourceRoot":"","sources":["../../src/facebook/FaceBookController.tsx"],"names":[],"mappings":"AAAA,OAAO,EAAE,EAAE,EAAE,MAAM,OAAO,CAAC;AAI3B,UAAU,uBAAuB;IAC/B,QAAQ,EAAE,MAAM,GAAG,CAAC,OAAO,CAAC;CAC7B;AACD,eAAO,MAAM,kBAAkB,EAAE,EAAE,CAAC,uBAAuB,CAO1D,CAAC"}

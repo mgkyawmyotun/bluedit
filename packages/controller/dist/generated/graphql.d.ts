@@ -100,6 +100,16 @@ export declare type CheckEmailQueryVariables = Exact<{
 export declare type CheckEmailQuery = ({
     __typename?: 'Query';
 } & Pick<Query, 'isEmailExists'>);
+export declare type ContinueWithFaceBookMutationVariables = Exact<{
+    accessToken: Scalars['String'];
+}>;
+export declare type ContinueWithFaceBookMutation = ({
+    __typename?: 'Mutation';
+} & {
+    loginFaceBook?: Maybe<({
+        __typename?: 'Error';
+    } & Pick<Error, 'path' | 'message'>)>;
+});
 export declare const LoginUserDocument: Apollo.DocumentNode;
 export declare type LoginUserMutationFn = Apollo.MutationFunction<LoginUserMutation, LoginUserMutationVariables>;
 export declare function useLoginUserMutation(baseOptions?: Apollo.MutationHookOptions<LoginUserMutation, LoginUserMutationVariables>): Apollo.MutationTuple<LoginUserMutation, Exact<{
@@ -136,4 +146,12 @@ export declare function useCheckEmailLazyQuery(baseOptions?: Apollo.LazyQueryHoo
 export declare type CheckEmailQueryHookResult = ReturnType<typeof useCheckEmailQuery>;
 export declare type CheckEmailLazyQueryHookResult = ReturnType<typeof useCheckEmailLazyQuery>;
 export declare type CheckEmailQueryResult = Apollo.QueryResult<CheckEmailQuery, CheckEmailQueryVariables>;
+export declare const ContinueWithFaceBookDocument: Apollo.DocumentNode;
+export declare type ContinueWithFaceBookMutationFn = Apollo.MutationFunction<ContinueWithFaceBookMutation, ContinueWithFaceBookMutationVariables>;
+export declare function useContinueWithFaceBookMutation(baseOptions?: Apollo.MutationHookOptions<ContinueWithFaceBookMutation, ContinueWithFaceBookMutationVariables>): Apollo.MutationTuple<ContinueWithFaceBookMutation, Exact<{
+    accessToken: string;
+}>>;
+export declare type ContinueWithFaceBookMutationHookResult = ReturnType<typeof useContinueWithFaceBookMutation>;
+export declare type ContinueWithFaceBookMutationResult = Apollo.MutationResult<ContinueWithFaceBookMutation>;
+export declare type ContinueWithFaceBookMutationOptions = Apollo.BaseMutationOptions<ContinueWithFaceBookMutation, ContinueWithFaceBookMutationVariables>;
 //# sourceMappingURL=graphql.d.ts.map

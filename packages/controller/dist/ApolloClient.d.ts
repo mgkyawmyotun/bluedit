@@ -1,3 +1,7 @@
-import { ApolloClient } from '@apollo/client';
-export declare const client: ApolloClient<import("@apollo/client").NormalizedCacheObject>;
+import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
+declare class GraphQlClient {
+    private static client;
+    static getClient(): ApolloClient<NormalizedCacheObject>;
+}
+export { GraphQlClient };
 //# sourceMappingURL=ApolloClient.d.ts.map
