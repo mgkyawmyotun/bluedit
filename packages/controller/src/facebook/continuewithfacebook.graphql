@@ -1,0 +1,6 @@
+mutation ContinueWithFaceBook($accessToken: String!) {
+  loginFaceBook(accessToken: $accessToken) {
+    path
+    message
+  }
+}

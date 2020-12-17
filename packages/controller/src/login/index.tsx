@@ -1,6 +1,6 @@
 import { FetchResult, MutationFunctionOptions } from '@apollo/client';
 import { FC } from 'react';
-import { client } from '../ApolloClient';
+import { GraphQlClient } from '../ApolloClient';
 import {
   Exact,
   LoginUserMutation,
@@ -23,6 +23,6 @@ interface LoginControllerProps {
   children: ({ submit }: LoginChildrenProps) => JSX.Element;
 }
 export const LoginController: FC<LoginControllerProps> = ({ children }) => {
-  const [submit] = useLoginUserMutation({ client: client });
+  const [submit] = useLoginUserMutation({ client: GraphQlClient.getClient() });
   return children({ submit });
 };
