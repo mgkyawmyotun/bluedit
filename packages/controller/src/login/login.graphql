@@ -1,0 +1,6 @@
+mutation LoginUser($loginInput: UserLoginInput!) {
+  login(loginInput: $loginInput) {
+    path
+    message
+  }
+}

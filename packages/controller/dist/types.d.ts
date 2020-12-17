@@ -4,4 +4,8 @@ export interface RegisterFormValues {
     displayName: string;
     password: string;
 }
+export interface LoginFormValues {
+    username: string;
+    password: string;
+}
 //# sourceMappingURL=types.d.ts.map

@@ -1,7 +1,6 @@
 import { Form, Input } from 'antd';
 import { useField } from 'formik';
 import { FC, ReactNode } from 'react';
-import { RegisterFormValues } from '../../../controller/dist';
 interface FormFieldProps {
   name: string;
   type: string;
@@ -14,10 +13,11 @@ export const FormField: FC<FormFieldProps> = ({
   addonBefore,
   ...props
 }) => {
-  const [field, meta, helpers] = useField<RegisterFormValues>({
+  const [field, meta, helpers] = useField({
     name,
     type: props.type,
   });
+
   const value = field.value as unknown;
   return (
     <Form.Item

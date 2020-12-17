@@ -64,6 +64,16 @@ export declare type UserLoginInput = {
     email: Scalars['String'];
     password: Scalars['String'];
 };
+export declare type LoginUserMutationVariables = Exact<{
+    loginInput: UserLoginInput;
+}>;
+export declare type LoginUserMutation = ({
+    __typename?: 'Mutation';
+} & {
+    login?: Maybe<({
+        __typename?: 'Error';
+    } & Pick<Error, 'path' | 'message'>)>;
+});
 export declare type UserQueryVariables = Exact<{
     [key: string]: never;
 }>;
@@ -90,6 +100,14 @@ export declare type CheckEmailQueryVariables = Exact<{
 export declare type CheckEmailQuery = ({
     __typename?: 'Query';
 } & Pick<Query, 'isEmailExists'>);
+export declare const LoginUserDocument: Apollo.DocumentNode;
+export declare type LoginUserMutationFn = Apollo.MutationFunction<LoginUserMutation, LoginUserMutationVariables>;
+export declare function useLoginUserMutation(baseOptions?: Apollo.MutationHookOptions<LoginUserMutation, LoginUserMutationVariables>): Apollo.MutationTuple<LoginUserMutation, Exact<{
+    loginInput: UserLoginInput;
+}>>;
+export declare type LoginUserMutationHookResult = ReturnType<typeof useLoginUserMutation>;
+export declare type LoginUserMutationResult = Apollo.MutationResult<LoginUserMutation>;
+export declare type LoginUserMutationOptions = Apollo.BaseMutationOptions<LoginUserMutation, LoginUserMutationVariables>;
 export declare const UserDocument: Apollo.DocumentNode;
 export declare function useUserQuery(baseOptions?: Apollo.QueryHookOptions<UserQuery, UserQueryVariables>): Apollo.QueryResult<UserQuery, Exact<{
     [key: string]: never;
