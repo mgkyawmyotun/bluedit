@@ -1,6 +1,12 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { UsersService } from './users.service';
-import { Error, User, UserInputType, UserLoginInput } from './users.type';
+import {
+  Error,
+  ForgetPasswordChange,
+  User,
+  UserInputType,
+  UserLoginInput,
+} from './users.type';
 
 @Resolver()
 export class UsersResolver {
@@ -30,5 +36,18 @@ export class UsersResolver {
   @Mutation(returns => Error, { nullable: true, name: 'loginFaceBook' })
   loginFaceBook(@Args('accessToken') accessToken: string) {
     return this.userService.loginFacebook(accessToken);
+  }
+  @Mutation(returns => Boolean, {
+    nullable: true,
+    name: 'sendForgetPasswordLink',
+  })
+  forgetPasswordRequest(@Args('email') email: string) {
+    return this.userService.forgetPasswordRequest(email);
+  }
+  @Mutation(returns => Error, { nullable: true, name: 'forgetPasswordChange' })
+  changePassword(
+    @Args('forgetPassowrdChangeInput') forget: ForgetPasswordChange,
+  ) {
+    return this.userService.changePassword(forget);
   }
 }

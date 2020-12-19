@@ -24,6 +24,8 @@ type Mutation {
   register(userInput: UserInputType!): Error
   login(loginInput: UserLoginInput!): Error
   loginFaceBook(accessToken: String!): Error
+  sendForgetPasswordLink(email: String!): Boolean
+  forgetPasswordChange(forgetPassowrdChangeInput: ForgetPasswordChange!): Error
 }
 
 input UserInputType {
@@ -36,4 +38,9 @@ input UserInputType {
 input UserLoginInput {
   email: String!
   password: String!
+}
+
+input ForgetPasswordChange {
+  newPassword: String!
+  key: String!
 }

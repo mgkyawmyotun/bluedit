@@ -57,3 +57,11 @@ export class UserProfileFaceBook {
   @Field(type => String)
   profile_url: string;
 }
+
+@InputType()
+export class ForgetPasswordChange {
+  @Field(type => String)
+  newPassword: string;
+  @Field(type => String)
+  key: string;
+}

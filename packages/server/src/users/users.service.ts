@@ -10,18 +10,24 @@ import axios from 'axios';
 import * as bcrypt from 'bcrypt';
 import { Cache } from 'cache-manager';
 import { Repository } from 'typeorm';
-import { FACEBOOK_APP_ID, FACEBOOK_APP_SECRECT } from './../config';
+import { v4 } from 'uuid';
+import {
+  FACEBOOK_APP_ID,
+  FACEBOOK_APP_SECRECT,
+  FRONT_END_URL,
+} from './../config';
 import {
   FaceBookAppResponse,
   FaceBookUserProfile,
   GraphQLUserContext,
 } from './users.d';
 import { UserEntity } from './users.entity';
-import { Error, User } from './users.type';
+import { Error, ForgetPasswordChange, User } from './users.type';
 
 @Injectable()
 export class UsersService {
   private logger: Logger = new Logger('userService');
+  private forgetPasswordPrefix = 'IForgetIt';
   constructor(
     @InjectRepository(UserEntity)
     private usersRepository: Repository<UserEntity>,
@@ -178,8 +184,42 @@ export class UsersService {
     }
     return false;
   }
+  async forgetPasswordRequest(email: string): Promise<boolean> {
+    const user_id = await this.usersRepository.findOne(
+      { email },
+      { select: ['user_id'] },
+    );
+    if (user_id) {
+      this.createPasswordResetLink(user_id.user_id);
+    }
+    return true;
+  }
+  async changePassword({
+    key,
+    newPassword,
+  }: ForgetPasswordChange): Promise<Error> {
+    const user_id = await this.cacheManager.get(this.getForgetPasswordKey(key));
+    console.log(user_id);
+    if (!user_id) {
+      console.log(user_id);
+      return {
+        message: 'forgetPassword link is time out please request again',
+        path: 'changePassword',
+      };
+    }
+  }
   private setUserSession(user_id: string): void {
     const { session } = this.context;
     session.user = user_id;
+  }
+  private createPasswordResetLink(userId: string): string {
+    const id = v4();
+    this.cacheManager.set(this.getForgetPasswordKey(id), userId, {
+      ttl: 3000,
+    });
+    return `${FRONT_END_URL}/change-password/${id}`;
+  }
+  private getForgetPasswordKey(id: string): string {
+    return this.forgetPasswordPrefix + id;
   }
 }
