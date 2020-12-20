@@ -16,6 +16,7 @@ import {
   FACEBOOK_APP_SECRECT,
   FRONT_END_URL,
 } from './../config';
+import { EmailCient } from './../shared/sendEmail';
 import {
   FaceBookAppResponse,
   FaceBookUserProfile,
@@ -189,9 +190,11 @@ export class UsersService {
       { email },
       { select: ['user_id'] },
     );
-    if (user_id) {
-      this.createPasswordResetLink(user_id.user_id);
+    if (!user_id) {
+      return false;
     }
+    const url = this.createPasswordResetLink(user_id.user_id);
+    EmailCient.sendForgetEmail(email, url);
     return true;
   }
   async changePassword({
@@ -203,7 +206,7 @@ export class UsersService {
     if (!user_id) {
       console.log(user_id);
       return {
-        message: 'forgetPassword link is time out please request again',
+        message: 'forgetPassword Link is time out please request again',
         path: 'changePassword',
       };
     }
