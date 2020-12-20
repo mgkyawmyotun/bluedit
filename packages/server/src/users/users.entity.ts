@@ -19,6 +19,9 @@ export class UserEntity {
   @Column('text')
   picture_url: string;
 
+  @Column('bool')
+  forgetLocked: boolean;
+
   @BeforeInsert()
   async hashPassword() {
     if (this.password) {

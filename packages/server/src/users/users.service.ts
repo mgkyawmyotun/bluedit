@@ -188,13 +188,21 @@ export class UsersService {
   async forgetPasswordRequest(email: string): Promise<boolean> {
     const user_id = await this.usersRepository.findOne(
       { email },
-      { select: ['user_id'] },
+      { select: ['user_id', 'forgetLocked', 'password'] },
     );
-    if (!user_id) {
+    if (!user_id || user_id.forgetLocked || !user_id.password) {
       return false;
     }
+    await this.usersRepository.update(
+      { user_id: user_id.user_id },
+      { forgetLocked: true },
+    );
     const url = this.createPasswordResetLink(user_id.user_id);
-    EmailCient.sendForgetEmail(email, url);
+    try {
+      EmailCient.sendForgetEmail(email, url);
+    } catch (error) {
+      Logger.error('error at sending Email');
+    }
     return true;
   }
   async changePassword({
@@ -202,11 +210,22 @@ export class UsersService {
     newPassword,
   }: ForgetPasswordChange): Promise<Error> {
     const user_id = await this.cacheManager.get(this.getForgetPasswordKey(key));
-    console.log(user_id);
     if (!user_id) {
-      console.log(user_id);
       return {
         message: 'forgetPassword Link is time out please request again',
+        path: 'changePassword',
+      };
+    }
+    try {
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+      await this.usersRepository.update(
+        { user_id: user_id },
+        { password: hashedPassword, forgetLocked: false },
+      );
+      await this.cacheManager.del(this.getForgetPasswordKey(key));
+    } catch (err) {
+      return {
+        message: 'Error at updating user password',
         path: 'changePassword',
       };
     }
@@ -218,7 +237,7 @@ export class UsersService {
   private createPasswordResetLink(userId: string): string {
     const id = v4();
     this.cacheManager.set(this.getForgetPasswordKey(id), userId, {
-      ttl: 3000,
+      ttl: 60 * 60 * 24, // 1 day
     });
     return `${FRONT_END_URL}/change-password/${id}`;
   }
