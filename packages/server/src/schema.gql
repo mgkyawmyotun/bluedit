@@ -2,6 +2,11 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type PostError {
+  message: String!
+  path: String!
+}
+
 type User {
   displayName: String!
   username: String!
@@ -21,11 +26,17 @@ type Query {
 }
 
 type Mutation {
+  createPostWithMarkDown(postData: PostInputMarkDown!): PostError
   register(userInput: UserInputType!): Error
   login(loginInput: UserLoginInput!): Error
   loginFaceBook(accessToken: String!): Error
   sendForgetPasswordLink(email: String!): Boolean
   forgetPasswordChange(forgetPassowrdChangeInput: ForgetPasswordChange!): Error
+}
+
+input PostInputMarkDown {
+  title: String
+  post_text: String!
 }
 
 input UserInputType {

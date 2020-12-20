@@ -15,15 +15,13 @@ export class PostEntity {
   @Column({ type: 'text' })
   link: string;
 
-  @Column({ type: 'text', array: true })
-  images: string[];
-
-  @Column({ type: 'text', array: true })
-  videos: string[];
-
   @ManyToOne(
     () => UserEntity,
     user => user.posts,
   )
   user: UserEntity;
+  @Column('simple-array')
+  images: string[];
+  @Column('simple-array')
+  videos: string[];
 }
