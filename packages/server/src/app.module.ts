@@ -6,15 +6,15 @@ import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DEV_CONNECTION } from './connections';
-import { UsersModule } from './users/users.module';
 import { PostsModule } from './posts/posts.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
     UsersModule,
     DEV_CONNECTION,
     GraphQLModule.forRoot({
-      include: [UsersModule],
+      include: [UsersModule, PostsModule],
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       context: ({ req }): { session: Session; req: Request } => ({
         session: req.session,
