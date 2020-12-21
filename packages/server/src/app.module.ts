@@ -7,6 +7,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DEV_CONNECTION } from './connections';
 import { PostsModule } from './posts/posts.module';
+import { SubblueditModule } from './subbluedit/subbluedit.module';
+import { SubblueditResolver } from './subbluedit/subbluedit.resolver';
 import { UsersModule } from './users/users.module';
 
 @Module({
@@ -27,8 +29,9 @@ import { UsersModule } from './users/users.module';
       debug: false,
     }),
     PostsModule,
+    SubblueditModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, SubblueditResolver],
 })
 export class AppModule {}

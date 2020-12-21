@@ -11,7 +11,6 @@ import {
   PostInputMarkDown,
   PostInputVideo,
 } from './posts.types';
-
 @Resolver()
 export class PostResolver {
   constructor(
