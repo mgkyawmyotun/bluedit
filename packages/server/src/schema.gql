@@ -2,6 +2,24 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Post implements PostInteface {
+  post_id: String!
+  post_text: String
+  title: String!
+  link: String
+  images: [String!]
+  videos: [String!]
+}
+
+interface PostInteface {
+  post_id: String!
+  post_text: String
+  title: String!
+  link: String
+  images: [String!]
+  videos: [String!]
+}
+
 type PostError {
   message: String!
   path: String!
@@ -20,6 +38,7 @@ type Error {
 }
 
 type Query {
+  getPosts: [Post!]!
   me: User
   logout: String
   isEmailExists(email: String!): Boolean!
@@ -27,6 +46,7 @@ type Query {
 
 type Mutation {
   createPostWithMarkDown(postData: PostInputMarkDown!): PostError
+  createPostWithLink(postData: PostInputLink!): PostError
   register(userInput: UserInputType!): Error
   login(loginInput: UserLoginInput!): Error
   loginFaceBook(accessToken: String!): Error
@@ -37,6 +57,11 @@ type Mutation {
 input PostInputMarkDown {
   title: String
   post_text: String!
+}
+
+input PostInputLink {
+  title: String
+  link: String!
 }
 
 input UserInputType {

@@ -12,7 +12,7 @@ export class PostEntity {
   @Column({ type: 'varchar', length: 300 })
   title: string;
 
-  @Column({ type: 'text' })
+  @Column({ type: 'text', nullable: true })
   link: string;
 
   @ManyToOne(

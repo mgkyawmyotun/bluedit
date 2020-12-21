@@ -1,17 +1,37 @@
 import { UseGuards } from '@nestjs/common';
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { IsAuthGuard } from './../shared/is-auth.guard';
+import { CreatePostService } from './createposts.service';
 import { PostsService } from './posts.service';
-import { PostError, PostInputMarkDown } from './posts.types';
+import {
+  Post,
+  PostError,
+  PostInputLink,
+  PostInputMarkDown,
+} from './posts.types';
 
 @Resolver()
 export class PostResolver {
-  constructor(private postService: PostsService) {}
+  constructor(
+    private postService: PostsService,
+    private postCreateService: CreatePostService,
+  ) {}
+  @Query(returns => [Post])
+  async getPosts() {
+    return this.postService.getPosts();
+  }
   @Mutation(returns => PostError, { nullable: true })
   @UseGuards(IsAuthGuard)
   async createPostWithMarkDown(
     @Args('postData') postData: PostInputMarkDown,
   ): Promise<PostError | null> {
-    return this.postService.createPostMarkDown(postData);
+    return this.postCreateService.createPostMarkDown(postData);
+  }
+  @Mutation(returns => PostError, { nullable: true })
+  @UseGuards(IsAuthGuard)
+  async createPostWithLink(
+    @Args('postData') postData: PostInputLink,
+  ): Promise<PostError | null> {
+    return this.postCreateService.createPostLink(postData);
   }
 }

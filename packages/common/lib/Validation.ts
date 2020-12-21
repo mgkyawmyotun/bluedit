@@ -26,3 +26,7 @@ export const postMarkDownValidation = yup.object().shape({
   title: yup.string().required().max(300).min(3),
   post_text: yup.string().required(),
 });
+export const postLinkValidation = yup.object().shape({
+  title: yup.string().required().max(300).min(3),
+  link: yup.string().required().url(),
+});

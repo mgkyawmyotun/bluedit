@@ -16,7 +16,7 @@ export abstract class PostInteface {
   @Field(type => String, { nullable: false })
   title: string;
 
-  @Field(type => [String], { nullable: true })
+  @Field(type => String, { nullable: true })
   link?: string;
 
   @Field(type => [String], { nullable: true })
@@ -40,6 +40,11 @@ export class PostInputMarkDown extends PartialType(PostInput) {
   post_text: string;
 }
 
+@InputType()
+export class PostInputLink extends PartialType(PostInput) {
+  @Field(type => String, { nullable: false })
+  link: string;
+}
 @ObjectType()
 export class PostError {
   @Field(type => String)
