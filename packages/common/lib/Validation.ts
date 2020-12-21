@@ -30,3 +30,7 @@ export const postLinkValidation = yup.object().shape({
   title: yup.string().required().max(300).min(3),
   link: yup.string().required().url(),
 });
+export const postImagesValidation = yup.object().shape({
+  title: yup.string().required().max(300).min(3),
+  images: yup.array().of(yup.string()).required(),
+});

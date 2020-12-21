@@ -19,7 +19,4 @@ export class PostsService {
     const posts = await this.postRepository.find();
     return posts;
   }
-  private getUserId(): string {
-    return this.context.session.user;
-  }
 }
