@@ -47,6 +47,8 @@ type Query {
 type Mutation {
   createPostWithMarkDown(postData: PostInputMarkDown!): PostError
   createPostWithLink(postData: PostInputLink!): PostError
+  createPostWithImage(postData: PostInputImage!): PostError
+  createPostWithVideo(postData: PostInputVideo!): PostError
   register(userInput: UserInputType!): Error
   login(loginInput: UserLoginInput!): Error
   loginFaceBook(accessToken: String!): Error
@@ -62,6 +64,16 @@ input PostInputMarkDown {
 input PostInputLink {
   title: String
   link: String!
+}
+
+input PostInputImage {
+  title: String
+  images: [String!]!
+}
+
+input PostInputVideo {
+  title: String
+  videos: [String!]
 }
 
 input UserInputType {

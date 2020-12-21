@@ -50,6 +50,11 @@ export class PostInputImage extends PartialType(PostInput) {
   @Field(type => [String], { nullable: false })
   images: string[];
 }
+@InputType()
+export class PostInputVideo extends PartialType(PostInput) {
+  @Field(type => [String], { nullable: true })
+  videos: string[];
+}
 @ObjectType()
 export class PostError {
   @Field(type => String)

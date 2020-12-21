@@ -19,7 +19,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.postImagesValidation = exports.postLinkValidation = exports.postMarkDownValidation = exports.emailValidation = exports.userLoginValidationSchema = exports.userValidationSchema = void 0;
+exports.postVideosValidation = exports.postImagesValidation = exports.postLinkValidation = exports.postMarkDownValidation = exports.emailValidation = exports.userLoginValidationSchema = exports.userValidationSchema = void 0;
 var yup = __importStar(require("yup"));
 exports.userValidationSchema = yup.object().shape({
     displayName: yup.string().min(3).max(50).required(),
@@ -52,5 +52,9 @@ exports.postLinkValidation = yup.object().shape({
 exports.postImagesValidation = yup.object().shape({
     title: yup.string().required().max(300).min(3),
     images: yup.array().of(yup.string()).required(),
+});
+exports.postVideosValidation = yup.object().shape({
+    title: yup.string().required().max(300).min(3),
+    videos: yup.array().of(yup.string()).required(),
 });
 //# sourceMappingURL=Validation.js.map

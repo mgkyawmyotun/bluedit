@@ -2,6 +2,7 @@ import {
   postImagesValidation,
   postLinkValidation,
   postMarkDownValidation,
+  postVideosValidation,
 } from '@bluedit/common';
 import { CACHE_MANAGER, Inject, Injectable } from '@nestjs/common';
 import { CONTEXT } from '@nestjs/graphql';
@@ -16,6 +17,7 @@ import {
   PostInputImage,
   PostInputLink,
   PostInputMarkDown,
+  PostInputVideo,
 } from './posts.types';
 
 interface CreatePost<T> {
@@ -75,6 +77,19 @@ export class CreatePostService {
       title,
       name: 'images',
       field: images,
+    });
+  }
+  public async createPostVideo({ videos, title }: PostInputVideo) {
+    try {
+      await postVideosValidation.validate({ videos, title });
+    } catch (error) {
+      return shapeError(error);
+    }
+
+    return this.createPost<typeof videos>({
+      title,
+      name: 'images',
+      field: videos,
     });
   }
   private async createPost<T>({

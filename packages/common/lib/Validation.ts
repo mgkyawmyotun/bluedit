@@ -34,3 +34,8 @@ export const postImagesValidation = yup.object().shape({
   title: yup.string().required().max(300).min(3),
   images: yup.array().of(yup.string()).required(),
 });
+
+export const postVideosValidation = yup.object().shape({
+  title: yup.string().required().max(300).min(3),
+  videos: yup.array().of(yup.string()).required(),
+});
