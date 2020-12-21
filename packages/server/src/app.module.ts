@@ -20,11 +20,11 @@ import { UsersModule } from './users/users.module';
         session: req.session,
         req: req,
       }),
-
       cors: {
         origin: 'http://localhost:3000',
         credentials: true,
       },
+      debug: false,
     }),
     PostsModule,
   ],

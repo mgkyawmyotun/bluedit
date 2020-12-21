@@ -15,7 +15,7 @@ describe('UsersService', () => {
   beforeEach(async () => {
     conn = await createConnection(TEST_CONNECTION);
     userRepo = getRepository(UserEntity, 'test');
-    userService = new UsersService(userRepo);
+    // userService = new UsersService(userRepo);
   });
   afterEach(async () => {
     await conn.close();

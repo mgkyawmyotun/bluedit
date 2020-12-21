@@ -32,4 +32,14 @@ export declare const emailValidation: yup.ObjectSchema<import("yup/lib/object").
 }>>, import("yup/lib/object").AssertsShape<import("yup/lib/object").Assign<Record<string, yup.AnySchema<any, any, any> | import("yup/lib/Reference").default<unknown> | import("yup/lib/Lazy").default<any, any>>, {
     email: import("yup/lib/string").RequiredStringSchema<string | undefined, Record<string, any>>;
 }>>>;
-//# sourceMappingURL=userValidation.d.ts.map
+export declare const postMarkDownValidation: yup.ObjectSchema<import("yup/lib/object").Assign<Record<string, yup.AnySchema<any, any, any> | import("yup/lib/Reference").default<unknown> | import("yup/lib/Lazy").default<any, any>>, {
+    title: import("yup/lib/string").RequiredStringSchema<string | undefined, Record<string, any>>;
+    post_text: import("yup/lib/string").RequiredStringSchema<string | undefined, Record<string, any>>;
+}>, Record<string, any>, import("yup/lib/object").TypeOfShape<import("yup/lib/object").Assign<Record<string, yup.AnySchema<any, any, any> | import("yup/lib/Reference").default<unknown> | import("yup/lib/Lazy").default<any, any>>, {
+    title: import("yup/lib/string").RequiredStringSchema<string | undefined, Record<string, any>>;
+    post_text: import("yup/lib/string").RequiredStringSchema<string | undefined, Record<string, any>>;
+}>>, import("yup/lib/object").AssertsShape<import("yup/lib/object").Assign<Record<string, yup.AnySchema<any, any, any> | import("yup/lib/Reference").default<unknown> | import("yup/lib/Lazy").default<any, any>>, {
+    title: import("yup/lib/string").RequiredStringSchema<string | undefined, Record<string, any>>;
+    post_text: import("yup/lib/string").RequiredStringSchema<string | undefined, Record<string, any>>;
+}>>>;
+//# sourceMappingURL=Validation.d.ts.map

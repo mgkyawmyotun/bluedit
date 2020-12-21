@@ -22,3 +22,7 @@ export const userLoginValidationSchema = yup.object().shape({
 export const emailValidation = yup.object().shape({
   email: yup.string().email().required().max(255),
 });
+export const postMarkDownValidation = yup.object().shape({
+  title: yup.string().required().max(300).min(3),
+  post_text: yup.string().required(),
+});

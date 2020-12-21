@@ -1,2 +1,2 @@
-export * from './userValidation';
+export * from './Validation';
 //# sourceMappingURL=index.d.ts.map

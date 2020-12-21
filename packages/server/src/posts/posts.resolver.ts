@@ -1,4 +1,6 @@
+import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { IsAuthGuard } from './../shared/is-auth.guard';
 import { PostsService } from './posts.service';
 import { PostError, PostInputMarkDown } from './posts.types';
 
@@ -6,13 +8,10 @@ import { PostError, PostInputMarkDown } from './posts.types';
 export class PostResolver {
   constructor(private postService: PostsService) {}
   @Mutation(returns => PostError, { nullable: true })
-  createPostWithMarkDown(
+  @UseGuards(IsAuthGuard)
+  async createPostWithMarkDown(
     @Args('postData') postData: PostInputMarkDown,
-  ): PostError {
-    this.postService.createPostMarkDown(postData);
-    return {
-      message: 'Error',
-      path: 'errro',
-    };
+  ): Promise<PostError | null> {
+    return this.postService.createPostMarkDown(postData);
   }
 }
