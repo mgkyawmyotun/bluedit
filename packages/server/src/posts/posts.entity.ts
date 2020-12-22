@@ -1,4 +1,5 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { SubEntity } from './../subbluedit/subluedit.entity';
 import { UserEntity } from './../users/users.entity';
 
 @Entity({ name: 'posts' })
@@ -20,6 +21,11 @@ export class PostEntity {
     user => user.posts,
   )
   user: UserEntity;
+  @ManyToOne(
+    () => SubEntity,
+    sub => sub.posts,
+  )
+  sub: SubEntity;
   @Column('simple-array')
   images: string[];
   @Column('simple-array')

@@ -7,6 +7,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { SubEntity } from './../subbluedit/subluedit.entity';
 @Entity('users')
 export class UserEntity {
   @PrimaryGeneratedColumn('uuid')
@@ -34,6 +35,11 @@ export class UserEntity {
   )
   posts: PostEntity[];
 
+  @OneToMany(
+    () => SubEntity,
+    sub => sub.user,
+  )
+  subs: SubEntity[];
   @BeforeInsert()
   async hashPassword() {
     if (this.password) {
