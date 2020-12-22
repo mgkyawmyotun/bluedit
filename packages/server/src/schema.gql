@@ -20,9 +20,19 @@ interface PostInteface {
   videos: [String!]
 }
 
-type PostError {
-  message: String!
+type PostError implements ErrorInterface {
   path: String!
+  message: String!
+}
+
+interface ErrorInterface {
+  path: String!
+  message: String!
+}
+
+type SubError implements ErrorInterface {
+  path: String!
+  message: String!
 }
 
 type User {
@@ -32,7 +42,7 @@ type User {
   password: String!
 }
 
-type Error {
+type UserError implements ErrorInterface {
   path: String!
   message: String!
 }
@@ -49,11 +59,12 @@ type Mutation {
   createPostWithLink(postData: PostInputLink!): PostError
   createPostWithImage(postData: PostInputImage!): PostError
   createPostWithVideo(postData: PostInputVideo!): PostError
-  register(userInput: UserInputType!): Error
-  login(loginInput: UserLoginInput!): Error
-  loginFaceBook(accessToken: String!): Error
+  createSubBluedit(subInput: SubInput!): SubError
+  register(userInput: UserInputType!): UserError
+  login(loginInput: UserLoginInput!): UserError
+  loginFaceBook(accessToken: String!): UserError
   sendForgetPasswordLink(email: String!): Boolean
-  forgetPasswordChange(forgetPassowrdChangeInput: ForgetPasswordChange!): Error
+  forgetPasswordChange(forgetPassowrdChangeInput: ForgetPasswordChange!): UserError
 }
 
 input PostInputMarkDown {
@@ -74,6 +85,11 @@ input PostInputImage {
 input PostInputVideo {
   title: String
   videos: [String!]
+}
+
+input SubInput {
+  displayName: String!
+  name: String!
 }
 
 input UserInputType {

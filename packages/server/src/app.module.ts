@@ -8,7 +8,6 @@ import { AppService } from './app.service';
 import { DEV_CONNECTION } from './connections';
 import { PostsModule } from './posts/posts.module';
 import { SubblueditModule } from './subbluedit/subbluedit.module';
-import { SubblueditResolver } from './subbluedit/subbluedit.resolver';
 import { UsersModule } from './users/users.module';
 
 @Module({
@@ -16,7 +15,7 @@ import { UsersModule } from './users/users.module';
     UsersModule,
     DEV_CONNECTION,
     GraphQLModule.forRoot({
-      include: [UsersModule, PostsModule],
+      include: [UsersModule, PostsModule, SubblueditModule],
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       context: ({ req }): { session: Session; req: Request } => ({
         session: req.session,
@@ -32,6 +31,6 @@ import { UsersModule } from './users/users.module';
     SubblueditModule,
   ],
   controllers: [AppController],
-  providers: [AppService, SubblueditResolver],
+  providers: [AppService],
 })
 export class AppModule {}

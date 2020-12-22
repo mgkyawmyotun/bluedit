@@ -13,10 +13,10 @@ export class SubEntity {
   @PrimaryGeneratedColumn('uuid')
   sub_id: string;
 
-  @Column('text')
+  @Column('varchar', { length: 100 })
   displayName: string;
 
-  @Column({ type: 'varchar', length: 300 })
+  @Column({ type: 'varchar', length: 100, unique: true })
   name: string;
   @ManyToOne(
     () => UserEntity,

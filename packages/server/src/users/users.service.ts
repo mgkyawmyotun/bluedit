@@ -23,7 +23,7 @@ import {
   GraphQLUserContext,
 } from './users.d';
 import { UserEntity } from './users.entity';
-import { Error, ForgetPasswordChange, User } from './users.type';
+import { ForgetPasswordChange, User, UserError } from './users.type';
 
 @Injectable()
 export class UsersService {
@@ -35,10 +35,11 @@ export class UsersService {
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
     @Inject(CONTEXT) private context: GraphQLUserContext,
   ) {}
-  async createUser(user: User): Promise<Error> {
+  async createUser(user: User): Promise<UserError> {
     this.logger.log('Creating User');
     try {
       const result = await userValidationSchema.validate(user);
+      console.log(result);
     } catch (error) {
       return {
         path: error.path,
@@ -74,6 +75,7 @@ export class UsersService {
       const user = await this.usersRepository.save(userRepository);
       this.setUserSession(user.user_id);
     } catch (error) {
+      console.log(error);
       return {
         path: 'Internal Server Error',
         message: 'Try again later ',
@@ -129,7 +131,7 @@ export class UsersService {
     });
     return null;
   }
-  async loginFacebook(accessToken: string): Promise<Error> {
+  async loginFacebook(accessToken: string): Promise<UserError> {
     const url = `https://graph.facebook.com/debug_token?input_token=${accessToken}&access_token=${FACEBOOK_APP_ID}|${FACEBOOK_APP_SECRECT}`;
     const { data }: { data: FaceBookAppResponse } = await axios.get(url);
     const facebookData = data.data;
@@ -208,7 +210,7 @@ export class UsersService {
   async changePassword({
     key,
     newPassword,
-  }: ForgetPasswordChange): Promise<Error> {
+  }: ForgetPasswordChange): Promise<UserError> {
     const user_id = await this.cacheManager.get(this.getForgetPasswordKey(key));
     if (!user_id) {
       return {

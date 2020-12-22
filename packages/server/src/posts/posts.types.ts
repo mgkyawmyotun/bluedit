@@ -5,6 +5,7 @@ import {
   ObjectType,
   PartialType,
 } from '@nestjs/graphql';
+import { ErrorInterface } from 'src/shared/types';
 @InterfaceType()
 export abstract class PostInteface {
   @Field(type => String)
@@ -55,11 +56,8 @@ export class PostInputVideo extends PartialType(PostInput) {
   @Field(type => [String], { nullable: true })
   videos: string[];
 }
-@ObjectType()
-export class PostError {
-  @Field(type => String)
-  message: string;
-
-  @Field(type => String)
+@ObjectType({ implements: () => [ErrorInterface] })
+export class PostError implements ErrorInterface {
   path: string;
+  message: string;
 }

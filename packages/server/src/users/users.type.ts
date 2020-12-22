@@ -1,4 +1,5 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql';
+import { ErrorInterface } from 'src/shared/types';
 
 @ObjectType()
 export class User {
@@ -30,14 +31,11 @@ export class UserInputType extends User {
   password: string;
 }
 
-@ObjectType()
-export class Error {
-  @Field(type => String)
+@ObjectType({ implements: () => [ErrorInterface] })
+export class UserError implements ErrorInterface {
   path: string;
-  @Field(type => String)
   message: string;
 }
-
 @InputType()
 export class UserLoginInput {
   @Field(type => String)
