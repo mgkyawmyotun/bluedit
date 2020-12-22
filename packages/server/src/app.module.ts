@@ -9,6 +9,7 @@ import { DEV_CONNECTION } from './connections';
 import { PostsModule } from './posts/posts.module';
 import { SubblueditModule } from './subbluedit/subbluedit.module';
 import { UsersModule } from './users/users.module';
+import { VoteModule } from './vote/vote.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { UsersModule } from './users/users.module';
     }),
     PostsModule,
     SubblueditModule,
+    VoteModule,
   ],
   controllers: [AppController],
   providers: [AppService],

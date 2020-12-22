@@ -24,6 +24,7 @@ interface CreatePost<T> {
   title: string;
   field: T;
   name: 'images' | 'link' | 'post_text' | 'videos';
+  subbluedit?: string;
 }
 @Injectable()
 export class CreatePostService {
@@ -36,6 +37,7 @@ export class CreatePostService {
 
   async createPostMarkDown({
     post_text,
+    subbluedit,
     title,
   }: PostInputMarkDown): Promise<PostError | null> {
     try {
@@ -48,11 +50,13 @@ export class CreatePostService {
       title,
       name: 'post_text',
       field: post_text,
+      subbluedit,
     });
   }
 
   async createPostLink({
     link,
+    subbluedit,
     title,
   }: PostInputLink): Promise<PostError | null> {
     try {
@@ -63,10 +67,11 @@ export class CreatePostService {
     return this.createPost<typeof link>({
       title,
       name: 'link',
+      subbluedit,
       field: link,
     });
   }
-  public async createPostImage({ images, title }: PostInputImage) {
+  public async createPostImage({ images, title, subbluedit }: PostInputImage) {
     try {
       await postImagesValidation.validate({ images, title });
     } catch (error) {
@@ -77,9 +82,10 @@ export class CreatePostService {
       title,
       name: 'images',
       field: images,
+      subbluedit,
     });
   }
-  public async createPostVideo({ videos, title }: PostInputVideo) {
+  public async createPostVideo({ videos, title, subbluedit }: PostInputVideo) {
     try {
       await postVideosValidation.validate({ videos, title });
     } catch (error) {
@@ -90,10 +96,12 @@ export class CreatePostService {
       title,
       name: 'images',
       field: videos,
+      subbluedit,
     });
   }
   private async createPost<T>({
     title,
+    subbluedit,
     field,
     name,
   }: CreatePost<T>): Promise<PostError | null> {
@@ -101,10 +109,12 @@ export class CreatePostService {
       [name]: field,
       title,
       user: { user_id: this.getUserId() },
+      sub: { name: subbluedit },
     });
     try {
       await this.postRepository.save(post);
     } catch (error) {
+      console.log(error);
       return {
         message: 'Can not create post',
         path: 'post',

@@ -7,6 +7,7 @@ type Post implements PostInteface {
   post_text: String
   title: String!
   link: String
+  subbluedit: String
   images: [String!]
   videos: [String!]
 }
@@ -16,6 +17,7 @@ interface PostInteface {
   post_text: String
   title: String!
   link: String
+  subbluedit: String
   images: [String!]
   videos: [String!]
 }
@@ -69,21 +71,25 @@ type Mutation {
 
 input PostInputMarkDown {
   title: String
+  subbluedit: String
   post_text: String!
 }
 
 input PostInputLink {
   title: String
+  subbluedit: String
   link: String!
 }
 
 input PostInputImage {
   title: String
+  subbluedit: String
   images: [String!]!
 }
 
 input PostInputVideo {
   title: String
+  subbluedit: String
   videos: [String!]
 }
 

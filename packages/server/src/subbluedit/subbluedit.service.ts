@@ -24,12 +24,15 @@ export class SubblueditService {
       return shapeError(error);
     }
     try {
-      const sub = this.subRepository.create({
-        displayName,
-        name,
-        user: { user_id: this.getUserId() },
-      });
-      await this.subRepository.save(sub).catch();
+      await this.subRepository
+        .createQueryBuilder()
+        .insert()
+        .values({
+          name: name,
+          displayName,
+          user: { user_id: this.getUserId() },
+        })
+        .execute();
     } catch (error) {
       return sqlError(error, 'subbluedit', 'name');
     }

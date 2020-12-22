@@ -19,6 +19,8 @@ export abstract class PostInteface {
 
   @Field(type => String, { nullable: true })
   link?: string;
+  @Field(type => String, { nullable: true })
+  subbluedit?: string;
 
   @Field(type => [String], { nullable: true })
   images?: string[];
@@ -33,6 +35,8 @@ export class Post {}
 export class PostInput {
   @Field(type => String, { nullable: false })
   title: string;
+  @Field(type => String, { nullable: true })
+  subbluedit?: string;
 }
 
 @InputType()
