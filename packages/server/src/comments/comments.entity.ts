@@ -1,5 +1,5 @@
-import { PostEntity } from 'src/posts/posts.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { PostEntity } from '../posts/posts.entity';
 import { UserEntity } from '../users/users.entity';
 
 @Entity({ name: 'comments' })
@@ -12,7 +12,7 @@ export class CommentEntity {
 
   @ManyToOne(
     () => UserEntity,
-    user => user.posts,
+    user => user.comments,
   )
   user: UserEntity;
   @ManyToOne(

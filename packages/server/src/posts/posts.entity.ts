@@ -1,4 +1,3 @@
-import { VoteEntity } from 'src/vote/vote.entity';
 import {
   Column,
   Entity,
@@ -6,6 +5,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { VoteEntity } from '../vote/vote.entity';
 import { CommentEntity } from './../comments/comments.entity';
 import { SubEntity } from './../subbluedit/subluedit.entity';
 import { UserEntity } from './../users/users.entity';

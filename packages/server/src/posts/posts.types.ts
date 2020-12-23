@@ -5,7 +5,7 @@ import {
   ObjectType,
   PartialType,
 } from '@nestjs/graphql';
-import { ErrorInterface } from 'src/shared/types';
+import { ErrorInterface } from '../shared/types';
 import { Sub } from './../subbluedit/subbluedit.types';
 @InterfaceType()
 export abstract class PostInteface {

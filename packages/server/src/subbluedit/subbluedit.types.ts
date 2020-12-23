@@ -1,5 +1,5 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql';
-import { ErrorInterface } from 'src/shared/types';
+import { ErrorInterface } from '../shared/types';
 
 @ObjectType()
 export class Sub {

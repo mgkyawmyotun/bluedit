@@ -1,7 +1,4 @@
 import * as bcrypt from 'bcrypt';
-import { CommentEntity } from 'src/comments/comments.entity';
-import { PostEntity } from 'src/posts/posts.entity';
-import { VoteEntity } from 'src/vote/vote.entity';
 import {
   BeforeInsert,
   Column,
@@ -9,6 +6,9 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { CommentEntity } from '../comments/comments.entity';
+import { PostEntity } from '../posts/posts.entity';
+import { VoteEntity } from '../vote/vote.entity';
 import { SubEntity } from './../subbluedit/subluedit.entity';
 @Entity('users')
 export class UserEntity {

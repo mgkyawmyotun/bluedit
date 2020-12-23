@@ -1,5 +1,5 @@
-import { UserEntity } from 'src/users/users.entity';
 import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn } from 'typeorm';
+import { UserEntity } from '../users/users.entity';
 import { PostEntity } from './../posts/posts.entity';
 
 @Entity({ name: 'subluedit' })

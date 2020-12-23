@@ -1,7 +1,7 @@
 import { CacheModule, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as redisStore from 'cache-manager-redis-store';
-import { PostEntity } from 'src/posts/posts.entity';
+import { PostEntity } from '../posts/posts.entity';
 import { CreatePostService } from './createposts.service';
 import { PostResolver } from './posts.resolver';
 import { PostsService } from './posts.service';

@@ -2,9 +2,9 @@ import { CACHE_MANAGER, Inject, Injectable } from '@nestjs/common';
 import { CONTEXT } from '@nestjs/graphql';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Cache } from 'cache-manager';
-import { PostEntity } from 'src/posts/posts.entity';
-import { GraphQLUserContext } from 'src/users/users';
 import { Repository } from 'typeorm';
+import { PostEntity } from '../posts/posts.entity';
+import { GraphQLUserContext } from '../users/users';
 
 @Injectable()
 export class PostsService {

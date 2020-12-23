@@ -1,6 +1,6 @@
-import { PostEntity } from 'src/posts/posts.entity';
-import { UserEntity } from 'src/users/users.entity';
 import { Entity, ManyToOne } from 'typeorm';
+import { PostEntity } from '../posts/posts.entity';
+import { UserEntity } from '../users/users.entity';
 
 @Entity({ name: 'votes' })
 export class VoteEntity {

@@ -1,6 +1,6 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
-import { IsAuthGuard } from 'src/shared/is-auth.guard';
+import { IsAuthGuard } from '../shared/is-auth.guard';
 import { SubblueditService } from './subbluedit.service';
 import { SubError, SubInput } from './subbluedit.types';
 
