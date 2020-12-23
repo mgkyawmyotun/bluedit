@@ -6,6 +6,7 @@ import {
   PartialType,
 } from '@nestjs/graphql';
 import { ErrorInterface } from 'src/shared/types';
+import { Sub } from './../subbluedit/subbluedit.types';
 @InterfaceType()
 export abstract class PostInteface {
   @Field(type => String)
@@ -19,9 +20,10 @@ export abstract class PostInteface {
 
   @Field(type => String, { nullable: true })
   link?: string;
-  @Field(type => String, { nullable: true })
-  subbluedit?: string;
-
+  @Field(type => Sub, { nullable: true })
+  sub?: Sub;
+  @Field(type => Number, { nullable: false })
+  vote_count: number;
   @Field(type => [String], { nullable: true })
   images?: string[];
 

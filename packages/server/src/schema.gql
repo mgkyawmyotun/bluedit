@@ -2,27 +2,13 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Post implements PostInteface {
-  post_id: String!
-  post_text: String
-  title: String!
-  link: String
-  subbluedit: String
-  images: [String!]
-  videos: [String!]
+type Sub {
+  sub_id: String!
+  displayName: String!
+  name: String!
 }
 
-interface PostInteface {
-  post_id: String!
-  post_text: String
-  title: String!
-  link: String
-  subbluedit: String
-  images: [String!]
-  videos: [String!]
-}
-
-type PostError implements ErrorInterface {
+type SubError implements ErrorInterface {
   path: String!
   message: String!
 }
@@ -32,7 +18,29 @@ interface ErrorInterface {
   message: String!
 }
 
-type SubError implements ErrorInterface {
+type Post implements PostInteface {
+  post_id: String!
+  post_text: String
+  title: String!
+  link: String
+  sub: Sub
+  vote_count: Float!
+  images: [String!]
+  videos: [String!]
+}
+
+interface PostInteface {
+  post_id: String!
+  post_text: String
+  title: String!
+  link: String
+  sub: Sub
+  vote_count: Float!
+  images: [String!]
+  videos: [String!]
+}
+
+type PostError implements ErrorInterface {
   path: String!
   message: String!
 }

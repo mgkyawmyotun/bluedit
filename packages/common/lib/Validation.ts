@@ -6,8 +6,8 @@ export const userValidationSchema = yup.object().shape({
     .string()
     .min(3)
     .max(50)
-    .matches(/[A-Za-z0-9-_.!~*'()]/, {
-      message: "only accept A-Za-z0-9-_.!~*'",
+    .matches(/^[A-Za-z0-9-_.!~*'()]+$/g, {
+      message: "Only accept url allow char A-Za-z0-9-_.!~*'() ",
     })
     .required(),
   email: yup.string().email().max(255).required(),
@@ -38,4 +38,15 @@ export const postImagesValidation = yup.object().shape({
 export const postVideosValidation = yup.object().shape({
   title: yup.string().required().max(300).min(3),
   videos: yup.array().of(yup.string()).required(),
+});
+export const subCreateValidation = yup.object().shape({
+  displayName: yup.string().required().max(50).min(3),
+  name: yup
+    .string()
+    .required()
+    .max(50)
+    .min(3)
+    .matches(/^[A-Za-z0-9-_.!~*'()]+$/g, {
+      message: "Only accept url allow char A-Za-z0-9-_.!~*'() ",
+    }),
 });

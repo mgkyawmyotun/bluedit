@@ -1,4 +1,11 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { VoteEntity } from 'src/vote/vote.entity';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { SubEntity } from './../subbluedit/subluedit.entity';
 import { UserEntity } from './../users/users.entity';
 
@@ -26,8 +33,16 @@ export class PostEntity {
     sub => sub.posts,
   )
   sub: SubEntity;
+  @OneToMany(
+    () => VoteEntity,
+    vote => vote.post,
+  )
+  votes: VoteEntity[];
+
   @Column('simple-array')
   images: string[];
   @Column('simple-array')
   videos: string[];
+  @Column('decimal')
+  vote_count: number;
 }

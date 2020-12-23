@@ -19,7 +19,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.postVideosValidation = exports.postImagesValidation = exports.postLinkValidation = exports.postMarkDownValidation = exports.emailValidation = exports.userLoginValidationSchema = exports.userValidationSchema = void 0;
+exports.subCreateValidation = exports.postVideosValidation = exports.postImagesValidation = exports.postLinkValidation = exports.postMarkDownValidation = exports.emailValidation = exports.userLoginValidationSchema = exports.userValidationSchema = void 0;
 var yup = __importStar(require("yup"));
 exports.userValidationSchema = yup.object().shape({
     displayName: yup.string().min(3).max(50).required(),
@@ -27,8 +27,8 @@ exports.userValidationSchema = yup.object().shape({
         .string()
         .min(3)
         .max(50)
-        .matches(/[A-Za-z0-9-_.!~*'()]/, {
-        message: "only accept A-Za-z0-9-_.!~*'",
+        .matches(/^[A-Za-z0-9-_.!~*'()]+$/g, {
+        message: "Only accept url allow char A-Za-z0-9-_.!~*'() ",
     })
         .required(),
     email: yup.string().email().max(255).required(),
@@ -56,5 +56,16 @@ exports.postImagesValidation = yup.object().shape({
 exports.postVideosValidation = yup.object().shape({
     title: yup.string().required().max(300).min(3),
     videos: yup.array().of(yup.string()).required(),
+});
+exports.subCreateValidation = yup.object().shape({
+    displayName: yup.string().required().max(50).min(3),
+    name: yup
+        .string()
+        .required()
+        .max(50)
+        .min(3)
+        .matches(/^[A-Za-z0-9-_.!~*'()]+$/g, {
+        message: "Only accept url allow char A-Za-z0-9-_.!~*'() ",
+    }),
 });
 //# sourceMappingURL=Validation.js.map

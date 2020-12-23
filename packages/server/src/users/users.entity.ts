@@ -1,5 +1,6 @@
 import * as bcrypt from 'bcrypt';
 import { PostEntity } from 'src/posts/posts.entity';
+import { VoteEntity } from 'src/vote/vote.entity';
 import {
   BeforeInsert,
   Column,
@@ -40,6 +41,11 @@ export class UserEntity {
     sub => sub.user,
   )
   subs: SubEntity[];
+  @OneToMany(
+    () => VoteEntity,
+    vote => vote.user,
+  )
+  votes: VoteEntity[];
   @BeforeInsert()
   async hashPassword() {
     if (this.password) {

@@ -105,16 +105,16 @@ export class CreatePostService {
     field,
     name,
   }: CreatePost<T>): Promise<PostError | null> {
+    console.log(subbluedit);
     const post = this.postRepository.create({
       [name]: field,
       title,
       user: { user_id: this.getUserId() },
-      sub: { name: subbluedit },
+      sub: subbluedit ? { name: subbluedit } : null,
     });
     try {
       await this.postRepository.save(post);
     } catch (error) {
-      console.log(error);
       return {
         message: 'Can not create post',
         path: 'post',

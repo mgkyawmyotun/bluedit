@@ -2,7 +2,7 @@ import { Field, InputType, ObjectType } from '@nestjs/graphql';
 import { ErrorInterface } from 'src/shared/types';
 
 @ObjectType()
-export class SubEntity {
+export class Sub {
   @Field(type => String)
   sub_id: string;
   @Field(type => String)

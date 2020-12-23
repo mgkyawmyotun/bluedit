@@ -10,6 +10,7 @@ import { PostsModule } from './posts/posts.module';
 import { SubblueditModule } from './subbluedit/subbluedit.module';
 import { UsersModule } from './users/users.module';
 import { VoteModule } from './vote/vote.module';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { VoteModule } from './vote/vote.module';
     PostsModule,
     SubblueditModule,
     VoteModule,
+    CommentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
