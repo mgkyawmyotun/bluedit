@@ -49,6 +49,6 @@ export class PostEntity {
   images: string[];
   @Column('simple-array')
   videos: string[];
-  @Column('decimal')
+  @Column('decimal', { default: 0 })
   vote_count: number;
 }

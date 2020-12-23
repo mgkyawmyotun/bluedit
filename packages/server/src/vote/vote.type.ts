@@ -1,5 +1,5 @@
 import { Field, InputType, registerEnumType } from '@nestjs/graphql';
-enum VoteType {
+export enum VoteType {
   UP,
   DOWN,
 }

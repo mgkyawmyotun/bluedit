@@ -54,7 +54,7 @@ export class PostResolver {
   }
   @Mutation(returns => Number, { nullable: false })
   @UseGuards(IsAuthGuard)
-  async addVote(@Args('voteDate') voteData: Vote): Promise<Number> {
+  async addVote(@Args('voteData') voteData: Vote): Promise<Number> {
     return this.voteService.addVote(voteData);
   }
 }

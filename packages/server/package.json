@@ -34,6 +34,7 @@
 		"apollo-server-express": "^2.19.0",
 		"axios": "^0.21.0",
 		"bcrypt": "^5.0.0",
+		"bull": "^3.20.0",
 		"cache-manager": "^3.4.0",
 		"cache-manager-redis-store": "^2.0.0",
 		"connect-redis": "^5.0.0",

@@ -1,4 +1,4 @@
-import { CacheModule, Module } from '@nestjs/common';
+import { CacheModule, forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as redisStore from 'cache-manager-redis-store';
 import { PostEntity } from '../posts/posts.entity';
@@ -9,7 +9,7 @@ import { PostsService } from './posts.service';
 
 @Module({
   imports: [
-    VoteModule,
+    forwardRef(() => VoteModule),
     TypeOrmModule.forFeature([PostEntity]),
     CacheModule.register({ store: redisStore }),
   ],
