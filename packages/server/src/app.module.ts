@@ -1,3 +1,4 @@
+import { BullModule } from '@nestjs/bull';
 import { DynamicModule, Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { Request } from 'express';
@@ -6,6 +7,7 @@ import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CommentsModule } from './comments/comments.module';
+import { REDIS_HOST, REDIS_PORT } from './config';
 import { DEV_CONNECTION, TEST_CONNECTION } from './connections';
 import { PostsModule } from './posts/posts.module';
 import { SubblueditModule } from './subbluedit/subbluedit.module';
@@ -21,7 +23,6 @@ export class AppModule {
     return {
       module: AppModule,
       imports: [
-        UsersModule,
         options.connectionType == 'test' ? TEST_CONNECTION : DEV_CONNECTION,
         GraphQLModule.forRoot({
           include: [UsersModule, PostsModule, SubblueditModule],
@@ -36,6 +37,13 @@ export class AppModule {
           },
           debug: false,
         }),
+        BullModule.forRoot({
+          redis: {
+            host: REDIS_HOST,
+            port: REDIS_PORT,
+          },
+        }),
+        UsersModule,
         PostsModule,
         SubblueditModule,
         VoteModule,
