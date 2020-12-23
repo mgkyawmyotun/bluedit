@@ -6,6 +6,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { CommentEntity } from './../comments/comments.entity';
 import { SubEntity } from './../subbluedit/subluedit.entity';
 import { UserEntity } from './../users/users.entity';
 
@@ -39,6 +40,11 @@ export class PostEntity {
   )
   votes: VoteEntity[];
 
+  @OneToMany(
+    () => CommentEntity,
+    comment => comment.post,
+  )
+  comments: CommentEntity[];
   @Column('simple-array')
   images: string[];
   @Column('simple-array')
