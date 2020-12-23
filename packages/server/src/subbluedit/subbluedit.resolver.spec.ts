@@ -10,20 +10,26 @@ import { SubEntity } from './subluedit.entity';
 describe('SubblueditResolver', () => {
   let resolver: SubblueditResolver;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
-        AppModule,
+        AppModule.forRoot({ connectionType: 'test' }),
         TypeOrmModule.forFeature([SubEntity]),
         CacheModule.register({ store: redisStore }),
       ],
       providers: [SubblueditResolver, SubblueditService],
     }).compile();
 
-    resolver = module.get<SubblueditResolver>(SubblueditResolver);
+    resolver = await module.resolve<SubblueditResolver>(SubblueditResolver);
   });
+  afterAll(async () => {});
 
   it('should be defined', () => {
     expect(resolver).toBeDefined();
+
+    // resolver.createSub({displayName:})
+  });
+  it('should be created', () => {
+    expect(resolver.createSub({ displayName: 'onetwo', name: '' })).toBe(null);
   });
 });

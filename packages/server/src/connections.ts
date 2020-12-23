@@ -1,5 +1,4 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserEntity } from './users/users.entity';
 
 const common: any = {
   type: 'mysql',
@@ -18,10 +17,12 @@ const DEV_CONNECTION = TypeOrmModule.forRoot({
   // dropSchema: true,
 });
 
-const TEST_CONNECTION = {
+const TEST_CONNECTION = TypeOrmModule.forRoot({
   ...common,
-  entities: [UserEntity],
-  name: 'test',
+  autoLoadEntities: true,
+  migrations: '',
   database: 'bluedit_test',
-};
+  dropSchema: true,
+});
+
 export { DEV_CONNECTION, TEST_CONNECTION };
