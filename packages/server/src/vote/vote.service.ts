@@ -17,16 +17,28 @@ export class VoteService {
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
     @Inject(CONTEXT) private context: GraphQLUserContext,
   ) {}
-  public async addVote({ post_id, voteType }: Vote): Promise<number> {
+  public async addVote({ post_id, voteType }: Vote): Promise<number | null> {
     const postRepository = this.connection.getRepository(PostEntity);
-    const result = await postRepository
-      .createQueryBuilder()
-      .update({ post_id })
-      .set({
-        vote_count: () =>
-          voteType === VoteType.UP ? 'vote_count + 1' : 'vote_count - 1',
-      })
-      .execute();
-    return result.affected;
+    try {
+      const updated = await postRepository
+        .createQueryBuilder()
+        .update()
+        .set({
+          vote_count: () =>
+            voteType === VoteType.UP ? 'vote_count + 1' : 'vote_count - 1',
+        })
+        .where('post_id = :post_id', { post_id: post_id })
+        .execute();
+      if (updated.affected == 0) {
+        throw new Error();
+      }
+    } catch (error) {
+      return null;
+    }
+    const { vote_count } = await postRepository.findOne(post_id, {
+      select: ['vote_count'],
+    });
+
+    return vote_count;
   }
 }

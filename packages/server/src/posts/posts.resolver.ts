@@ -52,9 +52,9 @@ export class PostResolver {
   ): Promise<PostError | null> {
     return this.postCreateService.createPostVideo(postData);
   }
-  @Mutation(returns => Number, { nullable: false })
+  @Mutation(returns => Number, { nullable: true })
   @UseGuards(IsAuthGuard)
-  async addVote(@Args('voteData') voteData: Vote): Promise<Number> {
+  async addVote(@Args('voteData') voteData: Vote): Promise<number | null> {
     return this.voteService.addVote(voteData);
   }
 }

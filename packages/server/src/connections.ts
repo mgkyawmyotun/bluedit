@@ -14,6 +14,8 @@ const DEV_CONNECTION = TypeOrmModule.forRoot({
   autoLoadEntities: true,
   migrations: '',
   database: 'bluedit',
+
+  // debug: true,
   // dropSchema: true,
 });
 
