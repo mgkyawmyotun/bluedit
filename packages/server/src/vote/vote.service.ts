@@ -34,15 +34,7 @@ export class VoteService {
             { post: { post_id }, user: { user_id: this.getUserId() } },
             { vote_type: voteType },
           );
-          const updated = await postRepository
-            .createQueryBuilder()
-            .update()
-            .set({
-              vote_count: () =>
-                voteType === VoteType.UP ? 'vote_count + 1' : 'vote_count - 1',
-            })
-            .where('post_id = :post_id', { post_id: post_id })
-            .execute();
+          await this.saveVoteCount(voteType, post_id);
         }
       } else {
         const voteSchema = this.voteRepository.create({
@@ -51,21 +43,9 @@ export class VoteService {
           vote_type: voteType,
         });
         await this.voteRepository.save(voteSchema);
-        const updated = await postRepository
-          .createQueryBuilder()
-          .update()
-          .set({
-            vote_count: () =>
-              voteType === VoteType.UP ? 'vote_count + 1' : 'vote_count - 1',
-          })
-          .where('post_id = :post_id', { post_id: post_id })
-          .execute();
-        if (updated.affected == 0) {
-          throw new Error();
-        }
+        await this.saveVoteCount(voteType, post_id);
       }
     } catch (error) {
-      console.log(error);
       return null;
     }
     const { vote_count } = await postRepository.findOne(post_id, {
@@ -79,5 +59,20 @@ export class VoteService {
   }
   private toVoteType(str: any): VoteType {
     return str === '0' ? VoteType.UP : VoteType.DOWN;
+  }
+  private async saveVoteCount(voteType: VoteType, post_id: string) {
+    const postRepository = this.connection.getRepository(PostEntity);
+    const updated = await postRepository
+      .createQueryBuilder()
+      .update()
+      .set({
+        vote_count: () =>
+          voteType === VoteType.UP ? 'vote_count + 1' : 'vote_count - 1',
+      })
+      .where('post_id = :post_id', { post_id: post_id })
+      .execute();
+    if (updated.affected == 0) {
+      throw new Error();
+    }
   }
 }
