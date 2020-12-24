@@ -1,6 +1,7 @@
-import { Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, ManyToOne } from 'typeorm';
 import { PostEntity } from '../posts/posts.entity';
 import { UserEntity } from '../users/users.entity';
+import { VoteType } from './vote.type';
 
 @Entity({ name: 'votes' })
 export class VoteEntity {
@@ -18,4 +19,6 @@ export class VoteEntity {
     { primary: true },
   )
   post: PostEntity;
+  @Column('enum', { nullable: true, enum: VoteType, enumName: 'VoteType' })
+  vote_type: VoteType;
 }
