@@ -1,5 +1,6 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   ManyToOne,
   OneToMany,
@@ -51,4 +52,6 @@ export class PostEntity {
   videos: string[];
   @Column('decimal', { default: 0 })
   vote_count: number;
+  @CreateDateColumn({ type: 'timestamp' })
+  created_at: Date;
 }
