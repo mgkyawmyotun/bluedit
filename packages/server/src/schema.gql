@@ -2,6 +2,32 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type User {
+  displayName: String!
+  username: String!
+  email: String!
+}
+
+type UserError implements ErrorInterface {
+  path: String!
+  message: String!
+}
+
+interface ErrorInterface {
+  path: String!
+  message: String!
+}
+
+type Comment {
+  comment_text: String!
+  user: User!
+}
+
+type CommentError implements ErrorInterface {
+  path: String!
+  message: String!
+}
+
 type Sub {
   sub_id: String!
   displayName: String!
@@ -9,11 +35,6 @@ type Sub {
 }
 
 type SubError implements ErrorInterface {
-  path: String!
-  message: String!
-}
-
-interface ErrorInterface {
   path: String!
   message: String!
 }
@@ -45,19 +66,8 @@ type PostError implements ErrorInterface {
   message: String!
 }
 
-type User {
-  displayName: String!
-  username: String!
-  email: String!
-  password: String!
-}
-
-type UserError implements ErrorInterface {
-  path: String!
-  message: String!
-}
-
 type Query {
+  getComments(post_id: String!): [Comment!]
   getPosts: [Post!]!
   me: User
   logout: String
@@ -65,6 +75,7 @@ type Query {
 }
 
 type Mutation {
+  createComment(commentInput: CommentInput!): CommentError
   createPostWithMarkDown(postData: PostInputMarkDown!): PostError
   createPostWithLink(postData: PostInputLink!): PostError
   createPostWithImage(postData: PostInputImage!): PostError
@@ -76,6 +87,11 @@ type Mutation {
   loginFaceBook(accessToken: String!): UserError
   sendForgetPasswordLink(email: String!): Boolean
   forgetPasswordChange(forgetPassowrdChangeInput: ForgetPasswordChange!): UserError
+}
+
+input CommentInput {
+  comment_text: String!
+  post_id: String!
 }
 
 input PostInputMarkDown {

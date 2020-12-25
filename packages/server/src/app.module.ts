@@ -25,7 +25,7 @@ export class AppModule {
       imports: [
         options.connectionType == 'test' ? TEST_CONNECTION : DEV_CONNECTION,
         GraphQLModule.forRoot({
-          include: [UsersModule, PostsModule, SubblueditModule],
+          include: [UsersModule, PostsModule, SubblueditModule, CommentsModule],
           autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
           context: ({ req }): { session: Session; req: Request } => ({
             session: req.session,

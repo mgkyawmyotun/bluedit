@@ -11,9 +11,6 @@ export class User {
 
   @Field(type => String)
   email: string;
-
-  @Field(type => String)
-  password: string;
 }
 
 @InputType()
