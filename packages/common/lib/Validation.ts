@@ -50,3 +50,7 @@ export const subCreateValidation = yup.object().shape({
       message: "Only accept url allow char A-Za-z0-9-_.!~*'() ",
     }),
 });
+export const commentValidation = yup.object().shape({
+  post_id: yup.string().required(),
+  comment_text: yup.string().required(),
+});
