@@ -16,13 +16,13 @@ export class PostEntity {
   @PrimaryGeneratedColumn('uuid')
   post_id: string;
 
-  @Column('text')
+  @Column('text', { nullable: true, default: null })
   post_text: string;
 
   @Column({ type: 'varchar', length: 300 })
   title: string;
 
-  @Column({ type: 'text', nullable: true })
+  @Column({ type: 'text', nullable: true, default: null })
   link: string;
 
   @ManyToOne(
@@ -46,9 +46,9 @@ export class PostEntity {
     comment => comment.post,
   )
   comments: CommentEntity[];
-  @Column('simple-array')
+  @Column('simple-array', { nullable: true, default: null })
   images: string[];
-  @Column('simple-array')
+  @Column('simple-array', { nullable: true, default: null })
   videos: string[];
   @Column('decimal', { default: 0 })
   vote_count: number;

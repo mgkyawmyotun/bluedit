@@ -62,3 +62,7 @@ export const postInputEditTextValidation = yup.object().shape({
   post_id: yup.string().required(),
   post_text: yup.string().required(),
 });
+export const postInputEditLinkValidation = yup.object().shape({
+  post_id: yup.string().required(),
+  post_link: yup.string().required().url(),
+});

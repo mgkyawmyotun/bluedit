@@ -1,11 +1,14 @@
-import { postInputEditTextValidation } from '@bluedit/common';
+import {
+  postInputEditLinkValidation,
+  postInputEditTextValidation,
+} from '@bluedit/common';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PostEntity } from '../posts/posts.entity';
 import { shapeError } from './../shared/shapeError';
 import { UserAuthHelpService } from './../shared/userauth.service';
-import { PostError, PostInputEditText } from './posts.types';
+import { PostError, PostInputEditLink, PostInputEditText } from './posts.types';
 
 interface EditPostInteface<T> {
   post_id: string;
@@ -31,17 +34,43 @@ export class PostEditService {
       field: post_text,
     });
   }
-  async editPostLink({}) {}
+  async editPostLink({ post_link, post_id }: PostInputEditLink) {
+    try {
+      await postInputEditLinkValidation.validate({ post_id, post_link });
+    } catch (error) {
+      return shapeError(error);
+    }
+    return this.editPost<typeof post_link>({
+      post_id,
+      name: 'link',
+      field: post_link,
+    });
+  }
   async editPost<T>({
     post_id,
     name,
     field,
   }: EditPostInteface<T>): Promise<PostError> {
     try {
-      await this.postRepository.update(
-        { post_id, user: { user_id: this.userAuthHelpService.getUser() } },
-        { [name]: field },
-      );
+      // await this.postRepository.update(
+      //   {
+      //     post_id,
+      //     user: { user_id: this.userAuthHelpService.getUser() },
+      //   },
+      //   { [name]: field },
+      // );
+      const res = await this.postRepository
+        .createQueryBuilder()
+        .update({ [name]: field })
+        .where('post_id =:post_id', { post_id })
+        .andWhere('userUserId =:userId', {
+          userId: this.userAuthHelpService.getUser(),
+        })
+        .andWhere(`${name} is not null`)
+        .execute();
+      if (res.affected === 0) {
+        throw new Error();
+      }
     } catch (error) {
       return {
         message: 'error at editing post',

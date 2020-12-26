@@ -10,6 +10,7 @@ import { PostsService } from './posts.service';
 import {
   Post,
   PostError,
+  PostInputEditLink,
   PostInputEditText,
   PostInputImage,
   PostInputLink,
@@ -75,5 +76,12 @@ export class PostResolver {
     @Args('postEditInput') postEditInput: PostInputEditText,
   ): Promise<PostError | null> {
     return this.postEditService.editPostText(postEditInput);
+  }
+  @Mutation(returns => PostError, { nullable: true })
+  @UseGuards(IsAuthGuard)
+  async editPostLink(
+    @Args('postEditInput') postEditInput: PostInputEditLink,
+  ): Promise<PostError | null> {
+    return this.postEditService.editPostLink(postEditInput);
   }
 }

@@ -109,4 +109,14 @@ export declare const postInputEditTextValidation: yup.ObjectSchema<import("yup/l
     post_id: import("yup/lib/string").RequiredStringSchema<string | undefined, Record<string, any>>;
     post_text: import("yup/lib/string").RequiredStringSchema<string | undefined, Record<string, any>>;
 }>>>;
+export declare const postInputEditLinkValidation: yup.ObjectSchema<import("yup/lib/object").Assign<Record<string, yup.AnySchema<any, any, any> | import("yup/lib/Reference").default<unknown> | import("yup/lib/Lazy").default<any, any>>, {
+    post_id: import("yup/lib/string").RequiredStringSchema<string | undefined, Record<string, any>>;
+    post_link: import("yup/lib/string").RequiredStringSchema<string | undefined, Record<string, any>>;
+}>, Record<string, any>, import("yup/lib/object").TypeOfShape<import("yup/lib/object").Assign<Record<string, yup.AnySchema<any, any, any> | import("yup/lib/Reference").default<unknown> | import("yup/lib/Lazy").default<any, any>>, {
+    post_id: import("yup/lib/string").RequiredStringSchema<string | undefined, Record<string, any>>;
+    post_link: import("yup/lib/string").RequiredStringSchema<string | undefined, Record<string, any>>;
+}>>, import("yup/lib/object").AssertsShape<import("yup/lib/object").Assign<Record<string, yup.AnySchema<any, any, any> | import("yup/lib/Reference").default<unknown> | import("yup/lib/Lazy").default<any, any>>, {
+    post_id: import("yup/lib/string").RequiredStringSchema<string | undefined, Record<string, any>>;
+    post_link: import("yup/lib/string").RequiredStringSchema<string | undefined, Record<string, any>>;
+}>>>;
 //# sourceMappingURL=Validation.d.ts.map

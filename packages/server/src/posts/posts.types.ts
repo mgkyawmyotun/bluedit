@@ -78,3 +78,8 @@ export class PostInputEditText extends PartialType(PostInputEdit) {
   @Field(type => String, { nullable: false })
   post_text: string;
 }
+@InputType()
+export class PostInputEditLink extends PartialType(PostInputEdit) {
+  @Field(type => String, { nullable: false })
+  post_link: string;
+}
