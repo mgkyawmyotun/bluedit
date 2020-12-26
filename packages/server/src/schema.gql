@@ -20,6 +20,7 @@ interface ErrorInterface {
 
 type Comment {
   comment_text: String!
+  comment_id: String!
   user: User!
 }
 
@@ -76,6 +77,7 @@ type Query {
 
 type Mutation {
   createComment(commentInput: CommentInput!): CommentError
+  editComment(editCommentInput: CommentEditInput!): CommentError
   createPostWithMarkDown(postData: PostInputMarkDown!): PostError
   createPostWithLink(postData: PostInputLink!): PostError
   createPostWithImage(postData: PostInputImage!): PostError
@@ -95,6 +97,11 @@ type Mutation {
 input CommentInput {
   comment_text: String!
   post_id: String!
+}
+
+input CommentEditInput {
+  comment_text: String!
+  comment_id: String!
 }
 
 input PostInputMarkDown {

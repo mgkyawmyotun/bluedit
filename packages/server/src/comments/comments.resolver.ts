@@ -2,7 +2,12 @@ import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { IsAuthGuard } from './../shared/is-auth.guard';
 import { CommentsService } from './comments.service';
-import { Comment, CommentError, CommentInput } from './comments.types';
+import {
+  Comment,
+  CommentEditInput,
+  CommentError,
+  CommentInput,
+} from './comments.types';
 
 @Resolver()
 export class CommentsResolver {
@@ -13,6 +18,13 @@ export class CommentsResolver {
     @Args('commentInput') commentInput: CommentInput,
   ): Promise<CommentError | null> {
     return this.commentService.createComment(commentInput);
+  }
+  @Mutation(returns => CommentError, { nullable: true })
+  @UseGuards(IsAuthGuard)
+  async editComment(
+    @Args('editCommentInput') editCommentInput: CommentEditInput,
+  ): Promise<CommentError | null> {
+    return this.commentService.editComment(editCommentInput);
   }
   @Query(returns => [Comment], { nullable: true })
   getComments(@Args('post_id') post_id: string) {

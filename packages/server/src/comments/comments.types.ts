@@ -6,6 +6,8 @@ import { User } from '../users/users.type';
 export class Comment {
   @Field(type => String)
   comment_text: string;
+  @Field(type => String)
+  comment_id: string;
   @Field(type => User)
   user: User;
 }
@@ -23,4 +25,13 @@ export class CommentInput {
 
   @Field(type => String)
   post_id: string;
+}
+
+@InputType()
+export class CommentEditInput {
+  @Field(type => String)
+  comment_text: string;
+
+  @Field(type => String)
+  comment_id: string;
 }

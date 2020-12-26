@@ -6,6 +6,10 @@ import { shapeError } from './../shared/shapeError';
 import { UserAuthHelpService } from './../shared/userauth.service';
 import { CommentEntity } from './comments.entity';
 import { CommentError, CommentInput } from './comments.types';
+interface editCommentInteface {
+  comment_id: string;
+  comment_text: string;
+}
 
 @Injectable()
 export class CommentsService {
@@ -48,6 +52,7 @@ export class CommentsService {
         .select([
           'users.displayName',
           'comment.comment_text',
+          'comment.comment_id',
           'users.username',
           'users.email',
         ])
@@ -56,6 +61,28 @@ export class CommentsService {
       return comments;
     } catch (error) {
       return null;
+    }
+  }
+  async editComment({
+    comment_text,
+    comment_id,
+  }: editCommentInteface): Promise<CommentError> {
+    try {
+      await commentValidation.validate({ comment_text, post_id: comment_id });
+    } catch (error) {
+      return shapeError(error);
+    }
+    try {
+      const res = await this.commentRepository.update(
+        { comment_id, user: { user_id: this.userAuthHelpService.getUser() } },
+        { comment_text },
+      );
+      if (res.affected === 0) throw new Error();
+    } catch (error) {
+      return {
+        message: 'Cannot update comment',
+        path: 'comment-edit',
+      };
     }
   }
 }
