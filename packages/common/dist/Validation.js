@@ -19,7 +19,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.postInputEditLinkValidation = exports.postInputEditTextValidation = exports.postDeleteValidation = exports.commentValidation = exports.subCreateValidation = exports.postVideosValidation = exports.postImagesValidation = exports.postLinkValidation = exports.postMarkDownValidation = exports.emailValidation = exports.userLoginValidationSchema = exports.userValidationSchema = void 0;
+exports.commentDeleteValidation = exports.postInputEditLinkValidation = exports.postInputEditTextValidation = exports.postDeleteValidation = exports.commentValidation = exports.subCreateValidation = exports.postVideosValidation = exports.postImagesValidation = exports.postLinkValidation = exports.postMarkDownValidation = exports.emailValidation = exports.userLoginValidationSchema = exports.userValidationSchema = void 0;
 var yup = __importStar(require("yup"));
 exports.userValidationSchema = yup.object().shape({
     displayName: yup.string().min(3).max(50).required(),
@@ -82,5 +82,8 @@ exports.postInputEditTextValidation = yup.object().shape({
 exports.postInputEditLinkValidation = yup.object().shape({
     post_id: yup.string().required(),
     post_link: yup.string().required().url(),
+});
+exports.commentDeleteValidation = yup.object().shape({
+    comment_id: yup.string().required(),
 });
 //# sourceMappingURL=Validation.js.map

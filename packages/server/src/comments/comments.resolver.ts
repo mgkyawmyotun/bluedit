@@ -26,6 +26,13 @@ export class CommentsResolver {
   ): Promise<CommentError | null> {
     return this.commentService.editComment(editCommentInput);
   }
+  @Mutation(returns => CommentError, { nullable: true })
+  @UseGuards(IsAuthGuard)
+  async deleteComment(
+    @Args('comment_id') comment_id: string,
+  ): Promise<CommentError | null> {
+    return this.commentService.deleteComment(comment_id);
+  }
   @Query(returns => [Comment], { nullable: true })
   getComments(@Args('post_id') post_id: string) {
     return this.commentService.getComments(post_id);

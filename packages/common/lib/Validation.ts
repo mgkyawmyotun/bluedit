@@ -66,3 +66,7 @@ export const postInputEditLinkValidation = yup.object().shape({
   post_id: yup.string().required(),
   post_link: yup.string().required().url(),
 });
+
+export const commentDeleteValidation = yup.object().shape({
+  comment_id: yup.string().required(),
+});

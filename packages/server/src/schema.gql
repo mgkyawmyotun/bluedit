@@ -78,6 +78,7 @@ type Query {
 type Mutation {
   createComment(commentInput: CommentInput!): CommentError
   editComment(editCommentInput: CommentEditInput!): CommentError
+  deleteComment(comment_id: String!): CommentError
   createPostWithMarkDown(postData: PostInputMarkDown!): PostError
   createPostWithLink(postData: PostInputLink!): PostError
   createPostWithImage(postData: PostInputImage!): PostError

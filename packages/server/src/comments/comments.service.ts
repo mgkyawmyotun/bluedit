@@ -1,4 +1,4 @@
-import { commentValidation } from '@bluedit/common';
+import { commentDeleteValidation, commentValidation } from '@bluedit/common';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -82,6 +82,25 @@ export class CommentsService {
       return {
         message: 'Cannot update comment',
         path: 'comment-edit',
+      };
+    }
+  }
+  async deleteComment(comment_id: string): Promise<CommentError> {
+    try {
+      await commentDeleteValidation.validate({ comment_id });
+    } catch (error) {
+      return shapeError(error);
+    }
+
+    try {
+      const res = await this.commentRepository.delete({ comment_id });
+      if (res.affected === 0) {
+        throw new Error();
+      }
+    } catch (error) {
+      return {
+        message: 'Error At Deleting Comment',
+        path: 'comment-delete',
       };
     }
   }
