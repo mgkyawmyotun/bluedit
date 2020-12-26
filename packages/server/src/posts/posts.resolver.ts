@@ -5,10 +5,12 @@ import { VoteService } from './../vote/vote.service';
 import { Vote } from './../vote/vote.type';
 import { CreatePostService } from './createposts.service';
 import { PostDeleteService } from './deleteposts.service';
+import { PostEditService } from './editposts.service';
 import { PostsService } from './posts.service';
 import {
   Post,
   PostError,
+  PostInputEditText,
   PostInputImage,
   PostInputLink,
   PostInputMarkDown,
@@ -21,6 +23,7 @@ export class PostResolver {
     private postCreateService: CreatePostService,
     private voteService: VoteService,
     private postDeleteService: PostDeleteService,
+    private postEditService: PostEditService,
   ) {}
   @Query(returns => [Post])
   async getPosts() {
@@ -65,5 +68,12 @@ export class PostResolver {
     @Args('post_id') post_id: string,
   ): Promise<PostError | null> {
     return this.postDeleteService.deletePost(post_id);
+  }
+  @Mutation(returns => PostError, { nullable: true })
+  @UseGuards(IsAuthGuard)
+  async editPostMarkDown(
+    @Args('postEditInput') postEditInput: PostInputEditText,
+  ): Promise<PostError | null> {
+    return this.postEditService.editPostText(postEditInput);
   }
 }

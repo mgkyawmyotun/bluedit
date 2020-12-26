@@ -45,7 +45,6 @@ export class CreatePostService {
     } catch (error) {
       return shapeError(error);
     }
-
     return this.createPost<typeof post_text>({
       title,
       name: 'post_text',

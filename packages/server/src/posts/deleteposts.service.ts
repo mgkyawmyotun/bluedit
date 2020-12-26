@@ -18,7 +18,7 @@ export class PostDeleteService {
     try {
       await postDeleteValidation.validate({ post_id });
     } catch (error) {
-      shapeError(error);
+      return shapeError(error);
     }
     try {
       const result = await this.postRepository.delete({

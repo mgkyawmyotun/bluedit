@@ -67,3 +67,14 @@ export class PostError implements ErrorInterface {
   path: string;
   message: string;
 }
+@InputType()
+export class PostInputEdit {
+  @Field(type => String, { nullable: false })
+  post_id: string;
+}
+
+@InputType()
+export class PostInputEditText extends PartialType(PostInputEdit) {
+  @Field(type => String, { nullable: false })
+  post_text: string;
+}

@@ -82,6 +82,7 @@ type Mutation {
   createPostWithVideo(postData: PostInputVideo!): PostError
   addVote(voteData: Vote!): Float
   deletePost(post_id: String!): PostError
+  editPostMarkDown(postEditInput: PostInputEditText!): PostError
   createSubBluedit(subInput: SubInput!): SubError
   register(userInput: UserInputType!): UserError
   login(loginInput: UserLoginInput!): UserError
@@ -127,6 +128,11 @@ input Vote {
 enum VoteType {
   UP
   DOWN
+}
+
+input PostInputEditText {
+  post_id: String
+  post_text: String!
 }
 
 input SubInput {

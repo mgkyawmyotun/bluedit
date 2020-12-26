@@ -5,6 +5,7 @@ import { PostEntity } from '../posts/posts.entity';
 import { VoteModule } from './../vote/vote.module';
 import { CreatePostService } from './createposts.service';
 import { PostDeleteService } from './deleteposts.service';
+import { PostEditService } from './editposts.service';
 import { PostResolver } from './posts.resolver';
 import { PostsService } from './posts.service';
 
@@ -14,6 +15,12 @@ import { PostsService } from './posts.service';
     TypeOrmModule.forFeature([PostEntity]),
     CacheModule.register({ store: redisStore }),
   ],
-  providers: [PostResolver, PostsService, CreatePostService, PostDeleteService],
+  providers: [
+    PostResolver,
+    PostsService,
+    CreatePostService,
+    PostDeleteService,
+    PostEditService,
+  ],
 })
 export class PostsModule {}
