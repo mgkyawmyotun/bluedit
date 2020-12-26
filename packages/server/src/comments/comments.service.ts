@@ -1,11 +1,9 @@
 import { commentValidation } from '@bluedit/common';
-import { CACHE_MANAGER, Inject, Injectable } from '@nestjs/common';
-import { CONTEXT } from '@nestjs/graphql';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Cache } from 'cache-manager';
-import { GraphQLUserContext } from 'src/users/users';
 import { Repository } from 'typeorm';
 import { shapeError } from './../shared/shapeError';
+import { UserAuthHelpService } from './../shared/userauth.service';
 import { CommentEntity } from './comments.entity';
 import { CommentError, CommentInput } from './comments.types';
 
@@ -14,8 +12,7 @@ export class CommentsService {
   constructor(
     @InjectRepository(CommentEntity)
     private commentRepository: Repository<CommentEntity>,
-    @Inject(CACHE_MANAGER) private cacheManager: Cache,
-    @Inject(CONTEXT) private context: GraphQLUserContext,
+    private userAuthHelpService: UserAuthHelpService,
   ) {}
 
   async createComment({
@@ -30,7 +27,7 @@ export class CommentsService {
     try {
       const comment = this.commentRepository.create({
         post: { post_id },
-        user: { user_id: this.getUserId() },
+        user: { user_id: this.userAuthHelpService.getUser() },
         comment_text,
       });
 
@@ -60,8 +57,5 @@ export class CommentsService {
     } catch (error) {
       return null;
     }
-  }
-  private getUserId(): string {
-    return this.context.session.user;
   }
 }

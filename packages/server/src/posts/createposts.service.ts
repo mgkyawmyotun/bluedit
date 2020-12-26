@@ -4,14 +4,12 @@ import {
   postMarkDownValidation,
   postVideosValidation,
 } from '@bluedit/common';
-import { CACHE_MANAGER, Inject, Injectable } from '@nestjs/common';
-import { CONTEXT } from '@nestjs/graphql';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Cache } from 'cache-manager';
+import { UserAuthHelpService } from 'src/shared/userauth.service';
 import { Repository } from 'typeorm';
 import { PostEntity } from '../posts/posts.entity';
 import { shapeError } from '../shared/shapeError';
-import { GraphQLUserContext } from '../users/users';
 import {
   PostError,
   PostInputImage,
@@ -31,8 +29,7 @@ export class CreatePostService {
   constructor(
     @InjectRepository(PostEntity)
     private postRepository: Repository<PostEntity>,
-    @Inject(CACHE_MANAGER) private cacheManager: Cache,
-    @Inject(CONTEXT) private context: GraphQLUserContext,
+    private userAuthHelpService: UserAuthHelpService,
   ) {}
 
   async createPostMarkDown({
@@ -107,7 +104,7 @@ export class CreatePostService {
     const post = this.postRepository.create({
       [name]: field,
       title,
-      user: { user_id: this.getUserId() },
+      user: { user_id: this.userAuthHelpService.getUser() },
       sub: subbluedit ? { name: subbluedit } : null,
     });
     try {
@@ -119,8 +116,5 @@ export class CreatePostService {
       };
     }
     return null;
-  }
-  private getUserId(): string {
-    return this.context.session.user;
   }
 }

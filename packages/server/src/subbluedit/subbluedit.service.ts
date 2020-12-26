@@ -1,11 +1,9 @@
 import { subCreateValidation } from '@bluedit/common';
-import { CACHE_MANAGER, Inject, Injectable } from '@nestjs/common';
-import { CONTEXT } from '@nestjs/graphql';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Cache } from 'cache-manager';
 import { Repository } from 'typeorm';
-import { GraphQLUserContext } from '../users/users';
 import { shapeError, sqlError } from './../shared/shapeError';
+import { UserAuthHelpService } from './../shared/userauth.service';
 import { SubError, SubInput } from './subbluedit.types';
 import { SubEntity } from './subluedit.entity';
 
@@ -14,8 +12,7 @@ export class SubblueditService {
   constructor(
     @InjectRepository(SubEntity)
     private subRepository: Repository<SubEntity>,
-    @Inject(CACHE_MANAGER) private cacheManager: Cache,
-    @Inject(CONTEXT) private context: GraphQLUserContext,
+    private userAuthHelpService: UserAuthHelpService,
   ) {}
   async createSub({ displayName, name }: SubInput): Promise<SubError> {
     try {
@@ -30,14 +27,11 @@ export class SubblueditService {
         .values({
           name: name,
           displayName,
-          user: { user_id: this.getUserId() },
+          user: { user_id: this.userAuthHelpService.getUser() },
         })
         .execute();
     } catch (error) {
       return sqlError(error, 'subbluedit', 'name');
     }
-  }
-  private getUserId(): string {
-    return this.context.session.user;
   }
 }
