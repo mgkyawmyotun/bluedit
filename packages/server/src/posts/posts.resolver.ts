@@ -4,6 +4,7 @@ import { IsAuthGuard } from './../shared/is-auth.guard';
 import { VoteService } from './../vote/vote.service';
 import { Vote } from './../vote/vote.type';
 import { CreatePostService } from './createposts.service';
+import { PostDeleteService } from './deleteposts.service';
 import { PostsService } from './posts.service';
 import {
   Post,
@@ -19,6 +20,7 @@ export class PostResolver {
     private postService: PostsService,
     private postCreateService: CreatePostService,
     private voteService: VoteService,
+    private postDeleteService: PostDeleteService,
   ) {}
   @Query(returns => [Post])
   async getPosts() {
@@ -56,5 +58,12 @@ export class PostResolver {
   @UseGuards(IsAuthGuard)
   async addVote(@Args('voteData') voteData: Vote): Promise<number | null> {
     return this.voteService.addVote(voteData);
+  }
+  @Mutation(returns => PostError, { nullable: true })
+  @UseGuards(IsAuthGuard)
+  async deletePost(
+    @Args('post_id') post_id: string,
+  ): Promise<PostError | null> {
+    return this.postDeleteService.deletePost(post_id);
   }
 }

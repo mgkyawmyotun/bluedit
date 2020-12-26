@@ -16,7 +16,7 @@ const DEV_CONNECTION = TypeOrmModule.forRoot({
   database: 'bluedit',
 
   // debug: true,
-  dropSchema: true,
+  // dropSchema: true,
 });
 
 const TEST_CONNECTION = TypeOrmModule.forRoot({

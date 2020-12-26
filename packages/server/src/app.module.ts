@@ -10,6 +10,7 @@ import { CommentsModule } from './comments/comments.module';
 import { REDIS_HOST, REDIS_PORT } from './config';
 import { DEV_CONNECTION, TEST_CONNECTION } from './connections';
 import { PostsModule } from './posts/posts.module';
+import { SharedModule } from './shared/shared.module';
 import { SubblueditModule } from './subbluedit/subbluedit.module';
 import { UsersModule } from './users/users.module';
 import { VoteModule } from './vote/vote.module';
@@ -43,6 +44,7 @@ export class AppModule {
             port: REDIS_PORT,
           },
         }),
+        SharedModule,
         UsersModule,
         PostsModule,
         SubblueditModule,

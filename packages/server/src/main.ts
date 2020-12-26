@@ -9,6 +9,7 @@ const RedisStore = connectRedis(session);
 async function bootstrap() {
   const app = await NestFactory.create(
     AppModule.forRoot({ connectionType: 'dev' }),
+
     {
       cors: {
         origin: 'http://localhost:3000',
@@ -34,6 +35,7 @@ async function bootstrap() {
       }),
     }),
   );
+
   await app.listen(4000);
 }
 bootstrap();

@@ -81,6 +81,7 @@ type Mutation {
   createPostWithImage(postData: PostInputImage!): PostError
   createPostWithVideo(postData: PostInputVideo!): PostError
   addVote(voteData: Vote!): Float
+  deletePost(post_id: String!): PostError
   createSubBluedit(subInput: SubInput!): SubError
   register(userInput: UserInputType!): UserError
   login(loginInput: UserLoginInput!): UserError
