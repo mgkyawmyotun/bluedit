@@ -105,7 +105,6 @@ export class CreatePostService {
     field,
     name,
   }: CreatePost<T>): Promise<PostError | null> {
-    console.log(subbluedit);
     const post = this.postRepository.create({
       [name]: field,
       title,

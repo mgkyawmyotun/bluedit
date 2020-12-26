@@ -1,4 +1,6 @@
+import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { IsAuthGuard } from './../shared/is-auth.guard';
 import { CommentsService } from './comments.service';
 import { Comment, CommentError, CommentInput } from './comments.types';
 
@@ -6,6 +8,7 @@ import { Comment, CommentError, CommentInput } from './comments.types';
 export class CommentsResolver {
   constructor(private commentService: CommentsService) {}
   @Mutation(returns => CommentError, { nullable: true })
+  @UseGuards(IsAuthGuard)
   async createComment(
     @Args('commentInput') commentInput: CommentInput,
   ): Promise<CommentError | null> {
