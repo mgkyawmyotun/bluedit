@@ -1,0 +1,22 @@
+.navbar {
+  background-color: rgb(255, 255, 255);
+  border-bottom: 1px dotted rgb(184, 184, 184);
+}
+
+
+
+.searchBox {
+  margin-top: 10px;
+  max-width: 660px;
+  max-height: 45px;
+  font-size: 20px;
+}
+
+.icon {
+  width: 50;
+  height: 32;
+}
+
+.button {
+  margin-top: 5px;
+}

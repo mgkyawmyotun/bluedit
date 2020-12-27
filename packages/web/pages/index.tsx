@@ -1,3 +1,12 @@
+import Layout from 'antd/lib/layout/layout';
+import { NavBar } from '../components/navbar';
+
 export default function Home() {
-  return <div></div>;
+  return (
+    <>
+      <Layout>
+        <NavBar />
+      </Layout>
+    </>
+  );
 }
