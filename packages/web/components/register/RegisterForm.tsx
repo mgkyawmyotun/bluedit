@@ -2,13 +2,15 @@ import { userValidationSchema } from '@bluedit/common';
 import { RegisterProps } from '@bluedit/controller';
 import Form from 'antd/lib/form/Form';
 import { Formik, FormikProps } from 'formik';
+import { useRouter } from 'next/router';
 import React, { FC, useState } from 'react';
 import { RegisterFormValues } from '../../../controller/dist';
+import { serverErrorNotification } from '../common/Notification';
 import { EmailRegister } from './EmailRegister';
 import { UserNameRegister } from './UsernNameRegister';
-
 export const RegisterForm: FC<RegisterProps> = ({ checkEmail, submit }) => {
   const [showNextForm, setShowNextForm] = useState<boolean>(false);
+  const { push } = useRouter();
   return (
     <Formik
       initialValues={{
@@ -18,15 +20,20 @@ export const RegisterForm: FC<RegisterProps> = ({ checkEmail, submit }) => {
         password: '',
       }}
       onSubmit={async (values, helpers) => {
-        const { data } = await submit({
-          variables: { userInput: { ...values } },
-        });
-        if (data.register) {
-          helpers.setFieldError(data.register.path, data.register.message);
-          if (data.register.path === 'email') {
-            setShowNextForm(false);
+        try {
+          const { data } = await submit({
+            variables: { userInput: { ...values } },
+          });
+          if (data.register) {
+            helpers.setFieldError(data.register.path, data.register.message);
+            if (data.register.path === 'email') {
+              setShowNextForm(false);
+            }
           }
+        } catch (error) {
+          serverErrorNotification();
         }
+        push('/me');
       }}
       validationSchema={userValidationSchema}
     >

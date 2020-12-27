@@ -52,13 +52,6 @@ export class PostEditService {
     field,
   }: EditPostInteface<T>): Promise<PostError> {
     try {
-      // await this.postRepository.update(
-      //   {
-      //     post_id,
-      //     user: { user_id: this.userAuthHelpService.getUser() },
-      //   },
-      //   { [name]: field },
-      // );
       const res = await this.postRepository
         .createQueryBuilder()
         .update({ [name]: field })

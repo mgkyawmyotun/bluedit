@@ -146,13 +146,14 @@ export class UsersService {
     const { data: UserData }: { data: FaceBookUserProfile } = await axios.get(
       UserProfileUrl,
     );
-    const userAlereadyExists = await this.usersRepository.findOne(
-      {
-        email: UserData.email,
-      },
-      { select: ['user_id'] },
-    );
-    if (userAlereadyExists) {
+    const userAlereadyExists = await this.usersRepository
+      .createQueryBuilder()
+      .select('user_id')
+      .where('email=:mail', { mail: UserData.email })
+      .andWhere('password is null')
+      .execute();
+
+    if (userAlereadyExists.length > 0) {
       this.setUserSession(userAlereadyExists.user_id);
       return null;
     }

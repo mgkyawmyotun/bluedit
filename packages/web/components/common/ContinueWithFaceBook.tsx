@@ -26,12 +26,12 @@ export const ContinueWithFaceBook = () => {
               });
               if (data.loginFaceBook) {
                 faceBookErrorNotification();
+                return;
               }
               faecBookSuccessNotification();
               push('/me');
               return;
             }
-            faceBookErrorNotification();
           }}
         ></FacebookLogin>
       )}

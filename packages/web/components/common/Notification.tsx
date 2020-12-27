@@ -25,3 +25,11 @@ export const faecBookSuccessNotification = () =>
     description: 'SuccessFully Login With FaceBook ',
     type: 'success',
   });
+
+export const serverErrorNotification = () => {
+  openNotification({
+    message: 'Server Error ',
+    description: 'Might Be Server Problem Try Again Later',
+    type: 'error',
+  });
+};

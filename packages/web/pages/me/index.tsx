@@ -5,7 +5,7 @@ export default function Me() {
       {({ data, loading }) => (
         <>
           {loading && <h1>Loading ...</h1>}
-          {data && <h1>{data.me.username}</h1>}
+          {data && data.me && <h1>{data.me.username}</h1>}
         </>
       )}
     </MeController>

@@ -21,10 +21,10 @@ export class UserEntity {
   @Column('varchar', { length: 50 })
   username: string;
 
-  @Column('varchar', { length: 255 })
+  @Column('varchar', { length: 255, unique: true })
   email: string;
 
-  @Column('text')
+  @Column('text', { nullable: true })
   password: string;
   @Column('text')
   picture_url: string;
