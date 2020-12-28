@@ -1,21 +1,23 @@
-import { Col, Row } from 'antd';
+import { useUserContext } from '@bluedit/controller';
+import { Row } from 'antd';
 import { Header } from 'antd/lib/layout/layout';
 import { FC } from 'react';
 import styles from '../../styles/navbar.module.css';
+import { Brand } from './Brand';
 import { NavIcon } from './icon';
 import { LoginRegister } from './LoginRegister';
 import { SearchBox } from './SearchBox';
+import { UserProfile } from './UserProfile';
 export const NavBar: FC = () => {
+  const data = useUserContext();
   return (
     <>
       <Header className={styles.navbar}>
-        <Row gutter={16}>
+        <Row align={'middle'} justify={'space-between'} wrap={false}>
           <NavIcon />
-          <Col span={4}>
-            <h1>Bluedit</h1>
-          </Col>
+          <Brand />
           <SearchBox />
-          <LoginRegister />
+          {data && data.me ? <UserProfile /> : <LoginRegister />}
         </Row>
       </Header>
     </>

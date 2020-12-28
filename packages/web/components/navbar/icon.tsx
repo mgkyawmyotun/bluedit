@@ -4,7 +4,7 @@ import styles from '../../styles/navbar.module.css';
 
 export const NavIcon: FC = () => {
   return (
-    <Col span={1} style={{ marginTop: 10 }}>
+    <Col flex={1} style={{ marginTop: 8 }}>
       <svg
         className={styles.icon}
         width="50"

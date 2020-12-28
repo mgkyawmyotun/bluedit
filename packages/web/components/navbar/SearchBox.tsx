@@ -5,7 +5,7 @@ import styles from './../../styles/navbar.module.css';
 export const SearchBox: FC = () => {
   return (
     <>
-      <Col span={14} style={{ marginTop: 5 }}>
+      <Col flex={7}>
         <Input
           placeholder="Search ..."
           prefix={<SearchOutlined />}

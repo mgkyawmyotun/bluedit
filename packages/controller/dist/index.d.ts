@@ -1,4 +1,5 @@
 export * from './ApolloClient';
+export * from './context';
 export * from './facebook';
 export * from './login';
 export * from './me';

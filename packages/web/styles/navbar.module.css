@@ -6,7 +6,6 @@
 
 
 .searchBox {
-  margin-top: 10px;
   max-width: 660px;
   max-height: 45px;
   font-size: 20px;
@@ -17,6 +16,12 @@
   height: 32;
 }
 
-.button {
-  margin-top: 5px;
+.selectBox {
+  line-height: 24px;
+  font-size: small;
+  width: auto;
+}
+
+.selectBox:hover {
+  border: 1px solid gainsboro
 }

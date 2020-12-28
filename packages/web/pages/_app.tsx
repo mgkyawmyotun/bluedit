@@ -1,3 +1,4 @@
+import { UserContextController } from '@bluedit/controller';
 import 'antd/dist/antd.css';
 import Head from 'next/head';
 import '../styles/index.css';
@@ -8,7 +9,9 @@ function MyApp({ Component, pageProps }) {
         <link rel="shortcut icon" href="bluedit.svg"></link>
         <title>Bluedit</title>
       </Head>
-      <Component {...pageProps} />
+      <UserContextController>
+        <Component {...pageProps} />
+      </UserContextController>
     </>
   );
 }

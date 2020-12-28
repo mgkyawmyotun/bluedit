@@ -1,20 +1,34 @@
-import { Button, Col } from 'antd';
+import { Button, Col, Row } from 'antd';
+import { useRouter } from 'next/router';
 import { FC } from 'react';
-import styles from './../../styles/navbar.module.css';
-
 interface LoginRegisterProps {}
 export const LoginRegister: FC = () => {
+  const { push } = useRouter();
   return (
     <>
-      <Col className={styles.button}>
-        <Button size="large" type="primary" htmlType="submit">
-          Log In
-        </Button>
-      </Col>
-      <Col className={styles.button}>
-        <Button size="large" type="default" htmlType="submit">
-          Register
-        </Button>
+      <Col flex={2}>
+        <Row justify={'space-around'} wrap={false}>
+          <Button
+            size="large"
+            type="primary"
+            htmlType="submit"
+            onClick={() => {
+              push('/login');
+            }}
+          >
+            Log In
+          </Button>
+          <Button
+            size="large"
+            type="default"
+            htmlType="submit"
+            onClick={() => {
+              push('/register');
+            }}
+          >
+            Register
+          </Button>
+        </Row>
       </Col>
     </>
   );
