@@ -30,9 +30,15 @@ var UserContextController = function (_a) {
         fetchPolicy: 'network-only',
         client: __1.GraphQlClient.getClient(),
     });
-    return (react_1.default.createElement(UserContext.Provider, { value: result.data || null }, children));
+    return react_1.default.createElement(UserContext.Provider, { value: result }, children);
 };
 exports.UserContextController = UserContextController;
-var useUserContext = function () { return react_1.useContext(UserContext); };
+var useUserContext = function () {
+    var value = react_1.useContext(UserContext);
+    react_1.useEffect(function () {
+        value === null || value === void 0 ? void 0 : value.refetch().then(function () { });
+    }, []);
+    return value;
+};
 exports.useUserContext = useUserContext;
 //# sourceMappingURL=UserContext.js.map

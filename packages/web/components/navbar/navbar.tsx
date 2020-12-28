@@ -17,7 +17,11 @@ export const NavBar: FC = () => {
           <NavIcon />
           <Brand />
           <SearchBox />
-          {data && data.me ? <UserProfile /> : <LoginRegister />}
+          {data && data.data && data.data.me ? (
+            <UserProfile />
+          ) : (
+            <LoginRegister />
+          )}
         </Row>
       </Header>
     </>

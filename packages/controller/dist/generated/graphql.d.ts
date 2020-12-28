@@ -248,6 +248,12 @@ export declare type LoginUserMutation = ({
         __typename?: 'UserError';
     } & Pick<UserError, 'path' | 'message'>)>;
 });
+export declare type LogoutQueryVariables = Exact<{
+    [key: string]: never;
+}>;
+export declare type LogoutQuery = ({
+    __typename?: 'Query';
+} & Pick<Query, 'logout'>);
 export declare type UserQueryVariables = Exact<{
     [key: string]: never;
 }>;
@@ -290,6 +296,16 @@ export declare function useLoginUserMutation(baseOptions?: Apollo.MutationHookOp
 export declare type LoginUserMutationHookResult = ReturnType<typeof useLoginUserMutation>;
 export declare type LoginUserMutationResult = Apollo.MutationResult<LoginUserMutation>;
 export declare type LoginUserMutationOptions = Apollo.BaseMutationOptions<LoginUserMutation, LoginUserMutationVariables>;
+export declare const LogoutDocument: Apollo.DocumentNode;
+export declare function useLogoutQuery(baseOptions?: Apollo.QueryHookOptions<LogoutQuery, LogoutQueryVariables>): Apollo.QueryResult<LogoutQuery, Exact<{
+    [key: string]: never;
+}>>;
+export declare function useLogoutLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<LogoutQuery, LogoutQueryVariables>): Apollo.QueryTuple<LogoutQuery, Exact<{
+    [key: string]: never;
+}>>;
+export declare type LogoutQueryHookResult = ReturnType<typeof useLogoutQuery>;
+export declare type LogoutLazyQueryHookResult = ReturnType<typeof useLogoutLazyQuery>;
+export declare type LogoutQueryResult = Apollo.QueryResult<LogoutQuery, LogoutQueryVariables>;
 export declare const UserDocument: Apollo.DocumentNode;
 export declare function useUserQuery(baseOptions?: Apollo.QueryHookOptions<UserQuery, UserQueryVariables>): Apollo.QueryResult<UserQuery, Exact<{
     [key: string]: never;

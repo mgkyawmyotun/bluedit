@@ -313,6 +313,14 @@ export type LoginUserMutation = (
   )> }
 );
 
+export type LogoutQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type LogoutQuery = (
+  { __typename?: 'Query' }
+  & Pick<Query, 'logout'>
+);
+
 export type UserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -414,6 +422,36 @@ export function useLoginUserMutation(baseOptions?: Apollo.MutationHookOptions<Lo
 export type LoginUserMutationHookResult = ReturnType<typeof useLoginUserMutation>;
 export type LoginUserMutationResult = Apollo.MutationResult<LoginUserMutation>;
 export type LoginUserMutationOptions = Apollo.BaseMutationOptions<LoginUserMutation, LoginUserMutationVariables>;
+export const LogoutDocument = gql`
+    query Logout {
+  logout
+}
+    `;
+
+/**
+ * __useLogoutQuery__
+ *
+ * To run a query within a React component, call `useLogoutQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLogoutQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useLogoutQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useLogoutQuery(baseOptions?: Apollo.QueryHookOptions<LogoutQuery, LogoutQueryVariables>) {
+        return Apollo.useQuery<LogoutQuery, LogoutQueryVariables>(LogoutDocument, baseOptions);
+      }
+export function useLogoutLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<LogoutQuery, LogoutQueryVariables>) {
+          return Apollo.useLazyQuery<LogoutQuery, LogoutQueryVariables>(LogoutDocument, baseOptions);
+        }
+export type LogoutQueryHookResult = ReturnType<typeof useLogoutQuery>;
+export type LogoutLazyQueryHookResult = ReturnType<typeof useLogoutLazyQuery>;
+export type LogoutQueryResult = Apollo.QueryResult<LogoutQuery, LogoutQueryVariables>;
 export const UserDocument = gql`
     query User {
   me {

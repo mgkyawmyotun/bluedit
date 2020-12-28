@@ -14,6 +14,7 @@ __exportStar(require("./ApolloClient"), exports);
 __exportStar(require("./context"), exports);
 __exportStar(require("./facebook"), exports);
 __exportStar(require("./login"), exports);
+__exportStar(require("./logout"), exports);
 __exportStar(require("./me"), exports);
 __exportStar(require("./register"), exports);
 __exportStar(require("./types"), exports);
