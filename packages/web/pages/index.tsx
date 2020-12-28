@@ -1,4 +1,5 @@
 import Layout from 'antd/lib/layout/layout';
+import { Main } from '../components/main';
 import { NavBar } from '../components/navbar';
 
 export default function Home() {
@@ -6,6 +7,7 @@ export default function Home() {
     <>
       <Layout>
         <NavBar />
+        <Main />
       </Layout>
     </>
   );

@@ -1,6 +1,9 @@
 .navbar {
   background-color: rgb(255, 255, 255);
   border-bottom: 1px dotted rgb(184, 184, 184);
+  position: fixed;
+  z-index: 1;
+  width: 100%;
 }
 
 
