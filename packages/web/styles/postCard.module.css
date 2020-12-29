@@ -27,6 +27,16 @@
 
 }
 
+.header__date {
+  font-size: 12px;
+  color: #adadad;
+}
+
+.header__user__link {
+  text-decoration: underline;
+  color: inherit;
+}
+
 .header__dot {
   font-weight: 700;
   font-size: 14px;

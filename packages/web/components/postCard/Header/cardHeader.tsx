@@ -1,6 +1,7 @@
 import { Col, Row } from 'antd';
 import { FC } from 'react';
 import styles from './../../../styles/postCard.module.css';
+import { PostDate } from './PostDate';
 import { PostedUser } from './PostedUser';
 import { SubAvatar } from './SubAvatar';
 import { SubLink } from './SubLink';
@@ -19,6 +20,9 @@ export const CardHeader: FC = () => {
         <Col className={styles.header__dot}>.</Col>
         <Col>
           <PostedUser />
+        </Col>
+        <Col>
+          <PostDate />
         </Col>
       </Row>
     </Col>
