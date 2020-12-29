@@ -7,9 +7,21 @@ interface MainProps {}
 export const Main: FC = () => {
   return (
     <>
-      <Layout style={{ height: '100vh' }}>
+      <Layout className={styles.main__layout}>
         <Sider className={styles.slider} width={'20%'}></Sider>
         <Content style={{ marginTop: 64 }} className={styles.slider}>
+          <PostCard />
+          <PostCard />
+          <PostCard />
+          <PostCard />
+          <PostCard />
+          <PostCard />
+          <PostCard />
+          <PostCard />
+          <PostCard />
+          <PostCard />
+          <PostCard />
+          <PostCard />
           <PostCard />
         </Content>
         <Sider className={styles.slider} width={'20%'}></Sider>

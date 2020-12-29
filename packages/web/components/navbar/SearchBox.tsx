@@ -5,11 +5,11 @@ import styles from './../../styles/navbar.module.css';
 export const SearchBox: FC = () => {
   return (
     <>
-      <Col flex={7}>
+      <Col span={10}>
         <Input
           placeholder="Search ..."
           prefix={<SearchOutlined />}
-          className={styles.searchBox}
+          className={styles.search__box}
         />
       </Col>
     </>
