@@ -14,7 +14,7 @@ export const LoginForm: FC<LoginChildrenProps> = ({ submit }) => {
   return (
     <Layout color="white">
       <Sider width="156px">
-        <img src="/registerEmail.jpg"></img>
+        <img src="/registerEmail.jpg" className="registerImage"></img>
       </Sider>
       <Content>
         <Formik

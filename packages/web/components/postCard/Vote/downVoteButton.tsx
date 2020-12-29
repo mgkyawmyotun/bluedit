@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import styles from './../../styles/postCard.module.css';
+import styles from './../../../styles/postCard.module.css';
 interface DownVoteButtonProps {}
 export const DownVoteButton: FC = () => {
   return (
