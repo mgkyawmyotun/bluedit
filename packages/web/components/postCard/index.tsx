@@ -1,14 +1,18 @@
-import { Row } from 'antd';
+import { Col, Row } from 'antd';
 import { FC } from 'react';
 import styles from './../../styles/postCard.module.css';
+import { CardContent } from './Content/cardContent';
 import { CardHeader } from './Header/cardHeader';
 import { PostVote } from './Vote/postVote';
 interface PostCardProps {}
 export const PostCard: FC = () => {
   return (
-    <Row className={styles.card__body}>
+    <Row className={styles.card__body} wrap={false}>
       <PostVote />
-      <CardHeader />
+      <Col>
+        <CardHeader />
+        <CardContent />
+      </Col>
     </Row>
   );
 };

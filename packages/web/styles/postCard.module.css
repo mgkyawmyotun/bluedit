@@ -15,6 +15,27 @@
   padding-top: 8px;
 }
 
+.card__content {
+  margin: 8px 0px 0px 20px;
+
+}
+
+.content__title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 20px;
+
+}
+
+.content__link {
+  text-decoration: none;
+  color: #53A5E2;
+}
+
+.content__link:hover {
+  text-decoration: underline;
+}
+
 .card__header {
   margin: 2px 0px 0px 20px;
 }
@@ -24,7 +45,6 @@
   font-size: 14px;
   font-weight: 700;
   color: black;
-
 }
 
 .header__date {
