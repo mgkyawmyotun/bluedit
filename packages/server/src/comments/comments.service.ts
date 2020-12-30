@@ -4,6 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Queue } from 'bull';
 import { Repository } from 'typeorm';
+import { update_c_c } from '../posts/updatecommentcount.consumer';
 import { shapeError } from './../shared/shapeError';
 import { UserAuthHelpService } from './../shared/userauth.service';
 import { CommentEntity } from './comments.entity';
@@ -19,7 +20,7 @@ export class CommentsService {
     @InjectRepository(CommentEntity)
     private commentRepository: Repository<CommentEntity>,
     private userAuthHelpService: UserAuthHelpService,
-    @InjectQueue('comments') private commentsQueue: Queue,
+    @InjectQueue(update_c_c) private commentsQueue: Queue,
   ) {}
 
   async createComment({
@@ -39,6 +40,7 @@ export class CommentsService {
       });
 
       await this.commentRepository.save(comment);
+      this.commentsQueue.add({ post_id: post_id, TYPE: 'ADD' });
     } catch (error) {
       return {
         message: 'error at comment',
@@ -100,6 +102,8 @@ export class CommentsService {
       if (res.affected === 0) {
         throw new Error();
       }
+
+      this.commentsQueue.add({ comment_id: comment_id, TYPE: 'DELETE' });
     } catch (error) {
       return {
         message: 'Error At Deleting Comment',

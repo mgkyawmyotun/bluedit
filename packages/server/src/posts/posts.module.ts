@@ -8,6 +8,7 @@ import { PostDeleteService } from './deleteposts.service';
 import { PostEditService } from './editposts.service';
 import { PostResolver } from './posts.resolver';
 import { PostsService } from './posts.service';
+import { UpdateCommentConsumer } from './updatecommentcount.consumer';
 
 @Module({
   imports: [
@@ -21,6 +22,8 @@ import { PostsService } from './posts.service';
     CreatePostService,
     PostDeleteService,
     PostEditService,
+    UpdateCommentConsumer,
   ],
+  exports: [UpdateCommentConsumer],
 })
 export class PostsModule {}

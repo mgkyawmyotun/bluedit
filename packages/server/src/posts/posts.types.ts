@@ -32,6 +32,8 @@ export abstract class PostInteface {
   videos?: string[];
   @Field(type => User, { nullable: false })
   user: User;
+  @Field(type => Number, { nullable: false })
+  comment_count: number;
 }
 @ObjectType({ implements: PostInteface })
 export class Post {}

@@ -2,6 +2,22 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Sub {
+  sub_id: String!
+  displayName: String!
+  name: String!
+}
+
+type SubError implements ErrorInterface {
+  path: String!
+  message: String!
+}
+
+interface ErrorInterface {
+  path: String!
+  message: String!
+}
+
 type User {
   displayName: String!
   username: String!
@@ -13,7 +29,33 @@ type UserError implements ErrorInterface {
   message: String!
 }
 
-interface ErrorInterface {
+type Post implements PostInteface {
+  post_id: String!
+  post_text: String
+  title: String!
+  link: String
+  sub: Sub
+  vote_count: Float!
+  images: [String!]
+  videos: [String!]
+  user: User!
+  comment_count: Float!
+}
+
+interface PostInteface {
+  post_id: String!
+  post_text: String
+  title: String!
+  link: String
+  sub: Sub
+  vote_count: Float!
+  images: [String!]
+  videos: [String!]
+  user: User!
+  comment_count: Float!
+}
+
+type PostError implements ErrorInterface {
   path: String!
   message: String!
 }
@@ -29,58 +71,15 @@ type CommentError implements ErrorInterface {
   message: String!
 }
 
-type Sub {
-  sub_id: String!
-  displayName: String!
-  name: String!
-}
-
-type SubError implements ErrorInterface {
-  path: String!
-  message: String!
-}
-
-type Post implements PostInteface {
-  post_id: String!
-  post_text: String
-  title: String!
-  link: String
-  sub: Sub
-  vote_count: Float!
-  images: [String!]
-  videos: [String!]
-  user: User!
-}
-
-interface PostInteface {
-  post_id: String!
-  post_text: String
-  title: String!
-  link: String
-  sub: Sub
-  vote_count: Float!
-  images: [String!]
-  videos: [String!]
-  user: User!
-}
-
-type PostError implements ErrorInterface {
-  path: String!
-  message: String!
-}
-
 type Query {
-  getComments(post_id: String!): [Comment!]
   getPosts: [Post!]!
+  getComments(post_id: String!): [Comment!]
   me: User
   logout: String
   isEmailExists(email: String!): Boolean!
 }
 
 type Mutation {
-  createComment(commentInput: CommentInput!): CommentError
-  editComment(editCommentInput: CommentEditInput!): CommentError
-  deleteComment(comment_id: String!): CommentError
   createPostWithMarkDown(postData: PostInputMarkDown!): PostError
   createPostWithLink(postData: PostInputLink!): PostError
   createPostWithImage(postData: PostInputImage!): PostError
@@ -89,22 +88,15 @@ type Mutation {
   deletePost(post_id: String!): PostError
   editPostMarkDown(postEditInput: PostInputEditText!): PostError
   editPostLink(postEditInput: PostInputEditLink!): PostError
+  createComment(commentInput: CommentInput!): CommentError
+  editComment(editCommentInput: CommentEditInput!): CommentError
+  deleteComment(comment_id: String!): CommentError
   createSubBluedit(subInput: SubInput!): SubError
   register(userInput: UserInputType!): UserError
   login(loginInput: UserLoginInput!): UserError
   loginFaceBook(accessToken: String!): UserError
   sendForgetPasswordLink(email: String!): Boolean
   forgetPasswordChange(forgetPassowrdChangeInput: ForgetPasswordChange!): UserError
-}
-
-input CommentInput {
-  comment_text: String!
-  post_id: String!
-}
-
-input CommentEditInput {
-  comment_text: String!
-  comment_id: String!
 }
 
 input PostInputMarkDown {
@@ -149,6 +141,16 @@ input PostInputEditText {
 input PostInputEditLink {
   post_id: String
   post_link: String!
+}
+
+input CommentInput {
+  comment_text: String!
+  post_id: String!
+}
+
+input CommentEditInput {
+  comment_text: String!
+  comment_id: String!
 }
 
 input SubInput {
