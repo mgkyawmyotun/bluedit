@@ -99,16 +99,19 @@ export class CommentsService {
 
     try {
       //Todo -Need To Improve
-      const { post } = await this.commentRepository.findOne(
-        { comment_id },
-        { select: ['post'] },
-      );
-      const res = await this.commentRepository.delete({ comment_id });
-      if (res.affected === 0) {
-        throw new Error();
-      }
-
-      this.commentsQueue.add({ post_id: post.post_id, TYPE: 'DELETE' });
+      const result = await this.commentRepository
+        .createQueryBuilder()
+        .select('*')
+        .where('comment_id = :comment_id', { comment_id: comment_id })
+        .execute();
+      if (result.length > 0) {
+        const comment: { postPostId: string } = result[0];
+        const res = await this.commentRepository.delete({ comment_id });
+        if (res.affected === 0) {
+          throw new Error();
+        }
+        this.commentsQueue.add({ post_id: comment.postPostId, TYPE: 'DELETE' });
+      } else throw new Error();
     } catch (error) {
       return {
         message: 'Error At Deleting Comment',
