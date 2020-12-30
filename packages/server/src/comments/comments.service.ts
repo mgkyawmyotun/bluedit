@@ -98,12 +98,17 @@ export class CommentsService {
     }
 
     try {
+      //Todo -Need To Improve
+      const { post } = await this.commentRepository.findOne(
+        { comment_id },
+        { select: ['post'] },
+      );
       const res = await this.commentRepository.delete({ comment_id });
       if (res.affected === 0) {
         throw new Error();
       }
 
-      this.commentsQueue.add({ comment_id: comment_id, TYPE: 'DELETE' });
+      this.commentsQueue.add({ post_id: post.post_id, TYPE: 'DELETE' });
     } catch (error) {
       return {
         message: 'Error At Deleting Comment',
