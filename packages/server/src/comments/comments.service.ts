@@ -1,6 +1,8 @@
 import { commentDeleteValidation, commentValidation } from '@bluedit/common';
+import { InjectQueue } from '@nestjs/bull';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Queue } from 'bull';
 import { Repository } from 'typeorm';
 import { shapeError } from './../shared/shapeError';
 import { UserAuthHelpService } from './../shared/userauth.service';
@@ -17,6 +19,7 @@ export class CommentsService {
     @InjectRepository(CommentEntity)
     private commentRepository: Repository<CommentEntity>,
     private userAuthHelpService: UserAuthHelpService,
+    @InjectQueue('comments') private commentsQueue: Queue,
   ) {}
 
   async createComment({

@@ -25,6 +25,12 @@ export class AppModule {
       module: AppModule,
       imports: [
         options.connectionType == 'test' ? TEST_CONNECTION : DEV_CONNECTION,
+        BullModule.forRoot({
+          redis: {
+            host: REDIS_HOST,
+            port: REDIS_PORT,
+          },
+        }),
         GraphQLModule.forRoot({
           include: [UsersModule, PostsModule, SubblueditModule, CommentsModule],
           autoSchemaFile: join(process.cwd(), 'src/schema.gql'),

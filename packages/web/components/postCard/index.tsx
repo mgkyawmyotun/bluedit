@@ -2,6 +2,7 @@ import { Col, Row } from 'antd';
 import { FC } from 'react';
 import styles from './../../styles/postCard.module.css';
 import { CardContent } from './Content/cardContent';
+import { CardComment } from './Footer/cardComment';
 import { CardHeader } from './Header/cardHeader';
 import { PostVote } from './Vote/postVote';
 interface PostCardProps {}
@@ -12,6 +13,7 @@ export const PostCard: FC = () => {
       <Col>
         <CardHeader />
         <CardContent />
+        <CardComment />
       </Col>
     </Row>
   );

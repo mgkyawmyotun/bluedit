@@ -7,6 +7,7 @@ import {
 } from '@nestjs/graphql';
 import { ErrorInterface } from '../shared/types';
 import { Sub } from './../subbluedit/subbluedit.types';
+import { User } from './../users/users.type';
 @InterfaceType()
 export abstract class PostInteface {
   @Field(type => String)
@@ -29,6 +30,8 @@ export abstract class PostInteface {
 
   @Field(type => [String], { nullable: true })
   videos?: string[];
+  @Field(type => User, { nullable: false })
+  user: User;
 }
 @ObjectType({ implements: PostInteface })
 export class Post {}

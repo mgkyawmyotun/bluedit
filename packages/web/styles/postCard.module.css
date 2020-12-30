@@ -20,6 +20,45 @@
 
 }
 
+.card__content__markdown {
+  padding-right: 10px;
+  overflow: hidden;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  max-height: 200px;
+  min-height: 200px;
+  /* box-shadow: inset 0 -20px 10px -10px #5c5c5c; */
+}
+
+.card__content__box {}
+
+.card__comment__box {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.card__comment {
+  max-width: 130px;
+  font-weight: bold;
+  font-size: 14px;
+  color: #707070;
+  fill: #707070;
+  ;
+  padding-left: 10px;
+  padding-right: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.card__comment:hover {
+  background-color: #cecfcf;
+
+}
+
+.card__comment__image {
+  padding-top: 10px;
+}
+
 .content__title {
   font-size: 18px;
   font-weight: 700;

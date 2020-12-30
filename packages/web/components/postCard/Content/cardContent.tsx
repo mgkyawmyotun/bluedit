@@ -1,7 +1,7 @@
 import { Col } from 'antd';
 import { FC } from 'react';
 import styles from './../../../styles/postCard.module.css';
-import { CardContentLink } from './cardContentLink';
+import { CardContentText } from './cardContentText';
 import { CardContentTitle } from './cardContentTitle';
 
 interface CardContentProps {}
@@ -12,7 +12,8 @@ export const CardContent: FC = () => {
         <CardContentTitle />
       </Col>
       <Col>
-        <CardContentLink />
+        {/* <CardContentLink /> */}
+        <CardContentText />
       </Col>
     </Col>
   );
