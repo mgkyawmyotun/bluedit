@@ -2,11 +2,13 @@ import Link from 'next/link';
 import { FC } from 'react';
 import styles from './../../../styles/postCard.module.css';
 
-interface CardContentLinkProps {}
-export const CardContentLink: FC = () => {
+interface CardContentLinkProps {
+  link: string;
+}
+export const CardContentLink: FC<CardContentLinkProps> = ({ link }) => {
   return (
-    <Link href={'http://google.com'}>
-      <a className={styles.content__link}>http://google.com</a>
+    <Link href={link}>
+      <a className={styles.content__link}>{link}</a>
     </Link>
   );
 };

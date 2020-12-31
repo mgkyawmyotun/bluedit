@@ -13,6 +13,24 @@ export type Scalars = {
   Float: number;
 };
 
+export type Sub = {
+  __typename?: 'Sub';
+  sub_id: Scalars['String'];
+  displayName: Scalars['String'];
+  name: Scalars['String'];
+};
+
+export type SubError = ErrorInterface & {
+  __typename?: 'SubError';
+  path: Scalars['String'];
+  message: Scalars['String'];
+};
+
+export type ErrorInterface = {
+  path: Scalars['String'];
+  message: Scalars['String'];
+};
+
 export type User = {
   __typename?: 'User';
   displayName: Scalars['String'];
@@ -26,7 +44,35 @@ export type UserError = ErrorInterface & {
   message: Scalars['String'];
 };
 
-export type ErrorInterface = {
+export type Post = PostInteface & {
+  __typename?: 'Post';
+  post_id: Scalars['String'];
+  post_text?: Maybe<Scalars['String']>;
+  title: Scalars['String'];
+  link?: Maybe<Scalars['String']>;
+  sub?: Maybe<Sub>;
+  vote_count: Scalars['Float'];
+  images?: Maybe<Array<Scalars['String']>>;
+  videos?: Maybe<Array<Scalars['String']>>;
+  user: User;
+  comment_count: Scalars['Float'];
+};
+
+export type PostInteface = {
+  post_id: Scalars['String'];
+  post_text?: Maybe<Scalars['String']>;
+  title: Scalars['String'];
+  link?: Maybe<Scalars['String']>;
+  sub?: Maybe<Sub>;
+  vote_count: Scalars['Float'];
+  images?: Maybe<Array<Scalars['String']>>;
+  videos?: Maybe<Array<Scalars['String']>>;
+  user: User;
+  comment_count: Scalars['Float'];
+};
+
+export type PostError = ErrorInterface & {
+  __typename?: 'PostError';
   path: Scalars['String'];
   message: Scalars['String'];
 };
@@ -44,52 +90,10 @@ export type CommentError = ErrorInterface & {
   message: Scalars['String'];
 };
 
-export type Sub = {
-  __typename?: 'Sub';
-  sub_id: Scalars['String'];
-  displayName: Scalars['String'];
-  name: Scalars['String'];
-};
-
-export type SubError = ErrorInterface & {
-  __typename?: 'SubError';
-  path: Scalars['String'];
-  message: Scalars['String'];
-};
-
-export type Post = PostInteface & {
-  __typename?: 'Post';
-  post_id: Scalars['String'];
-  post_text?: Maybe<Scalars['String']>;
-  title: Scalars['String'];
-  link?: Maybe<Scalars['String']>;
-  sub?: Maybe<Sub>;
-  vote_count: Scalars['Float'];
-  images?: Maybe<Array<Scalars['String']>>;
-  videos?: Maybe<Array<Scalars['String']>>;
-};
-
-export type PostInteface = {
-  post_id: Scalars['String'];
-  post_text?: Maybe<Scalars['String']>;
-  title: Scalars['String'];
-  link?: Maybe<Scalars['String']>;
-  sub?: Maybe<Sub>;
-  vote_count: Scalars['Float'];
-  images?: Maybe<Array<Scalars['String']>>;
-  videos?: Maybe<Array<Scalars['String']>>;
-};
-
-export type PostError = ErrorInterface & {
-  __typename?: 'PostError';
-  path: Scalars['String'];
-  message: Scalars['String'];
-};
-
 export type Query = {
   __typename?: 'Query';
-  getComments?: Maybe<Array<Comment>>;
   getPosts: Array<Post>;
+  getComments?: Maybe<Array<Comment>>;
   me?: Maybe<User>;
   logout?: Maybe<Scalars['String']>;
   isEmailExists: Scalars['Boolean'];
@@ -107,9 +111,6 @@ export type QueryIsEmailExistsArgs = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createComment?: Maybe<CommentError>;
-  editComment?: Maybe<CommentError>;
-  deleteComment?: Maybe<CommentError>;
   createPostWithMarkDown?: Maybe<PostError>;
   createPostWithLink?: Maybe<PostError>;
   createPostWithImage?: Maybe<PostError>;
@@ -118,27 +119,15 @@ export type Mutation = {
   deletePost?: Maybe<PostError>;
   editPostMarkDown?: Maybe<PostError>;
   editPostLink?: Maybe<PostError>;
+  createComment?: Maybe<CommentError>;
+  editComment?: Maybe<CommentError>;
+  deleteComment?: Maybe<CommentError>;
   createSubBluedit?: Maybe<SubError>;
   register?: Maybe<UserError>;
   login?: Maybe<UserError>;
   loginFaceBook?: Maybe<UserError>;
   sendForgetPasswordLink?: Maybe<Scalars['Boolean']>;
   forgetPasswordChange?: Maybe<UserError>;
-};
-
-
-export type MutationCreateCommentArgs = {
-  commentInput: CommentInput;
-};
-
-
-export type MutationEditCommentArgs = {
-  editCommentInput: CommentEditInput;
-};
-
-
-export type MutationDeleteCommentArgs = {
-  comment_id: Scalars['String'];
 };
 
 
@@ -182,6 +171,21 @@ export type MutationEditPostLinkArgs = {
 };
 
 
+export type MutationCreateCommentArgs = {
+  commentInput: CommentInput;
+};
+
+
+export type MutationEditCommentArgs = {
+  editCommentInput: CommentEditInput;
+};
+
+
+export type MutationDeleteCommentArgs = {
+  comment_id: Scalars['String'];
+};
+
+
 export type MutationCreateSubBlueditArgs = {
   subInput: SubInput;
 };
@@ -209,16 +213,6 @@ export type MutationSendForgetPasswordLinkArgs = {
 
 export type MutationForgetPasswordChangeArgs = {
   forgetPassowrdChangeInput: ForgetPasswordChange;
-};
-
-export type CommentInput = {
-  comment_text: Scalars['String'];
-  post_id: Scalars['String'];
-};
-
-export type CommentEditInput = {
-  comment_text: Scalars['String'];
-  comment_id: Scalars['String'];
 };
 
 export type PostInputMarkDown = {
@@ -263,6 +257,16 @@ export type PostInputEditText = {
 export type PostInputEditLink = {
   post_id?: Maybe<Scalars['String']>;
   post_link: Scalars['String'];
+};
+
+export type CommentInput = {
+  comment_text: Scalars['String'];
+  post_id: Scalars['String'];
+};
+
+export type CommentEditInput = {
+  comment_text: Scalars['String'];
+  comment_id: Scalars['String'];
 };
 
 export type SubInput = {
@@ -329,6 +333,24 @@ export type UserQuery = (
   & { me?: Maybe<(
     { __typename?: 'User' }
     & Pick<User, 'username' | 'displayName' | 'email'>
+  )> }
+);
+
+export type GetPostsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetPostsQuery = (
+  { __typename?: 'Query' }
+  & { getPosts: Array<(
+    { __typename?: 'Post' }
+    & Pick<Post, 'post_id' | 'post_text' | 'title' | 'link' | 'vote_count' | 'images' | 'videos' | 'comment_count'>
+    & { sub?: Maybe<(
+      { __typename?: 'Sub' }
+      & Pick<Sub, 'name'>
+    )>, user: (
+      { __typename?: 'User' }
+      & Pick<User, 'username'>
+    ) }
   )> }
 );
 
@@ -486,6 +508,51 @@ export function useUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserQ
 export type UserQueryHookResult = ReturnType<typeof useUserQuery>;
 export type UserLazyQueryHookResult = ReturnType<typeof useUserLazyQuery>;
 export type UserQueryResult = Apollo.QueryResult<UserQuery, UserQueryVariables>;
+export const GetPostsDocument = gql`
+    query getPosts {
+  getPosts {
+    post_id
+    post_text
+    title
+    link
+    sub {
+      name
+    }
+    vote_count
+    images
+    videos
+    user {
+      username
+    }
+    comment_count
+  }
+}
+    `;
+
+/**
+ * __useGetPostsQuery__
+ *
+ * To run a query within a React component, call `useGetPostsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetPostsQuery(baseOptions?: Apollo.QueryHookOptions<GetPostsQuery, GetPostsQueryVariables>) {
+        return Apollo.useQuery<GetPostsQuery, GetPostsQueryVariables>(GetPostsDocument, baseOptions);
+      }
+export function useGetPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostsQuery, GetPostsQueryVariables>) {
+          return Apollo.useLazyQuery<GetPostsQuery, GetPostsQueryVariables>(GetPostsDocument, baseOptions);
+        }
+export type GetPostsQueryHookResult = ReturnType<typeof useGetPostsQuery>;
+export type GetPostsLazyQueryHookResult = ReturnType<typeof useGetPostsLazyQuery>;
+export type GetPostsQueryResult = Apollo.QueryResult<GetPostsQuery, GetPostsQueryVariables>;
 export const CreateUserDocument = gql`
     mutation createUser($userInput: UserInputType!) {
   register(userInput: $userInput) {

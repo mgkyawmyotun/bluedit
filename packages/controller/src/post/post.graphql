@@ -1,0 +1,18 @@
+query getPosts {
+  getPosts {
+    post_id
+    post_text
+    title
+    link
+    sub {
+      name
+    }
+    vote_count
+    images
+    videos
+    user {
+      username
+    }
+    comment_count
+  }
+}

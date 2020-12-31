@@ -13,9 +13,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./ApolloClient"), exports);
 __exportStar(require("./context"), exports);
 __exportStar(require("./facebook"), exports);
+__exportStar(require("./generated/graphql"), exports);
 __exportStar(require("./login"), exports);
 __exportStar(require("./logout"), exports);
 __exportStar(require("./me"), exports);
+__exportStar(require("./post"), exports);
 __exportStar(require("./register"), exports);
 __exportStar(require("./types"), exports);
 //# sourceMappingURL=index.js.map

@@ -18,6 +18,21 @@ export declare type Scalars = {
     Int: number;
     Float: number;
 };
+export declare type Sub = {
+    __typename?: 'Sub';
+    sub_id: Scalars['String'];
+    displayName: Scalars['String'];
+    name: Scalars['String'];
+};
+export declare type SubError = ErrorInterface & {
+    __typename?: 'SubError';
+    path: Scalars['String'];
+    message: Scalars['String'];
+};
+export declare type ErrorInterface = {
+    path: Scalars['String'];
+    message: Scalars['String'];
+};
 export declare type User = {
     __typename?: 'User';
     displayName: Scalars['String'];
@@ -29,7 +44,33 @@ export declare type UserError = ErrorInterface & {
     path: Scalars['String'];
     message: Scalars['String'];
 };
-export declare type ErrorInterface = {
+export declare type Post = PostInteface & {
+    __typename?: 'Post';
+    post_id: Scalars['String'];
+    post_text?: Maybe<Scalars['String']>;
+    title: Scalars['String'];
+    link?: Maybe<Scalars['String']>;
+    sub?: Maybe<Sub>;
+    vote_count: Scalars['Float'];
+    images?: Maybe<Array<Scalars['String']>>;
+    videos?: Maybe<Array<Scalars['String']>>;
+    user: User;
+    comment_count: Scalars['Float'];
+};
+export declare type PostInteface = {
+    post_id: Scalars['String'];
+    post_text?: Maybe<Scalars['String']>;
+    title: Scalars['String'];
+    link?: Maybe<Scalars['String']>;
+    sub?: Maybe<Sub>;
+    vote_count: Scalars['Float'];
+    images?: Maybe<Array<Scalars['String']>>;
+    videos?: Maybe<Array<Scalars['String']>>;
+    user: User;
+    comment_count: Scalars['Float'];
+};
+export declare type PostError = ErrorInterface & {
+    __typename?: 'PostError';
     path: Scalars['String'];
     message: Scalars['String'];
 };
@@ -44,47 +85,10 @@ export declare type CommentError = ErrorInterface & {
     path: Scalars['String'];
     message: Scalars['String'];
 };
-export declare type Sub = {
-    __typename?: 'Sub';
-    sub_id: Scalars['String'];
-    displayName: Scalars['String'];
-    name: Scalars['String'];
-};
-export declare type SubError = ErrorInterface & {
-    __typename?: 'SubError';
-    path: Scalars['String'];
-    message: Scalars['String'];
-};
-export declare type Post = PostInteface & {
-    __typename?: 'Post';
-    post_id: Scalars['String'];
-    post_text?: Maybe<Scalars['String']>;
-    title: Scalars['String'];
-    link?: Maybe<Scalars['String']>;
-    sub?: Maybe<Sub>;
-    vote_count: Scalars['Float'];
-    images?: Maybe<Array<Scalars['String']>>;
-    videos?: Maybe<Array<Scalars['String']>>;
-};
-export declare type PostInteface = {
-    post_id: Scalars['String'];
-    post_text?: Maybe<Scalars['String']>;
-    title: Scalars['String'];
-    link?: Maybe<Scalars['String']>;
-    sub?: Maybe<Sub>;
-    vote_count: Scalars['Float'];
-    images?: Maybe<Array<Scalars['String']>>;
-    videos?: Maybe<Array<Scalars['String']>>;
-};
-export declare type PostError = ErrorInterface & {
-    __typename?: 'PostError';
-    path: Scalars['String'];
-    message: Scalars['String'];
-};
 export declare type Query = {
     __typename?: 'Query';
-    getComments?: Maybe<Array<Comment>>;
     getPosts: Array<Post>;
+    getComments?: Maybe<Array<Comment>>;
     me?: Maybe<User>;
     logout?: Maybe<Scalars['String']>;
     isEmailExists: Scalars['Boolean'];
@@ -97,9 +101,6 @@ export declare type QueryIsEmailExistsArgs = {
 };
 export declare type Mutation = {
     __typename?: 'Mutation';
-    createComment?: Maybe<CommentError>;
-    editComment?: Maybe<CommentError>;
-    deleteComment?: Maybe<CommentError>;
     createPostWithMarkDown?: Maybe<PostError>;
     createPostWithLink?: Maybe<PostError>;
     createPostWithImage?: Maybe<PostError>;
@@ -108,21 +109,15 @@ export declare type Mutation = {
     deletePost?: Maybe<PostError>;
     editPostMarkDown?: Maybe<PostError>;
     editPostLink?: Maybe<PostError>;
+    createComment?: Maybe<CommentError>;
+    editComment?: Maybe<CommentError>;
+    deleteComment?: Maybe<CommentError>;
     createSubBluedit?: Maybe<SubError>;
     register?: Maybe<UserError>;
     login?: Maybe<UserError>;
     loginFaceBook?: Maybe<UserError>;
     sendForgetPasswordLink?: Maybe<Scalars['Boolean']>;
     forgetPasswordChange?: Maybe<UserError>;
-};
-export declare type MutationCreateCommentArgs = {
-    commentInput: CommentInput;
-};
-export declare type MutationEditCommentArgs = {
-    editCommentInput: CommentEditInput;
-};
-export declare type MutationDeleteCommentArgs = {
-    comment_id: Scalars['String'];
 };
 export declare type MutationCreatePostWithMarkDownArgs = {
     postData: PostInputMarkDown;
@@ -148,6 +143,15 @@ export declare type MutationEditPostMarkDownArgs = {
 export declare type MutationEditPostLinkArgs = {
     postEditInput: PostInputEditLink;
 };
+export declare type MutationCreateCommentArgs = {
+    commentInput: CommentInput;
+};
+export declare type MutationEditCommentArgs = {
+    editCommentInput: CommentEditInput;
+};
+export declare type MutationDeleteCommentArgs = {
+    comment_id: Scalars['String'];
+};
 export declare type MutationCreateSubBlueditArgs = {
     subInput: SubInput;
 };
@@ -165,14 +169,6 @@ export declare type MutationSendForgetPasswordLinkArgs = {
 };
 export declare type MutationForgetPasswordChangeArgs = {
     forgetPassowrdChangeInput: ForgetPasswordChange;
-};
-export declare type CommentInput = {
-    comment_text: Scalars['String'];
-    post_id: Scalars['String'];
-};
-export declare type CommentEditInput = {
-    comment_text: Scalars['String'];
-    comment_id: Scalars['String'];
 };
 export declare type PostInputMarkDown = {
     title?: Maybe<Scalars['String']>;
@@ -209,6 +205,14 @@ export declare type PostInputEditText = {
 export declare type PostInputEditLink = {
     post_id?: Maybe<Scalars['String']>;
     post_link: Scalars['String'];
+};
+export declare type CommentInput = {
+    comment_text: Scalars['String'];
+    post_id: Scalars['String'];
+};
+export declare type CommentEditInput = {
+    comment_text: Scalars['String'];
+    comment_id: Scalars['String'];
 };
 export declare type SubInput = {
     displayName: Scalars['String'];
@@ -264,6 +268,23 @@ export declare type UserQuery = ({
         __typename?: 'User';
     } & Pick<User, 'username' | 'displayName' | 'email'>)>;
 });
+export declare type GetPostsQueryVariables = Exact<{
+    [key: string]: never;
+}>;
+export declare type GetPostsQuery = ({
+    __typename?: 'Query';
+} & {
+    getPosts: Array<({
+        __typename?: 'Post';
+    } & Pick<Post, 'post_id' | 'post_text' | 'title' | 'link' | 'vote_count' | 'images' | 'videos' | 'comment_count'> & {
+        sub?: Maybe<({
+            __typename?: 'Sub';
+        } & Pick<Sub, 'name'>)>;
+        user: ({
+            __typename?: 'User';
+        } & Pick<User, 'username'>);
+    })>;
+});
 export declare type CreateUserMutationVariables = Exact<{
     userInput: UserInputType;
 }>;
@@ -316,6 +337,16 @@ export declare function useUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export declare type UserQueryHookResult = ReturnType<typeof useUserQuery>;
 export declare type UserLazyQueryHookResult = ReturnType<typeof useUserLazyQuery>;
 export declare type UserQueryResult = Apollo.QueryResult<UserQuery, UserQueryVariables>;
+export declare const GetPostsDocument: Apollo.DocumentNode;
+export declare function useGetPostsQuery(baseOptions?: Apollo.QueryHookOptions<GetPostsQuery, GetPostsQueryVariables>): Apollo.QueryResult<GetPostsQuery, Exact<{
+    [key: string]: never;
+}>>;
+export declare function useGetPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostsQuery, GetPostsQueryVariables>): Apollo.QueryTuple<GetPostsQuery, Exact<{
+    [key: string]: never;
+}>>;
+export declare type GetPostsQueryHookResult = ReturnType<typeof useGetPostsQuery>;
+export declare type GetPostsLazyQueryHookResult = ReturnType<typeof useGetPostsLazyQuery>;
+export declare type GetPostsQueryResult = Apollo.QueryResult<GetPostsQuery, GetPostsQueryVariables>;
 export declare const CreateUserDocument: Apollo.DocumentNode;
 export declare type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, CreateUserMutationVariables>;
 export declare function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserMutation, CreateUserMutationVariables>): Apollo.MutationTuple<CreateUserMutation, Exact<{
