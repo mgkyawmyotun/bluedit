@@ -1,7 +1,10 @@
+import { InjectQueue } from '@nestjs/bull';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Queue } from 'bull';
 import { Connection, Repository } from 'typeorm';
 import { PostEntity } from './../posts/posts.entity';
+import { update_v_c } from './../posts/updatevote.consumer';
 import { UserAuthHelpService } from './../shared/userauth.service';
 import { VoteEntity } from './vote.entity';
 import { Vote, VoteType } from './vote.type';
@@ -13,6 +16,7 @@ export class VoteService {
     private voteRepository: Repository<VoteEntity>,
     private connection: Connection,
     private userAuthHelpService: UserAuthHelpService,
+    @InjectQueue(update_v_c) private voteQueue: Queue,
   ) {}
   public async addVote({ post_id, voteType }: Vote): Promise<number | null> {
     const postRepository = this.connection.getRepository(PostEntity);
@@ -27,6 +31,7 @@ export class VoteService {
           },
         ])
         .execute();
+
       if (voted.length > 0) {
         const [{ vote_type }] = voted;
         if (this.toVoteType(vote_type) !== voteType) {
@@ -37,7 +42,7 @@ export class VoteService {
             },
             { vote_type: voteType },
           );
-          await this.saveVoteCount(voteType, post_id);
+          this.saveVoteCount(voteType, post_id);
         }
       } else {
         const voteSchema = this.voteRepository.create({
@@ -46,7 +51,7 @@ export class VoteService {
           vote_type: voteType,
         });
         await this.voteRepository.save(voteSchema);
-        await this.saveVoteCount(voteType, post_id);
+        this.saveVoteCount(voteType, post_id);
       }
     } catch (error) {
       return null;
@@ -60,19 +65,7 @@ export class VoteService {
   private toVoteType(str: any): VoteType {
     return str === '0' ? VoteType.UP : VoteType.DOWN;
   }
-  private async saveVoteCount(voteType: VoteType, post_id: string) {
-    const postRepository = this.connection.getRepository(PostEntity);
-    const updated = await postRepository
-      .createQueryBuilder()
-      .update()
-      .set({
-        vote_count: () =>
-          voteType === VoteType.UP ? 'vote_count + 1' : 'vote_count - 1',
-      })
-      .where('post_id = :post_id', { post_id: post_id })
-      .execute();
-    if (updated.affected == 0) {
-      throw new Error();
-    }
+  private saveVoteCount(voteType: VoteType, post_id: string) {
+    this.voteQueue.add({ post_id, TYPE: voteType });
   }
 }

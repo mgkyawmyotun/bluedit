@@ -6,6 +6,7 @@ import { Session } from 'express-session';
 import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { CacheControllerModule } from './cacheController/cache.module';
 import { CommentsModule } from './comments/comments.module';
 import { REDIS_HOST, REDIS_PORT } from './config';
 import { DEV_CONNECTION, TEST_CONNECTION } from './connections';
@@ -56,6 +57,7 @@ export class AppModule {
         SubblueditModule,
         VoteModule,
         CommentsModule,
+        CacheControllerModule,
       ],
       controllers: [AppController],
       providers: [AppService],
