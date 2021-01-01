@@ -1,9 +1,11 @@
 import { FC } from 'react';
 import styles from './../../../styles/postCard.module.css';
-interface DownVoteButtonProps {}
-export const DownVoteButton: FC = () => {
+interface DownVoteButtonProps {
+  onClick: () => void;
+}
+export const DownVoteButton: FC<DownVoteButtonProps> = ({ onClick }) => {
   return (
-    <div className={styles.vote__down}>
+    <div className={styles.vote__down} onClick={onClick}>
       <svg
         width="23"
         height="15"

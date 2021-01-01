@@ -301,6 +301,12 @@ export declare type CheckEmailQueryVariables = Exact<{
 export declare type CheckEmailQuery = ({
     __typename?: 'Query';
 } & Pick<Query, 'isEmailExists'>);
+export declare type AddVoteMutationVariables = Exact<{
+    voteData: Vote;
+}>;
+export declare type AddVoteMutation = ({
+    __typename?: 'Mutation';
+} & Pick<Mutation, 'addVote'>);
 export declare const ContinueWithFaceBookDocument: Apollo.DocumentNode;
 export declare type ContinueWithFaceBookMutationFn = Apollo.MutationFunction<ContinueWithFaceBookMutation, ContinueWithFaceBookMutationVariables>;
 export declare function useContinueWithFaceBookMutation(baseOptions?: Apollo.MutationHookOptions<ContinueWithFaceBookMutation, ContinueWithFaceBookMutationVariables>): Apollo.MutationTuple<ContinueWithFaceBookMutation, Exact<{
@@ -365,4 +371,12 @@ export declare function useCheckEmailLazyQuery(baseOptions?: Apollo.LazyQueryHoo
 export declare type CheckEmailQueryHookResult = ReturnType<typeof useCheckEmailQuery>;
 export declare type CheckEmailLazyQueryHookResult = ReturnType<typeof useCheckEmailLazyQuery>;
 export declare type CheckEmailQueryResult = Apollo.QueryResult<CheckEmailQuery, CheckEmailQueryVariables>;
+export declare const AddVoteDocument: Apollo.DocumentNode;
+export declare type AddVoteMutationFn = Apollo.MutationFunction<AddVoteMutation, AddVoteMutationVariables>;
+export declare function useAddVoteMutation(baseOptions?: Apollo.MutationHookOptions<AddVoteMutation, AddVoteMutationVariables>): Apollo.MutationTuple<AddVoteMutation, Exact<{
+    voteData: Vote;
+}>>;
+export declare type AddVoteMutationHookResult = ReturnType<typeof useAddVoteMutation>;
+export declare type AddVoteMutationResult = Apollo.MutationResult<AddVoteMutation>;
+export declare type AddVoteMutationOptions = Apollo.BaseMutationOptions<AddVoteMutation, AddVoteMutationVariables>;
 //# sourceMappingURL=graphql.d.ts.map

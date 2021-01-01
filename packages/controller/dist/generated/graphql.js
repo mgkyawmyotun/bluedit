@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.useCheckEmailLazyQuery = exports.useCheckEmailQuery = exports.CheckEmailDocument = exports.useCreateUserMutation = exports.CreateUserDocument = exports.useGetPostsLazyQuery = exports.useGetPostsQuery = exports.GetPostsDocument = exports.useUserLazyQuery = exports.useUserQuery = exports.UserDocument = exports.useLogoutLazyQuery = exports.useLogoutQuery = exports.LogoutDocument = exports.useLoginUserMutation = exports.LoginUserDocument = exports.useContinueWithFaceBookMutation = exports.ContinueWithFaceBookDocument = exports.VoteType = void 0;
+exports.useAddVoteMutation = exports.AddVoteDocument = exports.useCheckEmailLazyQuery = exports.useCheckEmailQuery = exports.CheckEmailDocument = exports.useCreateUserMutation = exports.CreateUserDocument = exports.useGetPostsLazyQuery = exports.useGetPostsQuery = exports.GetPostsDocument = exports.useUserLazyQuery = exports.useUserQuery = exports.UserDocument = exports.useLogoutLazyQuery = exports.useLogoutQuery = exports.LogoutDocument = exports.useLoginUserMutation = exports.LoginUserDocument = exports.useContinueWithFaceBookMutation = exports.ContinueWithFaceBookDocument = exports.VoteType = void 0;
 var client_1 = require("@apollo/client");
 var Apollo = __importStar(require("@apollo/client"));
 var VoteType;
@@ -82,5 +82,10 @@ function useCheckEmailLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.CheckEmailDocument, baseOptions);
 }
 exports.useCheckEmailLazyQuery = useCheckEmailLazyQuery;
-var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5, templateObject_6, templateObject_7;
+exports.AddVoteDocument = client_1.gql(templateObject_8 || (templateObject_8 = __makeTemplateObject(["\n    mutation addVote($voteData: Vote!) {\n  addVote(voteData: $voteData)\n}\n    "], ["\n    mutation addVote($voteData: Vote!) {\n  addVote(voteData: $voteData)\n}\n    "])));
+function useAddVoteMutation(baseOptions) {
+    return Apollo.useMutation(exports.AddVoteDocument, baseOptions);
+}
+exports.useAddVoteMutation = useAddVoteMutation;
+var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5, templateObject_6, templateObject_7, templateObject_8;
 //# sourceMappingURL=graphql.js.map

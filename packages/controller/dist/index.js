@@ -20,4 +20,5 @@ __exportStar(require("./me"), exports);
 __exportStar(require("./post"), exports);
 __exportStar(require("./register"), exports);
 __exportStar(require("./types"), exports);
+__exportStar(require("./vote"), exports);
 //# sourceMappingURL=index.js.map

@@ -8,4 +8,5 @@ export * from './me';
 export * from './post';
 export * from './register';
 export * from './types';
+export * from './vote';
 //# sourceMappingURL=index.d.ts.map
