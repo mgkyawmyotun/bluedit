@@ -377,6 +377,16 @@ export type CheckEmailQuery = (
   & Pick<Query, 'isEmailExists'>
 );
 
+export type AddVoteMutationVariables = Exact<{
+  voteData: Vote;
+}>;
+
+
+export type AddVoteMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'addVote'>
+);
+
 
 export const ContinueWithFaceBookDocument = gql`
     mutation ContinueWithFaceBook($accessToken: String!) {
@@ -617,3 +627,33 @@ export function useCheckEmailLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type CheckEmailQueryHookResult = ReturnType<typeof useCheckEmailQuery>;
 export type CheckEmailLazyQueryHookResult = ReturnType<typeof useCheckEmailLazyQuery>;
 export type CheckEmailQueryResult = Apollo.QueryResult<CheckEmailQuery, CheckEmailQueryVariables>;
+export const AddVoteDocument = gql`
+    mutation addVote($voteData: Vote!) {
+  addVote(voteData: $voteData)
+}
+    `;
+export type AddVoteMutationFn = Apollo.MutationFunction<AddVoteMutation, AddVoteMutationVariables>;
+
+/**
+ * __useAddVoteMutation__
+ *
+ * To run a mutation, you first call `useAddVoteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddVoteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addVoteMutation, { data, loading, error }] = useAddVoteMutation({
+ *   variables: {
+ *      voteData: // value for 'voteData'
+ *   },
+ * });
+ */
+export function useAddVoteMutation(baseOptions?: Apollo.MutationHookOptions<AddVoteMutation, AddVoteMutationVariables>) {
+        return Apollo.useMutation<AddVoteMutation, AddVoteMutationVariables>(AddVoteDocument, baseOptions);
+      }
+export type AddVoteMutationHookResult = ReturnType<typeof useAddVoteMutation>;
+export type AddVoteMutationResult = Apollo.MutationResult<AddVoteMutation>;
+export type AddVoteMutationOptions = Apollo.BaseMutationOptions<AddVoteMutation, AddVoteMutationVariables>;

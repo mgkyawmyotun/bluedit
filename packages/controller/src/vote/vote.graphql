@@ -1,0 +1,3 @@
+mutation addVote($voteData: Vote!) {
+  addVote(voteData: $voteData)
+}
