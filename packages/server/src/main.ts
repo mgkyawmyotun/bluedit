@@ -3,9 +3,25 @@ import * as connectRedis from 'connect-redis';
 import * as session from 'express-session';
 import * as redis from 'redis';
 import { AppModule } from './app.module';
-import { SESSION_SECRECT } from './config';
-
+import { REDIS_HOST, REDIS_PORT, SESSION_SECRECT } from './config';
 const RedisStore = connectRedis(session);
+export const store = new RedisStore({
+  client: redis.createClient(),
+  host: REDIS_HOST,
+  port: REDIS_PORT,
+});
+export const sessionMiddleWare = session({
+  name: 'bid',
+  secret: SESSION_SECRECT,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    secure: false,
+    maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+  },
+  store: store,
+});
 async function bootstrap() {
   const app = await NestFactory.create(
     AppModule.forRoot({ connectionType: 'dev' }),
@@ -17,24 +33,7 @@ async function bootstrap() {
       },
     },
   );
-  app.use(
-    session({
-      name: 'bid',
-      secret: SESSION_SECRECT,
-      resave: false,
-      saveUninitialized: false,
-      cookie: {
-        httpOnly: true,
-        secure: false,
-        maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
-      },
-      store: new RedisStore({
-        client: redis.createClient(),
-        host: 'localhost',
-        port: 6379,
-      }),
-    }),
-  );
+  app.use(sessionMiddleWare);
 
   await app.listen(4000);
 }

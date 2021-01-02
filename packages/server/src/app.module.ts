@@ -10,6 +10,7 @@ import { CacheControllerModule } from './cacheController/cache.module';
 import { CommentsModule } from './comments/comments.module';
 import { REDIS_HOST, REDIS_PORT } from './config';
 import { DEV_CONNECTION, TEST_CONNECTION } from './connections';
+import { sessionMiddleWare } from './main';
 import { PostsModule } from './posts/posts.module';
 import { SharedModule } from './shared/shared.module';
 import { SubblueditModule } from './subbluedit/subbluedit.module';
@@ -33,6 +34,7 @@ export class AppModule {
           },
         }),
         GraphQLModule.forRoot({
+          installSubscriptionHandlers: true,
           include: [
             UsersModule,
             PostsModule,
@@ -40,11 +42,36 @@ export class AppModule {
             CommentsModule,
             VoteModule,
           ],
+          subscriptions: {
+            onConnect: async (cp, wp: any) => {
+              const sessionParser = () =>
+                new Promise((resolve, reject) => {
+                  sessionMiddleWare(wp.upgradeReq, {} as any, () => {
+                    if (wp.upgradeReq.session) {
+                      resolve(wp.upgradeReq.session);
+                      return;
+                    }
+                    reject('User not Authenticated');
+                  });
+                });
+              try {
+                const session = await sessionParser();
+                return { session: session };
+              } catch (error) {
+                throw new Error('User not Authenticated');
+              }
+            },
+          },
           autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-          context: ({ req }): { session: Session; req: Request } => ({
-            session: req.session,
-            req: req,
-          }),
+          context: ({
+            req,
+            connection,
+          }): { session: Session; req: Request } => {
+            return {
+              req: req,
+              session: req ? req.session : connection.context.session,
+            };
+          },
           cors: {
             origin: 'http://localhost:3000',
             credentials: true,

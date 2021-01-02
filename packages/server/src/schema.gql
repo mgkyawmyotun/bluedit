@@ -175,3 +175,7 @@ input ForgetPasswordChange {
   newPassword: String!
   key: String!
 }
+
+type Subscription {
+  voteAdded: Float!
+}
