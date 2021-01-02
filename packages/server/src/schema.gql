@@ -177,5 +177,5 @@ input ForgetPasswordChange {
 }
 
 type Subscription {
-  voteAdded: Float!
+  voteAdded(post_id: String!): Float!
 }

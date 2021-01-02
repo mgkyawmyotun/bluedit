@@ -7,7 +7,7 @@ import { PostEntity } from './../posts/posts.entity';
 import { update_v_c } from './../posts/updatevote.consumer';
 import { UserAuthHelpService } from './../shared/userauth.service';
 import { VoteEntity } from './vote.entity';
-import { Vote, VoteType } from './vote.type';
+import { Vote, VoteError, VoteType } from './vote.type';
 
 @Injectable()
 export class VoteService {
@@ -35,7 +35,7 @@ export class VoteService {
     }
     return false;
   }
-  public async addVote({ post_id, voteType }: Vote): Promise<number | null> {
+  public async addVote({ post_id, voteType }: Vote): Promise<VoteError | null> {
     const postRepository = this.connection.getRepository(PostEntity);
     try {
       const voted: VoteEntity[] = await this.voteRepository
@@ -72,13 +72,10 @@ export class VoteService {
         this.saveVoteCount(voteType, post_id);
       }
     } catch (error) {
-      return null;
+      return { message: 'Error At Creating Vote', path: 'vote' };
     }
-    const { vote_count } = await postRepository.findOne(post_id, {
-      select: ['vote_count'],
-    });
 
-    return vote_count < 0 ? 0 : vote_count;
+    return null;
   }
   private toVoteType(str: any): VoteType {
     return str === '0' ? VoteType.UP : VoteType.DOWN;
