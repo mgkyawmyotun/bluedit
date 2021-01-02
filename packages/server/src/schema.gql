@@ -72,6 +72,7 @@ type CommentError implements ErrorInterface {
 }
 
 type Query {
+  isVoted(post_id: String!): Boolean!
   getPosts: [Post!]!
   getComments(post_id: String!): [Comment!]
   me: User
@@ -80,11 +81,11 @@ type Query {
 }
 
 type Mutation {
+  addVote(voteData: Vote!): Float
   createPostWithMarkDown(postData: PostInputMarkDown!): PostError
   createPostWithLink(postData: PostInputLink!): PostError
   createPostWithImage(postData: PostInputImage!): PostError
   createPostWithVideo(postData: PostInputVideo!): PostError
-  addVote(voteData: Vote!): Float
   deletePost(post_id: String!): PostError
   editPostMarkDown(postEditInput: PostInputEditText!): PostError
   editPostLink(postEditInput: PostInputEditLink!): PostError
@@ -97,6 +98,16 @@ type Mutation {
   loginFaceBook(accessToken: String!): UserError
   sendForgetPasswordLink(email: String!): Boolean
   forgetPasswordChange(forgetPassowrdChangeInput: ForgetPasswordChange!): UserError
+}
+
+input Vote {
+  voteType: VoteType!
+  post_id: String!
+}
+
+enum VoteType {
+  UP
+  DOWN
 }
 
 input PostInputMarkDown {
@@ -121,16 +132,6 @@ input PostInputVideo {
   title: String
   subbluedit: String
   videos: [String!]
-}
-
-input Vote {
-  voteType: VoteType!
-  post_id: String!
-}
-
-enum VoteType {
-  UP
-  DOWN
 }
 
 input PostInputEditText {

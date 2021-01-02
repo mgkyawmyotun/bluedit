@@ -18,6 +18,23 @@ export class VoteService {
     private userAuthHelpService: UserAuthHelpService,
     @InjectQueue(update_v_c) private voteQueue: Queue,
   ) {}
+  public async isVoted({ post_id }): Promise<boolean> {
+    const voted: VoteEntity[] = await this.voteRepository
+      .createQueryBuilder()
+      .select('*')
+      .whereInIds([
+        {
+          user: { user_id: this.userAuthHelpService.getUser() },
+          post: { post_id },
+        },
+      ])
+      .execute();
+
+    if (voted.length > 0) {
+      return true;
+    }
+    return false;
+  }
   public async addVote({ post_id, voteType }: Vote): Promise<number | null> {
     const postRepository = this.connection.getRepository(PostEntity);
     try {
@@ -42,6 +59,7 @@ export class VoteService {
             },
             { vote_type: voteType },
           );
+          this.saveVoteCount(voteType, post_id);
           this.saveVoteCount(voteType, post_id);
         }
       } else {

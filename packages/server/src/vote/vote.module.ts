@@ -6,6 +6,7 @@ import { VoteEntity } from '../vote/vote.entity';
 import { PostsModule } from './../posts/posts.module';
 import { update_v_c } from './../posts/updatevote.consumer';
 import { VoteService } from './vote.service';
+import { VoteResolver } from './vote.resolver';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { VoteService } from './vote.service';
       name: update_v_c,
     }),
   ],
-  providers: [VoteService],
+  providers: [VoteService, VoteResolver],
   exports: [VoteService],
 })
 export class VoteModule {}

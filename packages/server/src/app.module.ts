@@ -33,7 +33,13 @@ export class AppModule {
           },
         }),
         GraphQLModule.forRoot({
-          include: [UsersModule, PostsModule, SubblueditModule, CommentsModule],
+          include: [
+            UsersModule,
+            PostsModule,
+            SubblueditModule,
+            CommentsModule,
+            VoteModule,
+          ],
           autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
           context: ({ req }): { session: Session; req: Request } => ({
             session: req.session,

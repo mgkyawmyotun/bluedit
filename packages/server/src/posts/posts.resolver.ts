@@ -1,8 +1,6 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { IsAuthGuard } from './../shared/is-auth.guard';
-import { VoteService } from './../vote/vote.service';
-import { Vote } from './../vote/vote.type';
 import { CreatePostService } from './createposts.service';
 import { PostDeleteService } from './deleteposts.service';
 import { PostEditService } from './editposts.service';
@@ -22,7 +20,6 @@ export class PostResolver {
   constructor(
     private postService: PostsService,
     private postCreateService: CreatePostService,
-    private voteService: VoteService,
     private postDeleteService: PostDeleteService,
     private postEditService: PostEditService,
   ) {}
@@ -57,11 +54,6 @@ export class PostResolver {
     @Args('postData') postData: PostInputVideo,
   ): Promise<PostError | null> {
     return this.postCreateService.createPostVideo(postData);
-  }
-  @Mutation(returns => Number, { nullable: true })
-  @UseGuards(IsAuthGuard)
-  async addVote(@Args('voteData') voteData: Vote): Promise<number | null> {
-    return this.voteService.addVote(voteData);
   }
   @Mutation(returns => PostError, { nullable: true })
   @UseGuards(IsAuthGuard)
