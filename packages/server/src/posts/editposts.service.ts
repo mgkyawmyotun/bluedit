@@ -2,8 +2,11 @@ import {
   postInputEditLinkValidation,
   postInputEditTextValidation,
 } from '@bluedit/common';
+import { InjectQueue } from '@nestjs/bull';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Queue } from 'bull';
+import { update_p } from 'src/consumer/consumer.name';
 import { Repository } from 'typeorm';
 import { PostEntity } from '../posts/posts.entity';
 import { shapeError } from './../shared/shapeError';
@@ -21,6 +24,7 @@ export class PostEditService {
     @InjectRepository(PostEntity)
     private postRepository: Repository<PostEntity>,
     private userAuthHelpService: UserAuthHelpService,
+    @InjectQueue(update_p) private postQueue: Queue,
   ) {}
   async editPostText({ post_text, post_id }: PostInputEditText) {
     try {
@@ -64,6 +68,7 @@ export class PostEditService {
       if (res.affected === 0) {
         throw new Error();
       }
+      this.postQueue.add(null);
     } catch (error) {
       return {
         message: 'error at editing post',

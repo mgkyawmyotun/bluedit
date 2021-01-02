@@ -15,7 +15,6 @@ export class PostsService {
 
   public async getPosts() {
     const postsCache = await this.postsCacheService.getPosts();
-
     if (postsCache) {
       return postsCache;
     }

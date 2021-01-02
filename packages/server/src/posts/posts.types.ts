@@ -34,6 +34,8 @@ export abstract class PostInteface {
   user: User;
   @Field(type => Number, { nullable: false })
   comment_count: number;
+  @Field(type => String, { nullable: false })
+  created_at: string;
 }
 @ObjectType({ implements: PostInteface })
 export class Post {}

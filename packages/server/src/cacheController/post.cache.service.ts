@@ -9,7 +9,7 @@ export class PostsCacheService {
   public setPosts(posts: PostEntity[]): void {
     this.cacheManager.set(KEYS.POSTS, posts, { ttl: 60 * 60 * 24 });
   }
-  public getPosts() {
+  public getPosts(): Promise<PostEntity[]> {
     return this.cacheManager.get<PostEntity[]>(KEYS.POSTS);
   }
   public updatePosts(posts: PostEntity[]): void {

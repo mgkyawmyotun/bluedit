@@ -47,6 +47,7 @@ type Post implements PostInteface {
   videos: [String!]
   user: User!
   comment_count: Float!
+  created_at: String!
 }
 
 interface PostInteface {
@@ -60,6 +61,7 @@ interface PostInteface {
   videos: [String!]
   user: User!
   comment_count: Float!
+  created_at: String!
 }
 
 type PostError implements ErrorInterface {

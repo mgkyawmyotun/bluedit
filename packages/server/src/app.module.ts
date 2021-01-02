@@ -10,20 +10,20 @@ import { CacheControllerModule } from './cacheController/cache.module';
 import { CommentsModule } from './comments/comments.module';
 import { REDIS_HOST, REDIS_PORT } from './config';
 import { DEV_CONNECTION, TEST_CONNECTION } from './connections';
+import { ConsumerModule } from './consumer/consumer.module';
 import { sessionMiddleWare } from './main';
 import { PostsModule } from './posts/posts.module';
 import { SharedModule } from './shared/shared.module';
 import { SubblueditModule } from './subbluedit/subbluedit.module';
 import { UsersModule } from './users/users.module';
 import { VoteModule } from './vote/vote.module';
-import { ConsumerModule } from './consumer/consumer.module';
 
 interface AppModuleInteface {
   connectionType: 'dev' | 'test';
 }
 
 @Module({
-  imports: [ConsumerModule]
+  imports: [ConsumerModule],
 })
 export class AppModule {
   static forRoot(options: AppModuleInteface): DynamicModule {
@@ -39,6 +39,9 @@ export class AppModule {
         }),
         GraphQLModule.forRoot({
           installSubscriptionHandlers: true,
+          buildSchemaOptions: {
+            dateScalarMode: 'timestamp',
+          },
           include: [
             UsersModule,
             PostsModule,
