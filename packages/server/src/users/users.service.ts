@@ -39,7 +39,6 @@ export class UsersService {
     this.logger.log('Creating User');
     try {
       const result = await userValidationSchema.validate(user);
-      console.log(result);
     } catch (error) {
       return {
         path: error.path,
@@ -75,7 +74,6 @@ export class UsersService {
       const user = await this.usersRepository.save(userRepository);
       this.setUserSession(user.user_id);
     } catch (error) {
-      console.log(error);
       return {
         path: 'Internal Server Error',
         message: 'Try again later ',

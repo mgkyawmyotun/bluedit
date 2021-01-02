@@ -2,13 +2,7 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Sub {
-  sub_id: String!
-  displayName: String!
-  name: String!
-}
-
-type SubError implements ErrorInterface {
+type VoteError implements ErrorInterface {
   path: String!
   message: String!
 }
@@ -18,10 +12,23 @@ interface ErrorInterface {
   message: String!
 }
 
+type Sub {
+  sub_id: String!
+  displayName: String!
+  name: String!
+  picture_url: String
+}
+
+type SubError implements ErrorInterface {
+  path: String!
+  message: String!
+}
+
 type User {
   displayName: String!
   username: String!
   email: String!
+  picture_url: String
 }
 
 type UserError implements ErrorInterface {
@@ -72,16 +79,15 @@ type CommentError implements ErrorInterface {
 }
 
 type Query {
-  isVoted(post_id: String!): Boolean!
   getPosts: [Post!]!
   getComments(post_id: String!): [Comment!]
   me: User
   logout: String
   isEmailExists(email: String!): Boolean!
+  isVoted(post_id: String!): Boolean!
 }
 
 type Mutation {
-  addVote(voteData: Vote!): Float
   createPostWithMarkDown(postData: PostInputMarkDown!): PostError
   createPostWithLink(postData: PostInputLink!): PostError
   createPostWithImage(postData: PostInputImage!): PostError
@@ -98,16 +104,7 @@ type Mutation {
   loginFaceBook(accessToken: String!): UserError
   sendForgetPasswordLink(email: String!): Boolean
   forgetPasswordChange(forgetPassowrdChangeInput: ForgetPasswordChange!): UserError
-}
-
-input Vote {
-  voteType: VoteType!
-  post_id: String!
-}
-
-enum VoteType {
-  UP
-  DOWN
+  addVote(voteData: Vote!): VoteError
 }
 
 input PostInputMarkDown {
@@ -174,6 +171,16 @@ input UserLoginInput {
 input ForgetPasswordChange {
   newPassword: String!
   key: String!
+}
+
+input Vote {
+  voteType: VoteType!
+  post_id: String!
+}
+
+enum VoteType {
+  UP
+  DOWN
 }
 
 type Subscription {

@@ -16,11 +16,15 @@ import { SharedModule } from './shared/shared.module';
 import { SubblueditModule } from './subbluedit/subbluedit.module';
 import { UsersModule } from './users/users.module';
 import { VoteModule } from './vote/vote.module';
+import { ConsumerModule } from './consumer/consumer.module';
+
 interface AppModuleInteface {
   connectionType: 'dev' | 'test';
 }
 
-@Module({})
+@Module({
+  imports: [ConsumerModule]
+})
 export class AppModule {
   static forRoot(options: AppModuleInteface): DynamicModule {
     return {

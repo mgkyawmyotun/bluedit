@@ -2,9 +2,9 @@ import { Process, Processor } from '@nestjs/bull';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Job } from 'bull';
 import { Repository } from 'typeorm';
-import { PostsCacheService } from './../cacheController/post.cache.service';
-import { PostEntity } from './posts.entity';
-export const update_c_c = 'updateCommentCount';
+import { PostsCacheService } from '../cacheController/post.cache.service';
+import { PostEntity } from '../posts/posts.entity';
+import { update_c_c } from './consumer.name';
 export interface UpdateCommentCountInterface {
   post_id?: string;
   TYPE: 'DELETE' | 'ADD';

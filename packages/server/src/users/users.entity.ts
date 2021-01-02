@@ -26,7 +26,7 @@ export class UserEntity {
 
   @Column('text', { nullable: true })
   password: string;
-  @Column('text')
+  @Column('text', { nullable: true })
   picture_url: string;
 
   @Column('bool')

@@ -9,6 +9,8 @@ export class Sub {
   displayName: string;
   @Field(type => String)
   name: string;
+  @Field(type => String, { nullable: true })
+  picture_url?: string;
 }
 @ObjectType({ implements: () => [ErrorInterface] })
 export class SubError implements ErrorInterface {

@@ -26,8 +26,6 @@ describe('SubblueditResolver', () => {
 
   it('should be defined', () => {
     expect(resolver).toBeDefined();
-
-    // resolver.createSub({displayName:})
   });
   it('should be created', () => {
     expect(resolver.createSub({ displayName: 'onetwo', name: '' })).toBe(null);

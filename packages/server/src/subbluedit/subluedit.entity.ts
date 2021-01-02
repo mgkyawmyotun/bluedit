@@ -6,9 +6,12 @@ import { PostEntity } from './../posts/posts.entity';
 export class SubEntity {
   @Column('varchar', { length: 100 })
   displayName: string;
+  @Column('text', { nullable: true })
+  picture_url: string;
 
   @PrimaryColumn({ type: 'varchar', length: 100, unique: true })
   name: string;
+
   @ManyToOne(
     () => UserEntity,
     user => user.posts,

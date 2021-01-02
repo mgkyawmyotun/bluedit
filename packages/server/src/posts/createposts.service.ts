@@ -4,12 +4,15 @@ import {
   postMarkDownValidation,
   postVideosValidation,
 } from '@bluedit/common';
+import { InjectQueue } from '@nestjs/bull';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Queue } from 'bull';
 import { UserAuthHelpService } from 'src/shared/userauth.service';
 import { Repository } from 'typeorm';
 import { PostEntity } from '../posts/posts.entity';
 import { shapeError } from '../shared/shapeError';
+import { update_p } from './../consumer/consumer.name';
 import {
   PostError,
   PostInputImage,
@@ -30,6 +33,7 @@ export class CreatePostService {
     @InjectRepository(PostEntity)
     private postRepository: Repository<PostEntity>,
     private userAuthHelpService: UserAuthHelpService,
+    @InjectQueue(update_p) private postQueue: Queue,
   ) {}
 
   async createPostMarkDown({
@@ -109,6 +113,7 @@ export class CreatePostService {
     });
     try {
       await this.postRepository.save(post);
+      this.postQueue.add(null);
     } catch (error) {
       return {
         message: 'Can not create post',

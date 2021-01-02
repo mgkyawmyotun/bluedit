@@ -3,11 +3,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Job } from 'bull';
 import { VoteType } from 'src/vote/vote.type';
 import { Repository } from 'typeorm';
-import { PostsCacheService } from './../cacheController/post.cache.service';
-import { VOTE_ADDED } from './../shared/gql.contstant';
-import { pubSub } from './../shared/GraphqlPubSub';
-import { PostEntity } from './posts.entity';
-export const update_v_c = 'updateVoteCount';
+import { PostsCacheService } from '../cacheController/post.cache.service';
+import { PostEntity } from '../posts/posts.entity';
+import { VOTE_ADDED } from '../shared/gql.contstant';
+import { pubSub } from '../shared/GraphqlPubSub';
+import { update_v_c } from './consumer.name';
 export interface UpdateVoteCountInteface {
   post_id?: string;
   TYPE: VoteType;

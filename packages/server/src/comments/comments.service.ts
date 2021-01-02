@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Queue } from 'bull';
 import { Repository } from 'typeorm';
-import { update_c_c } from '../posts/updatecommentcount.consumer';
+import { update_c_c } from '../consumer/consumer.name';
 import { shapeError } from './../shared/shapeError';
 import { UserAuthHelpService } from './../shared/userauth.service';
 import { CommentEntity } from './comments.entity';

@@ -11,6 +11,9 @@ export class User {
 
   @Field(type => String)
   email: string;
+
+  @Field(type => String, { nullable: true })
+  picture_url?: string;
 }
 
 @InputType()

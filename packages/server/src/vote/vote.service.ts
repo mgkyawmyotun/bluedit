@@ -2,9 +2,8 @@ import { InjectQueue } from '@nestjs/bull';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Queue } from 'bull';
-import { Connection, Repository } from 'typeorm';
-import { PostEntity } from './../posts/posts.entity';
-import { update_v_c } from './../posts/updatevote.consumer';
+import { update_v_c } from 'src/consumer/consumer.name';
+import { Repository } from 'typeorm';
 import { UserAuthHelpService } from './../shared/userauth.service';
 import { VoteEntity } from './vote.entity';
 import { Vote, VoteError, VoteType } from './vote.type';
@@ -14,7 +13,6 @@ export class VoteService {
   constructor(
     @InjectRepository(VoteEntity)
     private voteRepository: Repository<VoteEntity>,
-    private connection: Connection,
     private userAuthHelpService: UserAuthHelpService,
     @InjectQueue(update_v_c) private voteQueue: Queue,
   ) {}
@@ -36,7 +34,6 @@ export class VoteService {
     return false;
   }
   public async addVote({ post_id, voteType }: Vote): Promise<VoteError | null> {
-    const postRepository = this.connection.getRepository(PostEntity);
     try {
       const voted: VoteEntity[] = await this.voteRepository
         .createQueryBuilder()

@@ -8,7 +8,7 @@ import { Vote, VoteError } from './vote.type';
 @Resolver()
 export class VoteResolver {
   constructor(private voteService: VoteService) {}
-  @Mutation(returns => Number, { nullable: true })
+  @Mutation(returns => VoteError, { nullable: true })
   @UseGuards(IsAuthGuard)
   async addVote(@Args('voteData') voteData: Vote): Promise<VoteError | null> {
     return this.voteService.addVote(voteData);
