@@ -36,7 +36,6 @@ export const PostVote: FC = () => {
                   }
                 }}
                 onRemove={async () => {
-                  console.log('remove');
                   try {
                     const { data } = await removeUpVote();
                     await isVotedQuery.refetch();
@@ -73,11 +72,31 @@ export const PostVote: FC = () => {
                 onClick={async () => {
                   try {
                     const { data } = await downVote();
+                    await isVotedQuery.refetch();
                     if (data.addVote) {
                       voteErrorNotification();
                     }
                   } catch (error) {
                     voteErrorNotification();
+                  }
+                }}
+                onRemove={async () => {
+                  try {
+                    const { data } = await removeDownVote();
+                    await isVotedQuery.refetch();
+                    if (data.removeVote) {
+                      voteErrorNotification();
+                    }
+                  } catch (error) {
+                    voteErrorNotification();
+                  }
+                }}
+                isVoted={() => {
+                  if (isVotedQuery.data) {
+                    if (isVotedQuery.data.isVoted == VoteType.Down) {
+                      return true;
+                    }
+                    return false;
                   }
                 }}
               />

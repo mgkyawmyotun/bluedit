@@ -151,9 +151,7 @@
   background-color: inherit;
 }
 
-.vote__up__voted:hover>.iconVote1 {
-  fill: none;
-}
+
 
 .vote__down:hover {
   background-color: #E1E2E3;
@@ -163,6 +161,24 @@
   fill: #5A75CC;
 
 }
+
+.vote__down__voted {
+  width: 25px;
+  height: 24px;
+  background-color: #E1E2E3;
+  cursor: pointer;
+  padding: 2px;
+}
+
+.vote__down__voted>.iconVote1 {
+  fill: #5A75CC;
+}
+
+.vote__down__voted:hover {
+  background-color: inherit;
+}
+
+
 
 .vote__count {
   width: 25px;
