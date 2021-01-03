@@ -13,13 +13,21 @@ export const PostVote: FC = () => {
   return (
     <Col span={1} className={styles.card__vote}>
       <VoteController post_id={post_id}>
-        {({ upVote, downVote, isVotedQuery }) => (
+        {({
+          upVote,
+          downVote,
+          isVotedQuery,
+          removeDownVote,
+          removeUpVote,
+          voteAddedSub,
+        }) => (
           <>
             <Col>
               <UpVoteButton
                 onClick={async () => {
                   try {
                     const { data } = await upVote();
+                    await isVotedQuery.refetch();
                     if (data.addVote) {
                       voteErrorNotification();
                     }
@@ -27,7 +35,18 @@ export const PostVote: FC = () => {
                     voteErrorNotification();
                   }
                 }}
-                onRemove={async () => {}}
+                onRemove={async () => {
+                  console.log('remove');
+                  try {
+                    const { data } = await removeUpVote();
+                    await isVotedQuery.refetch();
+                    if (data.removeVote) {
+                      voteErrorNotification();
+                    }
+                  } catch (error) {
+                    voteErrorNotification();
+                  }
+                }}
                 isVoted={() => {
                   if (isVotedQuery.data) {
                     if (isVotedQuery.data.isVoted == VoteType.Up) {
@@ -39,14 +58,21 @@ export const PostVote: FC = () => {
               />
             </Col>
             <Col>
-              <VoteCount vote_count={vote_count < 0 ? 0 : vote_count} />
+              <VoteCount
+                vote_count={
+                  voteAddedSub.data
+                    ? voteAddedSub.data.voteAdded
+                    : vote_count < 0
+                    ? 0
+                    : vote_count
+                }
+              />
             </Col>
             <Col>
               <DownVoteButton
                 onClick={async () => {
                   try {
                     const { data } = await downVote();
-                    isVotedQuery.refetch();
                     if (data.addVote) {
                       voteErrorNotification();
                     }

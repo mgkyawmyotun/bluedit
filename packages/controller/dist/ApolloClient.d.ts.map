@@ -1,1 +1,1 @@
-{"version":3,"file":"ApolloClient.d.ts","sourceRoot":"","sources":["../src/ApolloClient.tsx"],"names":[],"mappings":"AAAA,OAAO,EACL,YAAY,EAEZ,qBAAqB,EACtB,MAAM,gBAAgB,CAAC;AACxB,cAAM,aAAa;IACjB,OAAO,CAAC,MAAM,CAAC,MAAM,CAAsC;WAC7C,SAAS;CAYxB;AACD,OAAO,EAAE,aAAa,EAAE,CAAC"}
+{"version":3,"file":"ApolloClient.d.ts","sourceRoot":"","sources":["../src/ApolloClient.tsx"],"names":[],"mappings":"AAAA,OAAO,EACL,YAAY,EAGZ,qBAAqB,EAEtB,MAAM,gBAAgB,CAAC;AA0BxB,cAAM,aAAa;IACjB,OAAO,CAAC,MAAM,CAAC,MAAM,CAAsC;WAC7C,SAAS;CAWxB;AACD,OAAO,EAAE,aAAa,EAAE,CAAC"}

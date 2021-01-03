@@ -28,7 +28,6 @@ export class VoteResolver {
   }
 
   @Subscription(returns => Number)
-  @UseGuards(IsAuthGuard)
   voteAdded(@Args('post_id') post_id: string) {
     return pubSub.asyncIterator(VOTE_ADDED + post_id);
   }

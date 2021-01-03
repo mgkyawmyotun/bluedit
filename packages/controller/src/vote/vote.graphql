@@ -7,3 +7,9 @@ mutation addVote($voteData: Vote!) {
 query isVoted($post_id: String!) {
   isVoted(post_id: $post_id)
 }
+mutation removeVote($voteData: Vote!) {
+  removeVote(voteData: $voteData) {
+    message
+    path
+  }
+}

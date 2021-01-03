@@ -8,7 +8,6 @@ describe('CommentsResolver', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [CommentsResolver],
     }).compile();
-
     resolver = module.get<CommentsResolver>(CommentsResolver);
   });
 

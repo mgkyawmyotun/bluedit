@@ -135,6 +135,7 @@ export declare type Mutation = {
     sendForgetPasswordLink?: Maybe<Scalars['Boolean']>;
     forgetPasswordChange?: Maybe<UserError>;
     addVote?: Maybe<VoteError>;
+    removeVote?: Maybe<VoteError>;
 };
 export declare type MutationCreatePostWithMarkDownArgs = {
     postData: PostInputMarkDown;
@@ -185,6 +186,9 @@ export declare type MutationForgetPasswordChangeArgs = {
     forgetPassowrdChangeInput: ForgetPasswordChange;
 };
 export declare type MutationAddVoteArgs = {
+    voteData: Vote;
+};
+export declare type MutationRemoveVoteArgs = {
     voteData: Vote;
 };
 export declare type PostInputMarkDown = {
@@ -337,6 +341,16 @@ export declare type IsVotedQueryVariables = Exact<{
 export declare type IsVotedQuery = ({
     __typename?: 'Query';
 } & Pick<Query, 'isVoted'>);
+export declare type RemoveVoteMutationVariables = Exact<{
+    voteData: Vote;
+}>;
+export declare type RemoveVoteMutation = ({
+    __typename?: 'Mutation';
+} & {
+    removeVote?: Maybe<({
+        __typename?: 'VoteError';
+    } & Pick<VoteError, 'message' | 'path'>)>;
+});
 export declare const ContinueWithFaceBookDocument: Apollo.DocumentNode;
 export declare type ContinueWithFaceBookMutationFn = Apollo.MutationFunction<ContinueWithFaceBookMutation, ContinueWithFaceBookMutationVariables>;
 export declare function useContinueWithFaceBookMutation(baseOptions?: Apollo.MutationHookOptions<ContinueWithFaceBookMutation, ContinueWithFaceBookMutationVariables>): Apollo.MutationTuple<ContinueWithFaceBookMutation, Exact<{
@@ -419,4 +433,12 @@ export declare function useIsVotedLazyQuery(baseOptions?: Apollo.LazyQueryHookOp
 export declare type IsVotedQueryHookResult = ReturnType<typeof useIsVotedQuery>;
 export declare type IsVotedLazyQueryHookResult = ReturnType<typeof useIsVotedLazyQuery>;
 export declare type IsVotedQueryResult = Apollo.QueryResult<IsVotedQuery, IsVotedQueryVariables>;
+export declare const RemoveVoteDocument: Apollo.DocumentNode;
+export declare type RemoveVoteMutationFn = Apollo.MutationFunction<RemoveVoteMutation, RemoveVoteMutationVariables>;
+export declare function useRemoveVoteMutation(baseOptions?: Apollo.MutationHookOptions<RemoveVoteMutation, RemoveVoteMutationVariables>): Apollo.MutationTuple<RemoveVoteMutation, Exact<{
+    voteData: Vote;
+}>>;
+export declare type RemoveVoteMutationHookResult = ReturnType<typeof useRemoveVoteMutation>;
+export declare type RemoveVoteMutationResult = Apollo.MutationResult<RemoveVoteMutation>;
+export declare type RemoveVoteMutationOptions = Apollo.BaseMutationOptions<RemoveVoteMutation, RemoveVoteMutationVariables>;
 //# sourceMappingURL=graphql.d.ts.map

@@ -149,6 +149,7 @@ export type Mutation = {
   sendForgetPasswordLink?: Maybe<Scalars['Boolean']>;
   forgetPasswordChange?: Maybe<UserError>;
   addVote?: Maybe<VoteError>;
+  removeVote?: Maybe<VoteError>;
 };
 
 
@@ -233,6 +234,11 @@ export type MutationForgetPasswordChangeArgs = {
 
 
 export type MutationAddVoteArgs = {
+  voteData: Vote;
+};
+
+
+export type MutationRemoveVoteArgs = {
   voteData: Vote;
 };
 
@@ -424,6 +430,19 @@ export type IsVotedQueryVariables = Exact<{
 export type IsVotedQuery = (
   { __typename?: 'Query' }
   & Pick<Query, 'isVoted'>
+);
+
+export type RemoveVoteMutationVariables = Exact<{
+  voteData: Vote;
+}>;
+
+
+export type RemoveVoteMutation = (
+  { __typename?: 'Mutation' }
+  & { removeVote?: Maybe<(
+    { __typename?: 'VoteError' }
+    & Pick<VoteError, 'message' | 'path'>
+  )> }
 );
 
 
@@ -730,3 +749,36 @@ export function useIsVotedLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Is
 export type IsVotedQueryHookResult = ReturnType<typeof useIsVotedQuery>;
 export type IsVotedLazyQueryHookResult = ReturnType<typeof useIsVotedLazyQuery>;
 export type IsVotedQueryResult = Apollo.QueryResult<IsVotedQuery, IsVotedQueryVariables>;
+export const RemoveVoteDocument = gql`
+    mutation removeVote($voteData: Vote!) {
+  removeVote(voteData: $voteData) {
+    message
+    path
+  }
+}
+    `;
+export type RemoveVoteMutationFn = Apollo.MutationFunction<RemoveVoteMutation, RemoveVoteMutationVariables>;
+
+/**
+ * __useRemoveVoteMutation__
+ *
+ * To run a mutation, you first call `useRemoveVoteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveVoteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeVoteMutation, { data, loading, error }] = useRemoveVoteMutation({
+ *   variables: {
+ *      voteData: // value for 'voteData'
+ *   },
+ * });
+ */
+export function useRemoveVoteMutation(baseOptions?: Apollo.MutationHookOptions<RemoveVoteMutation, RemoveVoteMutationVariables>) {
+        return Apollo.useMutation<RemoveVoteMutation, RemoveVoteMutationVariables>(RemoveVoteDocument, baseOptions);
+      }
+export type RemoveVoteMutationHookResult = ReturnType<typeof useRemoveVoteMutation>;
+export type RemoveVoteMutationResult = Apollo.MutationResult<RemoveVoteMutation>;
+export type RemoveVoteMutationOptions = Apollo.BaseMutationOptions<RemoveVoteMutation, RemoveVoteMutationVariables>;
