@@ -112,6 +112,7 @@ type Mutation {
   sendForgetPasswordLink(email: String!): Boolean
   forgetPasswordChange(forgetPassowrdChangeInput: ForgetPasswordChange!): UserError
   addVote(voteData: Vote!): VoteError
+  removeVote(voteData: Vote!): VoteError
 }
 
 input PostInputMarkDown {

@@ -69,6 +69,36 @@ export class VoteService {
 
     return null;
   }
+  public async removeVote({
+    post_id,
+    voteType,
+  }: Vote): Promise<null | VoteError> {
+    try {
+      const result = await this.voteRepository
+        .createQueryBuilder()
+        .delete()
+        .where('postPostId =:post_id', { post_id })
+        .andWhere('userUserId =:user_id', {
+          user_id: this.userAuthHelpService.getUser(),
+        })
+        .andWhere('vote_type =:vote_type', { vote_type: voteType + '' })
+        .execute();
+      if (result.affected == 0) {
+        throw new Error(result.affected + '');
+      }
+      //Reverse the voteType if removed voteType is UP change to Down
+      this.saveVoteCount(
+        voteType == VoteType.UP ? VoteType.DOWN : VoteType.UP,
+        post_id,
+      );
+    } catch (error) {
+      return {
+        message: 'Error At Deleting Vote May Be Wrong Vote Type',
+        path: 'vote-delete',
+      };
+    }
+    return null;
+  }
   private toVoteType(str: any): VoteType {
     return str === '0' ? VoteType.UP : VoteType.DOWN;
   }

@@ -13,6 +13,13 @@ export class VoteResolver {
   async addVote(@Args('voteData') voteData: Vote): Promise<VoteError | null> {
     return this.voteService.addVote(voteData);
   }
+  @Mutation(returns => VoteError, { nullable: true })
+  @UseGuards(IsAuthGuard)
+  async removeVote(
+    @Args('voteData') voteData: Vote,
+  ): Promise<VoteError | null> {
+    return this.voteService.removeVote(voteData);
+  }
 
   @Query(returns => VoteType, { nullable: true })
   @UseGuards(IsAuthGuard)
