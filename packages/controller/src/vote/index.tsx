@@ -1,58 +1,56 @@
-import { FetchResult } from '@apollo/client';
-import { FC, useEffect, useState } from 'react';
+import { FetchResult, QueryResult } from '@apollo/client';
+import { FC } from 'react';
 import { GraphQlClient } from '../ApolloClient';
 import {
   AddVoteMutation,
+  Exact,
+  IsVotedQuery,
   useAddVoteMutation,
-  useIsVotedLazyQuery,
+  useIsVotedQuery,
   VoteType,
 } from '../generated/graphql';
 
 interface VoteControllerProps {
+  post_id: string;
   children: ({
     upVote,
     downVote,
-    checkIsVoted,
+    isVotedQuery,
   }: {
-    upVote: (
-      post_id: string
-    ) => Promise<
+    upVote: () => Promise<
       FetchResult<AddVoteMutation, Record<string, any>, Record<string, any>>
     >;
-    downVote: (
-      post_id: string
-    ) => Promise<
+    downVote: () => Promise<
       FetchResult<AddVoteMutation, Record<string, any>, Record<string, any>>
     >;
-    checkIsVoted(post_id: string): boolean;
+    isVotedQuery: QueryResult<
+      IsVotedQuery,
+      Exact<{
+        post_id: string;
+      }>
+    >;
   }) => JSX.Element;
 }
-export const VoteController: FC<VoteControllerProps> = ({ children }) => {
+export const VoteController: FC<VoteControllerProps> = ({
+  children,
+  post_id,
+}) => {
   const [addVote] = useAddVoteMutation({ client: GraphQlClient.getClient() });
-  const [fetch, { loading, data }] = useIsVotedLazyQuery({
+  const isVotedQuery = useIsVotedQuery({
     client: GraphQlClient.getClient(),
     fetchPolicy: 'network-only',
+    variables: { post_id: post_id },
   });
-  const upVote = (post_id: string) => {
+  const upVote = () => {
     return addVote({
       variables: { voteData: { post_id, voteType: VoteType.Up } },
     });
   };
-  const downVote = (post_id: string) => {
+  const downVote = () => {
     return addVote({
       variables: { voteData: { post_id, voteType: VoteType.Down } },
     });
   };
-  const checkIsVoted = (post_id: string) => {
-    const [res, setRes] = useState<boolean>(false);
-    useEffect(() => {
-      if (!loading && data) {
-        setRes(data?.isVoted);
-      } else {
-        fetch({ variables: { post_id } });
-      }
-    }, [loading, data]);
-    return res;
-  };
-  return children({ upVote, downVote, checkIsVoted });
+
+  return children({ upVote, downVote, isVotedQuery });
 };

@@ -107,7 +107,7 @@ export type Query = {
   me?: Maybe<User>;
   logout?: Maybe<Scalars['String']>;
   isEmailExists: Scalars['Boolean'];
-  isVoted: Scalars['Boolean'];
+  isVoted?: Maybe<VoteType>;
 };
 
 
@@ -124,6 +124,11 @@ export type QueryIsEmailExistsArgs = {
 export type QueryIsVotedArgs = {
   post_id: Scalars['String'];
 };
+
+export enum VoteType {
+  Up = 'UP',
+  Down = 'DOWN'
+}
 
 export type Mutation = {
   __typename?: 'Mutation';
@@ -301,11 +306,6 @@ export type Vote = {
   voteType: VoteType;
   post_id: Scalars['String'];
 };
-
-export enum VoteType {
-  Up = 'UP',
-  Down = 'DOWN'
-}
 
 export type Subscription = {
   __typename?: 'Subscription';

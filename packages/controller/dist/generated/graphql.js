@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.useAddVoteMutation = exports.AddVoteDocument = exports.useCheckEmailLazyQuery = exports.useCheckEmailQuery = exports.CheckEmailDocument = exports.useCreateUserMutation = exports.CreateUserDocument = exports.useGetPostsLazyQuery = exports.useGetPostsQuery = exports.GetPostsDocument = exports.useUserLazyQuery = exports.useUserQuery = exports.UserDocument = exports.useLogoutLazyQuery = exports.useLogoutQuery = exports.LogoutDocument = exports.useLoginUserMutation = exports.LoginUserDocument = exports.useContinueWithFaceBookMutation = exports.ContinueWithFaceBookDocument = exports.VoteType = void 0;
+exports.useIsVotedLazyQuery = exports.useIsVotedQuery = exports.IsVotedDocument = exports.useAddVoteMutation = exports.AddVoteDocument = exports.useCheckEmailLazyQuery = exports.useCheckEmailQuery = exports.CheckEmailDocument = exports.useCreateUserMutation = exports.CreateUserDocument = exports.useGetPostsLazyQuery = exports.useGetPostsQuery = exports.GetPostsDocument = exports.useUserLazyQuery = exports.useUserQuery = exports.UserDocument = exports.useLogoutLazyQuery = exports.useLogoutQuery = exports.LogoutDocument = exports.useLoginUserMutation = exports.LoginUserDocument = exports.useContinueWithFaceBookMutation = exports.ContinueWithFaceBookDocument = exports.VoteType = void 0;
 var client_1 = require("@apollo/client");
 var Apollo = __importStar(require("@apollo/client"));
 var VoteType;
@@ -87,5 +87,14 @@ function useAddVoteMutation(baseOptions) {
     return Apollo.useMutation(exports.AddVoteDocument, baseOptions);
 }
 exports.useAddVoteMutation = useAddVoteMutation;
-var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5, templateObject_6, templateObject_7, templateObject_8;
+exports.IsVotedDocument = client_1.gql(templateObject_9 || (templateObject_9 = __makeTemplateObject(["\n    query isVoted($post_id: String!) {\n  isVoted(post_id: $post_id)\n}\n    "], ["\n    query isVoted($post_id: String!) {\n  isVoted(post_id: $post_id)\n}\n    "])));
+function useIsVotedQuery(baseOptions) {
+    return Apollo.useQuery(exports.IsVotedDocument, baseOptions);
+}
+exports.useIsVotedQuery = useIsVotedQuery;
+function useIsVotedLazyQuery(baseOptions) {
+    return Apollo.useLazyQuery(exports.IsVotedDocument, baseOptions);
+}
+exports.useIsVotedLazyQuery = useIsVotedLazyQuery;
+var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5, templateObject_6, templateObject_7, templateObject_8, templateObject_9;
 //# sourceMappingURL=graphql.js.map

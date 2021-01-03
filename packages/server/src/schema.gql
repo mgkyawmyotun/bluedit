@@ -86,7 +86,12 @@ type Query {
   me: User
   logout: String
   isEmailExists(email: String!): Boolean!
-  isVoted(post_id: String!): Boolean!
+  isVoted(post_id: String!): VoteType
+}
+
+enum VoteType {
+  UP
+  DOWN
 }
 
 type Mutation {
@@ -178,11 +183,6 @@ input ForgetPasswordChange {
 input Vote {
   voteType: VoteType!
   post_id: String!
-}
-
-enum VoteType {
-  UP
-  DOWN
 }
 
 type Subscription {

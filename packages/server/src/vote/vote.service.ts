@@ -16,22 +16,17 @@ export class VoteService {
     private userAuthHelpService: UserAuthHelpService,
     @InjectQueue(update_v_c) private voteQueue: Queue,
   ) {}
-  public async isVoted({ post_id }): Promise<boolean> {
-    const voted: VoteEntity[] = await this.voteRepository
-      .createQueryBuilder()
-      .select('*')
-      .whereInIds([
-        {
-          user: { user_id: this.userAuthHelpService.getUser() },
-          post: { post_id },
-        },
-      ])
-      .execute();
-
-    if (voted.length > 0) {
-      return true;
+  public async isVoted({ post_id }): Promise<null | VoteType> {
+    const voted = await this.voteRepository.findOne({
+      post: { post_id: post_id },
+      user: {
+        user_id: this.userAuthHelpService.getUser(),
+      },
+    });
+    if (!voted) {
+      return null;
     }
-    return false;
+    return this.toVoteType(voted.vote_type + '');
   }
   public async addVote({ post_id, voteType }: Vote): Promise<VoteError | null> {
     try {

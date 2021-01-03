@@ -1,10 +1,14 @@
-import { FetchResult } from '@apollo/client';
+import { FetchResult, QueryResult } from '@apollo/client';
 import { FC } from 'react';
-import { AddVoteMutation } from '../generated/graphql';
+import { AddVoteMutation, Exact, IsVotedQuery } from '../generated/graphql';
 interface VoteControllerProps {
-    children: ({ upVote, downVote, }: {
-        upVote: (post_id: string) => Promise<FetchResult<AddVoteMutation, Record<string, any>, Record<string, any>>>;
-        downVote: (post_id: string) => Promise<FetchResult<AddVoteMutation, Record<string, any>, Record<string, any>>>;
+    post_id: string;
+    children: ({ upVote, downVote, isVotedQuery, }: {
+        upVote: () => Promise<FetchResult<AddVoteMutation, Record<string, any>, Record<string, any>>>;
+        downVote: () => Promise<FetchResult<AddVoteMutation, Record<string, any>, Record<string, any>>>;
+        isVotedQuery: QueryResult<IsVotedQuery, Exact<{
+            post_id: string;
+        }>>;
     }) => JSX.Element;
 }
 export declare const VoteController: FC<VoteControllerProps>;

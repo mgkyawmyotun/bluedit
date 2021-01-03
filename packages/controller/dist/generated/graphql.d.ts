@@ -101,7 +101,7 @@ export declare type Query = {
     me?: Maybe<User>;
     logout?: Maybe<Scalars['String']>;
     isEmailExists: Scalars['Boolean'];
-    isVoted: Scalars['Boolean'];
+    isVoted?: Maybe<VoteType>;
 };
 export declare type QueryGetCommentsArgs = {
     post_id: Scalars['String'];
@@ -112,6 +112,10 @@ export declare type QueryIsEmailExistsArgs = {
 export declare type QueryIsVotedArgs = {
     post_id: Scalars['String'];
 };
+export declare enum VoteType {
+    Up = "UP",
+    Down = "DOWN"
+}
 export declare type Mutation = {
     __typename?: 'Mutation';
     createPostWithMarkDown?: Maybe<PostError>;
@@ -241,10 +245,6 @@ export declare type Vote = {
     voteType: VoteType;
     post_id: Scalars['String'];
 };
-export declare enum VoteType {
-    Up = "UP",
-    Down = "DOWN"
-}
 export declare type Subscription = {
     __typename?: 'Subscription';
     voteAdded: Scalars['Float'];
@@ -331,6 +331,12 @@ export declare type AddVoteMutation = ({
         __typename?: 'VoteError';
     } & Pick<VoteError, 'message' | 'path'>)>;
 });
+export declare type IsVotedQueryVariables = Exact<{
+    post_id: Scalars['String'];
+}>;
+export declare type IsVotedQuery = ({
+    __typename?: 'Query';
+} & Pick<Query, 'isVoted'>);
 export declare const ContinueWithFaceBookDocument: Apollo.DocumentNode;
 export declare type ContinueWithFaceBookMutationFn = Apollo.MutationFunction<ContinueWithFaceBookMutation, ContinueWithFaceBookMutationVariables>;
 export declare function useContinueWithFaceBookMutation(baseOptions?: Apollo.MutationHookOptions<ContinueWithFaceBookMutation, ContinueWithFaceBookMutationVariables>): Apollo.MutationTuple<ContinueWithFaceBookMutation, Exact<{
@@ -403,4 +409,14 @@ export declare function useAddVoteMutation(baseOptions?: Apollo.MutationHookOpti
 export declare type AddVoteMutationHookResult = ReturnType<typeof useAddVoteMutation>;
 export declare type AddVoteMutationResult = Apollo.MutationResult<AddVoteMutation>;
 export declare type AddVoteMutationOptions = Apollo.BaseMutationOptions<AddVoteMutation, AddVoteMutationVariables>;
+export declare const IsVotedDocument: Apollo.DocumentNode;
+export declare function useIsVotedQuery(baseOptions: Apollo.QueryHookOptions<IsVotedQuery, IsVotedQueryVariables>): Apollo.QueryResult<IsVotedQuery, Exact<{
+    post_id: string;
+}>>;
+export declare function useIsVotedLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<IsVotedQuery, IsVotedQueryVariables>): Apollo.QueryTuple<IsVotedQuery, Exact<{
+    post_id: string;
+}>>;
+export declare type IsVotedQueryHookResult = ReturnType<typeof useIsVotedQuery>;
+export declare type IsVotedLazyQueryHookResult = ReturnType<typeof useIsVotedLazyQuery>;
+export declare type IsVotedQueryResult = Apollo.QueryResult<IsVotedQuery, IsVotedQueryVariables>;
 //# sourceMappingURL=graphql.d.ts.map

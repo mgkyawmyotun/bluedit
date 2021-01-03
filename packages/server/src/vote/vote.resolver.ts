@@ -4,7 +4,7 @@ import { IsAuthGuard } from 'src/shared/is-auth.guard';
 import { VOTE_ADDED } from '../shared/gql.contstant';
 import { pubSub } from './../shared/GraphqlPubSub';
 import { VoteService } from './vote.service';
-import { Vote, VoteError } from './vote.type';
+import { Vote, VoteError, VoteType } from './vote.type';
 @Resolver()
 export class VoteResolver {
   constructor(private voteService: VoteService) {}
@@ -14,13 +14,14 @@ export class VoteResolver {
     return this.voteService.addVote(voteData);
   }
 
-  @Query(returns => Boolean, { nullable: false })
+  @Query(returns => VoteType, { nullable: true })
   @UseGuards(IsAuthGuard)
   async isVoted(@Args('post_id') post_id: string) {
     return this.voteService.isVoted({ post_id });
   }
 
   @Subscription(returns => Number)
+  @UseGuards(IsAuthGuard)
   voteAdded(@Args('post_id') post_id: string) {
     return pubSub.asyncIterator(VOTE_ADDED + post_id);
   }
