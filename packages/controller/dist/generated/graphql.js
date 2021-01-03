@@ -82,7 +82,7 @@ function useCheckEmailLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.CheckEmailDocument, baseOptions);
 }
 exports.useCheckEmailLazyQuery = useCheckEmailLazyQuery;
-exports.AddVoteDocument = client_1.gql(templateObject_8 || (templateObject_8 = __makeTemplateObject(["\n    mutation addVote($voteData: Vote!) {\n  addVote(voteData: $voteData)\n}\n    "], ["\n    mutation addVote($voteData: Vote!) {\n  addVote(voteData: $voteData)\n}\n    "])));
+exports.AddVoteDocument = client_1.gql(templateObject_8 || (templateObject_8 = __makeTemplateObject(["\n    mutation addVote($voteData: Vote!) {\n  addVote(voteData: $voteData) {\n    message\n    path\n  }\n}\n    "], ["\n    mutation addVote($voteData: Vote!) {\n  addVote(voteData: $voteData) {\n    message\n    path\n  }\n}\n    "])));
 function useAddVoteMutation(baseOptions) {
     return Apollo.useMutation(exports.AddVoteDocument, baseOptions);
 }

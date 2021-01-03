@@ -1,3 +1,9 @@
 mutation addVote($voteData: Vote!) {
-  addVote(voteData: $voteData)
+  addVote(voteData: $voteData) {
+    message
+    path
+  }
+}
+query isVoted($post_id: String!) {
+  isVoted(post_id: $post_id)
 }

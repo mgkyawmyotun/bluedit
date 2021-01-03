@@ -13,15 +13,8 @@ export type Scalars = {
   Float: number;
 };
 
-export type Sub = {
-  __typename?: 'Sub';
-  sub_id: Scalars['String'];
-  displayName: Scalars['String'];
-  name: Scalars['String'];
-};
-
-export type SubError = ErrorInterface & {
-  __typename?: 'SubError';
+export type VoteError = ErrorInterface & {
+  __typename?: 'VoteError';
   path: Scalars['String'];
   message: Scalars['String'];
 };
@@ -31,11 +24,26 @@ export type ErrorInterface = {
   message: Scalars['String'];
 };
 
+export type Sub = {
+  __typename?: 'Sub';
+  sub_id: Scalars['String'];
+  displayName: Scalars['String'];
+  name: Scalars['String'];
+  picture_url?: Maybe<Scalars['String']>;
+};
+
+export type SubError = ErrorInterface & {
+  __typename?: 'SubError';
+  path: Scalars['String'];
+  message: Scalars['String'];
+};
+
 export type User = {
   __typename?: 'User';
   displayName: Scalars['String'];
   username: Scalars['String'];
   email: Scalars['String'];
+  picture_url?: Maybe<Scalars['String']>;
 };
 
 export type UserError = ErrorInterface & {
@@ -56,6 +64,7 @@ export type Post = PostInteface & {
   videos?: Maybe<Array<Scalars['String']>>;
   user: User;
   comment_count: Scalars['Float'];
+  created_at: Scalars['String'];
 };
 
 export type PostInteface = {
@@ -69,6 +78,7 @@ export type PostInteface = {
   videos?: Maybe<Array<Scalars['String']>>;
   user: User;
   comment_count: Scalars['Float'];
+  created_at: Scalars['String'];
 };
 
 export type PostError = ErrorInterface & {
@@ -97,6 +107,7 @@ export type Query = {
   me?: Maybe<User>;
   logout?: Maybe<Scalars['String']>;
   isEmailExists: Scalars['Boolean'];
+  isVoted: Scalars['Boolean'];
 };
 
 
@@ -109,13 +120,17 @@ export type QueryIsEmailExistsArgs = {
   email: Scalars['String'];
 };
 
+
+export type QueryIsVotedArgs = {
+  post_id: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createPostWithMarkDown?: Maybe<PostError>;
   createPostWithLink?: Maybe<PostError>;
   createPostWithImage?: Maybe<PostError>;
   createPostWithVideo?: Maybe<PostError>;
-  addVote?: Maybe<Scalars['Float']>;
   deletePost?: Maybe<PostError>;
   editPostMarkDown?: Maybe<PostError>;
   editPostLink?: Maybe<PostError>;
@@ -128,6 +143,7 @@ export type Mutation = {
   loginFaceBook?: Maybe<UserError>;
   sendForgetPasswordLink?: Maybe<Scalars['Boolean']>;
   forgetPasswordChange?: Maybe<UserError>;
+  addVote?: Maybe<VoteError>;
 };
 
 
@@ -148,11 +164,6 @@ export type MutationCreatePostWithImageArgs = {
 
 export type MutationCreatePostWithVideoArgs = {
   postData: PostInputVideo;
-};
-
-
-export type MutationAddVoteArgs = {
-  voteData: Vote;
 };
 
 
@@ -215,6 +226,11 @@ export type MutationForgetPasswordChangeArgs = {
   forgetPassowrdChangeInput: ForgetPasswordChange;
 };
 
+
+export type MutationAddVoteArgs = {
+  voteData: Vote;
+};
+
 export type PostInputMarkDown = {
   title?: Maybe<Scalars['String']>;
   subbluedit?: Maybe<Scalars['String']>;
@@ -238,16 +254,6 @@ export type PostInputVideo = {
   subbluedit?: Maybe<Scalars['String']>;
   videos?: Maybe<Array<Scalars['String']>>;
 };
-
-export type Vote = {
-  voteType: VoteType;
-  post_id: Scalars['String'];
-};
-
-export enum VoteType {
-  Up = 'UP',
-  Down = 'DOWN'
-}
 
 export type PostInputEditText = {
   post_id?: Maybe<Scalars['String']>;
@@ -289,6 +295,26 @@ export type UserLoginInput = {
 export type ForgetPasswordChange = {
   newPassword: Scalars['String'];
   key: Scalars['String'];
+};
+
+export type Vote = {
+  voteType: VoteType;
+  post_id: Scalars['String'];
+};
+
+export enum VoteType {
+  Up = 'UP',
+  Down = 'DOWN'
+}
+
+export type Subscription = {
+  __typename?: 'Subscription';
+  voteAdded: Scalars['Float'];
+};
+
+
+export type SubscriptionVoteAddedArgs = {
+  post_id: Scalars['String'];
 };
 
 export type ContinueWithFaceBookMutationVariables = Exact<{
@@ -384,7 +410,20 @@ export type AddVoteMutationVariables = Exact<{
 
 export type AddVoteMutation = (
   { __typename?: 'Mutation' }
-  & Pick<Mutation, 'addVote'>
+  & { addVote?: Maybe<(
+    { __typename?: 'VoteError' }
+    & Pick<VoteError, 'message' | 'path'>
+  )> }
+);
+
+export type IsVotedQueryVariables = Exact<{
+  post_id: Scalars['String'];
+}>;
+
+
+export type IsVotedQuery = (
+  { __typename?: 'Query' }
+  & Pick<Query, 'isVoted'>
 );
 
 
@@ -629,7 +668,10 @@ export type CheckEmailLazyQueryHookResult = ReturnType<typeof useCheckEmailLazyQ
 export type CheckEmailQueryResult = Apollo.QueryResult<CheckEmailQuery, CheckEmailQueryVariables>;
 export const AddVoteDocument = gql`
     mutation addVote($voteData: Vote!) {
-  addVote(voteData: $voteData)
+  addVote(voteData: $voteData) {
+    message
+    path
+  }
 }
     `;
 export type AddVoteMutationFn = Apollo.MutationFunction<AddVoteMutation, AddVoteMutationVariables>;
@@ -657,3 +699,34 @@ export function useAddVoteMutation(baseOptions?: Apollo.MutationHookOptions<AddV
 export type AddVoteMutationHookResult = ReturnType<typeof useAddVoteMutation>;
 export type AddVoteMutationResult = Apollo.MutationResult<AddVoteMutation>;
 export type AddVoteMutationOptions = Apollo.BaseMutationOptions<AddVoteMutation, AddVoteMutationVariables>;
+export const IsVotedDocument = gql`
+    query isVoted($post_id: String!) {
+  isVoted(post_id: $post_id)
+}
+    `;
+
+/**
+ * __useIsVotedQuery__
+ *
+ * To run a query within a React component, call `useIsVotedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useIsVotedQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useIsVotedQuery({
+ *   variables: {
+ *      post_id: // value for 'post_id'
+ *   },
+ * });
+ */
+export function useIsVotedQuery(baseOptions: Apollo.QueryHookOptions<IsVotedQuery, IsVotedQueryVariables>) {
+        return Apollo.useQuery<IsVotedQuery, IsVotedQueryVariables>(IsVotedDocument, baseOptions);
+      }
+export function useIsVotedLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<IsVotedQuery, IsVotedQueryVariables>) {
+          return Apollo.useLazyQuery<IsVotedQuery, IsVotedQueryVariables>(IsVotedDocument, baseOptions);
+        }
+export type IsVotedQueryHookResult = ReturnType<typeof useIsVotedQuery>;
+export type IsVotedLazyQueryHookResult = ReturnType<typeof useIsVotedLazyQuery>;
+export type IsVotedQueryResult = Apollo.QueryResult<IsVotedQuery, IsVotedQueryVariables>;

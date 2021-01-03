@@ -5,11 +5,22 @@ interface NotificationType {
   type: 'error' | 'warning' | 'success';
 }
 
-const openNotification = ({ message, description, type }: NotificationType) => {
+export const openNotification = ({
+  message,
+  description,
+  type,
+}: NotificationType) => {
   notification[type]({
     message,
     description,
     duration: 2,
+  });
+};
+export const voteErrorNotification = () => {
+  openNotification({
+    message: 'Error At Voteing',
+    description: 'Error Occur At When You Vote Post Try Again Later',
+    type: 'error',
   });
 };
 export const faceBookErrorNotification = () =>
