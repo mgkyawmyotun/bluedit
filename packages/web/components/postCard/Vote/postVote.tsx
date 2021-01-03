@@ -1,6 +1,6 @@
 import { VoteController, VoteType } from '@bluedit/controller';
 import { Col } from 'antd';
-import { FC, useContext, useState } from 'react';
+import { FC, useContext } from 'react';
 import { voteErrorNotification } from '../../common/Notification';
 import { PostContext } from '../Context/CardContext';
 import styles from './../../../styles/postCard.module.css';
@@ -10,7 +10,6 @@ import { VoteCount } from './VoteCount';
 interface PostVoteProps {}
 export const PostVote: FC = () => {
   const { vote_count, post_id } = useContext(PostContext);
-  const [rerender, setRerender] = useState<boolean>();
   return (
     <Col span={1} className={styles.card__vote}>
       <VoteController post_id={post_id}>
@@ -21,7 +20,6 @@ export const PostVote: FC = () => {
                 onClick={async () => {
                   try {
                     const { data } = await upVote();
-                    isVotedQuery.refetch();
                     if (data.addVote) {
                       voteErrorNotification();
                     }
@@ -29,6 +27,7 @@ export const PostVote: FC = () => {
                     voteErrorNotification();
                   }
                 }}
+                onRemove={async () => {}}
                 isVoted={() => {
                   if (isVotedQuery.data) {
                     if (isVotedQuery.data.isVoted == VoteType.Up) {

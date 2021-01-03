@@ -2,9 +2,14 @@ import { FC } from 'react';
 import styles from './../../../styles/postCard.module.css';
 interface UpVoteButtonProps {
   onClick: () => void;
+  onRemove: () => void;
   isVoted: () => boolean;
 }
-export const UpVoteButton: FC<UpVoteButtonProps> = ({ onClick, isVoted }) => {
+export const UpVoteButton: FC<UpVoteButtonProps> = ({
+  onClick,
+  isVoted,
+  onRemove,
+}) => {
   return !isVoted() ? (
     <div className={styles.vote__up} onClick={onClick}>
       <svg
@@ -20,7 +25,7 @@ export const UpVoteButton: FC<UpVoteButtonProps> = ({ onClick, isVoted }) => {
       </svg>
     </div>
   ) : (
-    <div className={styles.vote__up__voted} onClick={onClick}>
+    <div className={styles.vote__up__voted} onClick={onRemove}>
       <svg
         width="22"
         height="17"
