@@ -4,22 +4,25 @@ exports.GraphQlClient = void 0;
 var client_1 = require("@apollo/client");
 var ws_1 = require("@apollo/client/link/ws");
 var utilities_1 = require("@apollo/client/utilities");
-var httpLink = new client_1.HttpLink({
+var wsLink = process.browser
+    ? new ws_1.WebSocketLink({
+        uri: "ws://localhost:4000/graphql",
+        options: {
+            reconnect: true,
+        },
+    })
+    : null;
+var httplink = new client_1.HttpLink({
     uri: 'http://localhost:4000/graphql',
     credentials: 'include',
 });
-var wsLink = new ws_1.WebSocketLink({
-    uri: "ws://localhost:4000/graphql",
-    options: {
-        reconnect: true,
-    },
-});
-var splitLink = client_1.split(function (_a) {
-    var query = _a.query;
-    var definition = utilities_1.getMainDefinition(query);
-    return (definition.kind === 'OperationDefinition' &&
-        definition.operation === 'subscription');
-}, wsLink, httpLink);
+var splitLink = process.browser
+    ? client_1.split(function (_a) {
+        var query = _a.query;
+        var _b = utilities_1.getMainDefinition(query), kind = _b.kind, operation = _b.operation;
+        return kind === 'OperationDefinition' && operation === 'subscription';
+    }, wsLink, httplink)
+    : httplink;
 var GraphQlClient = (function () {
     function GraphQlClient() {
     }
