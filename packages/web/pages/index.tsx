@@ -1,3 +1,4 @@
+import { UserContextController } from '@bluedit/controller';
 import Layout from 'antd/lib/layout/layout';
 import Head from 'next/head';
 import { Main } from '../components/main';
@@ -11,8 +12,10 @@ export default function Home() {
         <title>Bluedit:Front page of internet</title>
       </Head>
       <Layout>
-        <NavBar />
-        <Main />
+        <UserContextController>
+          <NavBar />
+          <Main />
+        </UserContextController>
       </Layout>
     </>
   );

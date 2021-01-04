@@ -1,0 +1,25 @@
+.main__layout {
+  margin-top: 64px;
+  min-height: 100vh;
+  height: auto;
+}
+
+.main__left {
+  background-color: #DAE0E6;
+}
+
+.main__right {
+  background-color: #DAE0E6;
+}
+
+@media only screen and (max-width: 600px) {
+  .main__left {
+    display: none;
+    visibility: hidden;
+  }
+
+  .main__right {
+    display: none;
+    visibility: hidden;
+  }
+}

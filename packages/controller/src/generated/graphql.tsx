@@ -364,7 +364,7 @@ export type UserQuery = (
   { __typename?: 'Query' }
   & { me?: Maybe<(
     { __typename?: 'User' }
-    & Pick<User, 'username' | 'displayName' | 'email'>
+    & Pick<User, 'username' | 'displayName' | 'email' | 'picture_url'>
   )> }
 );
 
@@ -375,13 +375,13 @@ export type GetPostsQuery = (
   { __typename?: 'Query' }
   & { getPosts: Array<(
     { __typename?: 'Post' }
-    & Pick<Post, 'post_id' | 'post_text' | 'title' | 'link' | 'vote_count' | 'images' | 'videos' | 'comment_count'>
+    & Pick<Post, 'post_id' | 'post_text' | 'title' | 'link' | 'vote_count' | 'images' | 'videos' | 'comment_count' | 'created_at'>
     & { sub?: Maybe<(
       { __typename?: 'Sub' }
-      & Pick<Sub, 'name'>
+      & Pick<Sub, 'name' | 'picture_url'>
     )>, user: (
       { __typename?: 'User' }
-      & Pick<User, 'username'>
+      & Pick<User, 'username' | 'picture_url'>
     ) }
   )> }
 );
@@ -548,6 +548,7 @@ export const UserDocument = gql`
     username
     displayName
     email
+    picture_url
   }
 }
     `;
@@ -585,14 +586,17 @@ export const GetPostsDocument = gql`
     link
     sub {
       name
+      picture_url
     }
     vote_count
     images
     videos
     user {
       username
+      picture_url
     }
     comment_count
+    created_at
   }
 }
     `;

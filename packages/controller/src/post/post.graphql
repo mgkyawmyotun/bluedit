@@ -6,13 +6,16 @@ query getPosts {
     link
     sub {
       name
+      picture_url
     }
     vote_count
     images
     videos
     user {
       username
+      picture_url
     }
     comment_count
+    created_at
   }
 }

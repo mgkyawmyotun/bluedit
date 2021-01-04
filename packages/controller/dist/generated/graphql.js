@@ -50,7 +50,7 @@ function useLogoutLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.LogoutDocument, baseOptions);
 }
 exports.useLogoutLazyQuery = useLogoutLazyQuery;
-exports.UserDocument = client_1.gql(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n    query User {\n  me {\n    username\n    displayName\n    email\n  }\n}\n    "], ["\n    query User {\n  me {\n    username\n    displayName\n    email\n  }\n}\n    "])));
+exports.UserDocument = client_1.gql(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n    query User {\n  me {\n    username\n    displayName\n    email\n    picture_url\n  }\n}\n    "], ["\n    query User {\n  me {\n    username\n    displayName\n    email\n    picture_url\n  }\n}\n    "])));
 function useUserQuery(baseOptions) {
     return Apollo.useQuery(exports.UserDocument, baseOptions);
 }
@@ -59,7 +59,7 @@ function useUserLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.UserDocument, baseOptions);
 }
 exports.useUserLazyQuery = useUserLazyQuery;
-exports.GetPostsDocument = client_1.gql(templateObject_5 || (templateObject_5 = __makeTemplateObject(["\n    query getPosts {\n  getPosts {\n    post_id\n    post_text\n    title\n    link\n    sub {\n      name\n    }\n    vote_count\n    images\n    videos\n    user {\n      username\n    }\n    comment_count\n  }\n}\n    "], ["\n    query getPosts {\n  getPosts {\n    post_id\n    post_text\n    title\n    link\n    sub {\n      name\n    }\n    vote_count\n    images\n    videos\n    user {\n      username\n    }\n    comment_count\n  }\n}\n    "])));
+exports.GetPostsDocument = client_1.gql(templateObject_5 || (templateObject_5 = __makeTemplateObject(["\n    query getPosts {\n  getPosts {\n    post_id\n    post_text\n    title\n    link\n    sub {\n      name\n      picture_url\n    }\n    vote_count\n    images\n    videos\n    user {\n      username\n      picture_url\n    }\n    comment_count\n    created_at\n  }\n}\n    "], ["\n    query getPosts {\n  getPosts {\n    post_id\n    post_text\n    title\n    link\n    sub {\n      name\n      picture_url\n    }\n    vote_count\n    images\n    videos\n    user {\n      username\n      picture_url\n    }\n    comment_count\n    created_at\n  }\n}\n    "])));
 function useGetPostsQuery(baseOptions) {
     return Apollo.useQuery(exports.GetPostsDocument, baseOptions);
 }

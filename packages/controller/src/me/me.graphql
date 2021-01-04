@@ -3,5 +3,6 @@ query User {
     username
     displayName
     email
+    picture_url
   }
 }
