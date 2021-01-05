@@ -1,6 +1,8 @@
 import { Tabs } from 'antd';
 import { FC } from 'react';
 import styles from './../../../styles/submit.module.css';
+import { ImageVideoTab } from './tab/ImageVideoTab';
+import { LinkTab } from './tab/LinkTab';
 import { PostTab } from './tab/PostTab';
 
 interface MainTapProps {}
@@ -30,10 +32,10 @@ export const MainTap: FC = () => {
         <PostTab />
       </TabPane>
       <TabPane tab={ImageVideoTabHeader} key="2">
-        Content of tab 2
+        <ImageVideoTab />
       </TabPane>
       <TabPane tab={LinkTabHeader} key="3">
-        Content of tab 3
+        <LinkTab />
       </TabPane>
     </Tabs>
   );

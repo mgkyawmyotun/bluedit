@@ -1,5 +1,5 @@
-import Title from 'antd/lib/skeleton/Title';
 import { FC } from 'react';
+import { Title } from './Title';
 
 interface LinkTabProps {}
 export const LinkTab: FC = () => {
