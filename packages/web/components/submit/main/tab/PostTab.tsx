@@ -1,5 +1,8 @@
+import { Tabs } from 'antd';
 import dynamic from 'next/dynamic';
 import { FC } from 'react';
+import styles from './../../../../styles/submit.module.css';
+import { MarkDownEditor } from './MarkDownEditor';
 import { Title } from './Title';
 
 const TextEditor = dynamic(() => import('./TextEditor'), {
@@ -10,11 +13,16 @@ export const PostTab: FC = () => {
   return (
     <div>
       <Title />
-      <div
-        style={{ border: '1px solid black', minHeight: '6em', cursor: 'text' }}
-      >
-        <TextEditor />
-      </div>
+      <Tabs>
+        <Tabs.TabPane tab={'Text Editor'} key="1">
+          <div className={styles.text__editor}>
+            <TextEditor />
+          </div>
+        </Tabs.TabPane>
+        <Tabs.TabPane tab={'MarkDown'} key="2">
+          <MarkDownEditor />
+        </Tabs.TabPane>
+      </Tabs>
     </div>
   );
 };

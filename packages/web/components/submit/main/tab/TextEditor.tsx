@@ -10,6 +10,7 @@ export const TextEditor: React.FC<EditorProps> = ({}) => {
   return (
     <RichTextEditor
       onChange={(newValue) => {
+        console.log(newValue.toString('markdown'));
         setValue(newValue);
       }}
       value={value}
