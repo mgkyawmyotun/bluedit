@@ -1,11 +1,11 @@
-import TextArea from 'antd/lib/input/TextArea';
 import { FC } from 'react';
+import { Title } from './Title';
 
 interface PostTabProps {}
 export const PostTab: FC = () => {
   return (
     <div>
-      <TextArea showCount maxLength={200}></TextArea>
+      <Title />
     </div>
   );
 };
