@@ -1,3 +1,4 @@
+import { Input } from 'antd';
 import { FC } from 'react';
 import { Title } from './Title';
 
@@ -6,6 +7,8 @@ export const LinkTab: FC = () => {
   return (
     <div>
       <Title />
+      <h3>Link</h3>
+      <Input placeholder="Link" />
     </div>
   );
 };
