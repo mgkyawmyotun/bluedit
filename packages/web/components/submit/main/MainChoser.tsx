@@ -11,7 +11,7 @@ const SelectPlaceHoler = (
     <div>
       <Image
         src="/dottedavatar.svg"
-        width={30}
+        width={20}
         height={30}
         className={styles.select__placeholder__image}
       />
