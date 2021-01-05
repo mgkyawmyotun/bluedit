@@ -1,6 +1,7 @@
 .main__layout {
   margin-top: 64px;
   min-height: 100vh;
+  background-color: #DAE0E6;
   height: auto;
 }
 
@@ -11,6 +12,42 @@
 .main__right {
   background-color: #DAE0E6;
 }
+
+.submit__header {
+  font-size: 24px;
+  color: black;
+  font-weight: bold;
+}
+
+.submit__divider {
+  border-color: #F6F7F8;
+
+}
+
+.submit__main__choser {
+  max-width: 250px;
+  min-width: 200px;
+  width: 250px;
+  border-radius: 5%;
+
+
+}
+
+
+.select__placeholder {
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.select__option {
+  display: flex;
+  font-size: 14px;
+  align-items: center;
+}
+
+
 
 @media only screen and (max-width: 600px) {
   .main__left {
