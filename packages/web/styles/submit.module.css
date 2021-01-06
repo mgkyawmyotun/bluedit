@@ -82,6 +82,13 @@
 
 }
 
+.main__submit__button {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+
 @media only screen and (max-width: 1000px) {
   .main__left {
     display: none;
