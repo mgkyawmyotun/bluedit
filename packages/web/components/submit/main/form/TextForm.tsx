@@ -10,8 +10,8 @@ export const TextForm: FC = () => {
         title: '',
         post_text: '',
       }}
-      onSubmit={() => {
-        console.log('HEllo From Submit');
+      onSubmit={(values, helpers) => {
+        console.log(values);
       }}
     >
       {({ handleSubmit }) => (

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { FC } from 'react';
 import styles from './../../../styles/submit.module.css';
 interface MainSubmitButton {
-  onSubmit?: () => void;
+  onSubmit?: (e: any) => void;
 }
 export const MainSubmitButton: FC<MainSubmitButton> = ({ onSubmit }) => {
   const { push } = useRouter();
@@ -25,6 +25,7 @@ export const MainSubmitButton: FC<MainSubmitButton> = ({ onSubmit }) => {
           type="primary"
           htmlType="submit"
           onSubmit={onSubmit}
+          onClick={onSubmit}
         >
           Submit
         </Button>
