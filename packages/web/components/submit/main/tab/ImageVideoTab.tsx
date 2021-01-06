@@ -67,6 +67,7 @@ export const ImageVideoTab: FC = () => {
         <Upload
           listType="picture-card"
           accept=".jpg, .jpeg, .png"
+          action="http://localhost:4000/upload"
           fileList={fileList}
           onPreview={handlePreview}
           onChange={handleChange}
