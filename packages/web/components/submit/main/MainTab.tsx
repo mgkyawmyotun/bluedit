@@ -1,9 +1,9 @@
 import { Tabs } from 'antd';
 import { FC } from 'react';
 import styles from './../../../styles/submit.module.css';
-import { ImageVideoTab } from './tab/ImageVideoTab';
-import { LinkTab } from './tab/LinkTab';
-import { PostTab } from './tab/PostTab';
+import { ImageForm } from './form/ImageForm';
+import { LinkForm } from './form/LinkForm';
+import { TextForm } from './form/TextForm';
 
 interface MainTapProps {}
 const TabPane = Tabs.TabPane;
@@ -28,14 +28,14 @@ const LinkTabHeader = (
 export const MainTap: FC = () => {
   return (
     <Tabs className={styles.submit__tab}>
-      <TabPane tab={PostTabHeader} key="1">
-        <PostTab />
+      <TabPane tab={PostTabHeader} key="1" animated>
+        <TextForm />
       </TabPane>
       <TabPane tab={ImageVideoTabHeader} key="2">
-        <ImageVideoTab />
+        <ImageForm />
       </TabPane>
       <TabPane tab={LinkTabHeader} key="3">
-        <LinkTab />
+        <LinkForm />
       </TabPane>
     </Tabs>
   );
