@@ -1,6 +1,6 @@
 import { Formik } from 'formik';
 import { FC } from 'react';
-import { MainSubmitButton } from '../MainSubmitButton';
+import { MainSubmitButton } from '../SubmitButton';
 import { ImageVideoTab } from '../tab/ImageVideoTab';
 
 export const ImageForm: FC = () => {

@@ -1,6 +1,6 @@
 import { Formik } from 'formik';
 import { FC } from 'react';
-import { MainSubmitButton } from '../MainSubmitButton';
+import { MainSubmitButton } from '../SubmitButton';
 import { PostTab } from '../tab/PostTab';
 
 export const TextForm: FC = () => {

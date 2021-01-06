@@ -2,8 +2,8 @@ import Layout, { Content } from 'antd/lib/layout/layout';
 import Sider from 'antd/lib/layout/Sider';
 import { FC } from 'react';
 import styles from './../../styles/submit.module.css';
-import { SubmitHeader } from './SubmitHeader';
-import { SubmitMain } from './SubmitMain';
+import { SubmitHeader } from './header/SubmitHeader';
+import { SubmitMain } from './main';
 interface SubmitFormProps {}
 
 export const SubmitForm: FC = () => {

@@ -1,6 +1,6 @@
 import { Divider } from 'antd';
 import { FC } from 'react';
-import styles from './../../styles/submit.module.css';
+import styles from './../../../styles/submit.module.css';
 
 interface SubmitHeaderProps {}
 export const SubmitHeader: FC = () => {

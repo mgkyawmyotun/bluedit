@@ -1,8 +1,8 @@
 import { Select } from 'antd';
 import Image from 'next/image';
 import { FC } from 'react';
+import { SelectOption } from '../main/SelectOption';
 import styles from './../../../styles/submit.module.css';
-import { SelectOption } from './SelectOption';
 
 interface MainChoserProps {}
 
