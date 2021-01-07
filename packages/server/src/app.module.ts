@@ -22,9 +22,7 @@ interface AppModuleInteface {
   connectionType: 'dev' | 'test';
 }
 
-@Module({
-  imports: [ConsumerModule],
-})
+@Module({})
 export class AppModule {
   static forRoot(options: AppModuleInteface): DynamicModule {
     return {
@@ -98,6 +96,7 @@ export class AppModule {
         VoteModule,
         CommentsModule,
         CacheControllerModule,
+        ConsumerModule,
       ],
       controllers: [AppController],
       providers: [AppService],

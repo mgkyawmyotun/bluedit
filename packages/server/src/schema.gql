@@ -106,6 +106,7 @@ type Mutation {
   editComment(editCommentInput: CommentEditInput!): CommentError
   deleteComment(comment_id: String!): CommentError
   createSubBluedit(subInput: SubInput!): SubError
+  joinSubBluedit(subName: String!): SubError
   register(userInput: UserInputType!): UserError
   login(loginInput: UserLoginInput!): UserError
   loginFaceBook(accessToken: String!): UserError

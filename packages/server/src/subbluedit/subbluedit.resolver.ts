@@ -12,4 +12,9 @@ export class SubblueditResolver {
   createSub(@Args('subInput') sub: SubInput) {
     return this.subService.createSub(sub);
   }
+  @Mutation(returns => SubError, { nullable: true, name: 'joinSubBluedit' })
+  @UseGuards(IsAuthGuard)
+  joinSub(@Args('subName') subName: string) {
+    return this.subService.joinSub(subName);
+  }
 }

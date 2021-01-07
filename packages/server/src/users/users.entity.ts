@@ -9,6 +9,7 @@ import {
 import { CommentEntity } from '../comments/comments.entity';
 import { PostEntity } from '../posts/posts.entity';
 import { VoteEntity } from '../vote/vote.entity';
+import { JoinEntity } from './../subbluedit/join.entity';
 import { SubEntity } from './../subbluedit/subluedit.entity';
 @Entity('users')
 export class UserEntity {
@@ -36,12 +37,16 @@ export class UserEntity {
     post => post.user,
   )
   posts: PostEntity[];
-
   @OneToMany(
     () => SubEntity,
     sub => sub.user,
   )
   subs: SubEntity[];
+  @OneToMany(
+    () => JoinEntity,
+    join => join.user,
+  )
+  joins: JoinEntity[];
   @OneToMany(
     () => VoteEntity,
     vote => vote.user,

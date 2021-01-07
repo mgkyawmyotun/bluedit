@@ -34,4 +34,9 @@ export class SubblueditService {
       return sqlError(error, 'subbluedit', 'name');
     }
   }
+  async joinSub(subName: string) {
+    const subEntity = await this.subRepository.findOne(subName);
+    // subEntity.users.push({ user_id: this.userAuthHelpService.getUser() });
+    await this.subRepository.save(subEntity);
+  }
 }

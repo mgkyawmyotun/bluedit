@@ -51,6 +51,7 @@ export class VoteService {
             },
             { vote_type: voteType },
           );
+          //Reduce/Inc Vote Count By Two Because User is already voted 1 -> -1 ,-1 -> 0
           this.saveVoteCount(voteType, post_id);
           this.saveVoteCount(voteType, post_id);
         }
