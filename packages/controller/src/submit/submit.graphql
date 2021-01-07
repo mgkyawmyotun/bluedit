@@ -1,0 +1,6 @@
+mutation createPost($postData: PostInputMarkDown!) {
+  createPostWithMarkDown(postData: $postData) {
+    path
+    message
+  }
+}

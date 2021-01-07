@@ -325,6 +325,16 @@ export declare type CheckEmailQueryVariables = Exact<{
 export declare type CheckEmailQuery = ({
     __typename?: 'Query';
 } & Pick<Query, 'isEmailExists'>);
+export declare type CreatePostMutationVariables = Exact<{
+    postData: PostInputMarkDown;
+}>;
+export declare type CreatePostMutation = ({
+    __typename?: 'Mutation';
+} & {
+    createPostWithMarkDown?: Maybe<({
+        __typename?: 'PostError';
+    } & Pick<PostError, 'path' | 'message'>)>;
+});
 export declare type AddVoteMutationVariables = Exact<{
     voteData: Vote;
 }>;
@@ -415,6 +425,14 @@ export declare function useCheckEmailLazyQuery(baseOptions?: Apollo.LazyQueryHoo
 export declare type CheckEmailQueryHookResult = ReturnType<typeof useCheckEmailQuery>;
 export declare type CheckEmailLazyQueryHookResult = ReturnType<typeof useCheckEmailLazyQuery>;
 export declare type CheckEmailQueryResult = Apollo.QueryResult<CheckEmailQuery, CheckEmailQueryVariables>;
+export declare const CreatePostDocument: Apollo.DocumentNode;
+export declare type CreatePostMutationFn = Apollo.MutationFunction<CreatePostMutation, CreatePostMutationVariables>;
+export declare function useCreatePostMutation(baseOptions?: Apollo.MutationHookOptions<CreatePostMutation, CreatePostMutationVariables>): Apollo.MutationTuple<CreatePostMutation, Exact<{
+    postData: PostInputMarkDown;
+}>>;
+export declare type CreatePostMutationHookResult = ReturnType<typeof useCreatePostMutation>;
+export declare type CreatePostMutationResult = Apollo.MutationResult<CreatePostMutation>;
+export declare type CreatePostMutationOptions = Apollo.BaseMutationOptions<CreatePostMutation, CreatePostMutationVariables>;
 export declare const AddVoteDocument: Apollo.DocumentNode;
 export declare type AddVoteMutationFn = Apollo.MutationFunction<AddVoteMutation, AddVoteMutationVariables>;
 export declare function useAddVoteMutation(baseOptions?: Apollo.MutationHookOptions<AddVoteMutation, AddVoteMutationVariables>): Apollo.MutationTuple<AddVoteMutation, Exact<{

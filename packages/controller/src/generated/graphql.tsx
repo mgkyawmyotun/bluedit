@@ -409,6 +409,19 @@ export type CheckEmailQuery = (
   & Pick<Query, 'isEmailExists'>
 );
 
+export type CreatePostMutationVariables = Exact<{
+  postData: PostInputMarkDown;
+}>;
+
+
+export type CreatePostMutation = (
+  { __typename?: 'Mutation' }
+  & { createPostWithMarkDown?: Maybe<(
+    { __typename?: 'PostError' }
+    & Pick<PostError, 'path' | 'message'>
+  )> }
+);
+
 export type AddVoteMutationVariables = Exact<{
   voteData: Vote;
 }>;
@@ -689,6 +702,39 @@ export function useCheckEmailLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type CheckEmailQueryHookResult = ReturnType<typeof useCheckEmailQuery>;
 export type CheckEmailLazyQueryHookResult = ReturnType<typeof useCheckEmailLazyQuery>;
 export type CheckEmailQueryResult = Apollo.QueryResult<CheckEmailQuery, CheckEmailQueryVariables>;
+export const CreatePostDocument = gql`
+    mutation createPost($postData: PostInputMarkDown!) {
+  createPostWithMarkDown(postData: $postData) {
+    path
+    message
+  }
+}
+    `;
+export type CreatePostMutationFn = Apollo.MutationFunction<CreatePostMutation, CreatePostMutationVariables>;
+
+/**
+ * __useCreatePostMutation__
+ *
+ * To run a mutation, you first call `useCreatePostMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePostMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPostMutation, { data, loading, error }] = useCreatePostMutation({
+ *   variables: {
+ *      postData: // value for 'postData'
+ *   },
+ * });
+ */
+export function useCreatePostMutation(baseOptions?: Apollo.MutationHookOptions<CreatePostMutation, CreatePostMutationVariables>) {
+        return Apollo.useMutation<CreatePostMutation, CreatePostMutationVariables>(CreatePostDocument, baseOptions);
+      }
+export type CreatePostMutationHookResult = ReturnType<typeof useCreatePostMutation>;
+export type CreatePostMutationResult = Apollo.MutationResult<CreatePostMutation>;
+export type CreatePostMutationOptions = Apollo.BaseMutationOptions<CreatePostMutation, CreatePostMutationVariables>;
 export const AddVoteDocument = gql`
     mutation addVote($voteData: Vote!) {
   addVote(voteData: $voteData) {
