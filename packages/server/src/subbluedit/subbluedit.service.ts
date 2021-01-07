@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { shapeError, sqlError } from './../shared/shapeError';
 import { UserAuthHelpService } from './../shared/userauth.service';
+import { JoinEntity } from './join.entity';
 import { SubError, SubInput } from './subbluedit.types';
 import { SubEntity } from './subluedit.entity';
 
@@ -13,6 +14,8 @@ export class SubblueditService {
     @InjectRepository(SubEntity)
     private subRepository: Repository<SubEntity>,
     private userAuthHelpService: UserAuthHelpService,
+    @InjectRepository(JoinEntity)
+    private joinRepository: Repository<JoinEntity>,
   ) {}
   async createSub({ displayName, name }: SubInput): Promise<SubError> {
     try {
@@ -34,9 +37,24 @@ export class SubblueditService {
       return sqlError(error, 'subbluedit', 'name');
     }
   }
-  async joinSub(subName: string) {
-    const subEntity = await this.subRepository.findOne(subName);
-    // subEntity.users.push({ user_id: this.userAuthHelpService.getUser() });
-    await this.subRepository.save(subEntity);
+  async joinSub(subName: string): Promise<SubError> {
+    const joinEntity = this.joinRepository.create({
+      sub: { name: subName },
+      user: { user_id: this.userAuthHelpService.getUser() },
+    });
+    try {
+      await this.joinRepository.save(joinEntity);
+    } catch (error) {
+      if (error.errno === 1452) {
+        return {
+          path: 'join-sub',
+          message: 'Not A Valid SubName',
+        };
+      }
+      return {
+        path: 'join-sub',
+        message: 'Error At Joining SubBluedit',
+      };
+    }
   }
 }
