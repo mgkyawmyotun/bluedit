@@ -57,4 +57,16 @@ export class SubblueditService {
       };
     }
   }
+  async getJoinSub() {
+    try {
+      const subJoin = await this.joinRepository.find({
+        where: { user: { user_id: this.userAuthHelpService.getUser() } },
+        relations: ['sub'],
+      });
+      // console.log(subJoin);
+      return subJoin;
+    } catch (error) {
+      return null;
+    }
+  }
 }

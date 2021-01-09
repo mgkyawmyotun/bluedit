@@ -1,5 +1,6 @@
 import { Layout } from 'antd';
 import 'draft-js/dist/Draft.css';
+import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { NavBar } from '../components/navbar';
 import { SubmitForm } from '../components/submit';
@@ -17,3 +18,9 @@ export default function Submit() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  return {
+    props: {},
+  };
+};

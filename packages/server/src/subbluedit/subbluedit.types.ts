@@ -4,8 +4,6 @@ import { ErrorInterface } from '../shared/types';
 @ObjectType()
 export class Sub {
   @Field(type => String)
-  sub_id: string;
-  @Field(type => String)
   displayName: string;
   @Field(type => String)
   name: string;
@@ -24,4 +22,9 @@ export class SubInput {
   displayName: string;
   @Field(type => String)
   name: string;
+}
+@ObjectType()
+export class JoinSub {
+  @Field(type => Sub)
+  sub: Sub;
 }

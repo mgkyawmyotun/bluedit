@@ -1,8 +1,8 @@
 import { UseGuards } from '@nestjs/common';
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { IsAuthGuard } from '../shared/is-auth.guard';
 import { SubblueditService } from './subbluedit.service';
-import { SubError, SubInput } from './subbluedit.types';
+import { JoinSub, SubError, SubInput } from './subbluedit.types';
 
 @Resolver()
 export class SubblueditResolver {
@@ -16,5 +16,9 @@ export class SubblueditResolver {
   @UseGuards(IsAuthGuard)
   joinSub(@Args('subName') subName: string) {
     return this.subService.joinSub(subName);
+  }
+  @Query(returns => [JoinSub], { nullable: true })
+  async getJoinSub() {
+    return this.subService.getJoinSub();
   }
 }

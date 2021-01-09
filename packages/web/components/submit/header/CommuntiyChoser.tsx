@@ -6,7 +6,7 @@ import styles from './../../../styles/submit.module.css';
 
 interface MainChoserProps {}
 
-const SelectPlaceHoler = (
+const SelectPlaceHolder = (
   <div className={styles.select__placeholder}>
     <div>
       <Image
@@ -24,7 +24,7 @@ export const MainChoser: FC = () => {
     <>
       <Select
         showSearch
-        placeholder={SelectPlaceHoler}
+        placeholder={SelectPlaceHolder}
         optionFilterProp="children"
         className={styles.submit__main__choser}
       >
