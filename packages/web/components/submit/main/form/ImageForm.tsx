@@ -13,10 +13,14 @@ export const ImageForm: FC = () => {
         console.log('HEllo From Submit');
       }}
     >
-      {({ handleSubmit }) => (
+      {({ handleSubmit, errors, isSubmitting }) => (
         <>
           <ImageVideoTab />
-          <MainSubmitButton onSubmit={handleSubmit} />
+          <MainSubmitButton
+            onSubmit={handleSubmit}
+            errors={errors}
+            isSubmitting={isSubmitting}
+          />
         </>
       )}
     </Formik>

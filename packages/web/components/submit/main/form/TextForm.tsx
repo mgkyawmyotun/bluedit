@@ -14,10 +14,14 @@ export const TextForm: FC = () => {
         console.log(values);
       }}
     >
-      {({ handleSubmit }) => (
+      {({ handleSubmit, errors, isSubmitting }) => (
         <>
           <PostTab />
-          <MainSubmitButton onSubmit={handleSubmit} />
+          <MainSubmitButton
+            onSubmit={handleSubmit}
+            errors={errors}
+            isSubmitting={isSubmitting}
+          />
         </>
       )}
     </Formik>

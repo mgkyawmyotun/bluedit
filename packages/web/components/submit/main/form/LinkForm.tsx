@@ -1,3 +1,4 @@
+import { postLinkValidation } from '@bluedit/common';
 import { Formik } from 'formik';
 import { FC } from 'react';
 import { MainSubmitButton } from '../SubmitButton';
@@ -11,14 +12,19 @@ export const LinkForm: FC = () => {
         title: '',
         link: '',
       }}
+      validationSchema={postLinkValidation}
       onSubmit={() => {
         console.log('HEllo From Submit');
       }}
     >
-      {({ handleSubmit }) => (
+      {({ handleSubmit, errors, isSubmitting }) => (
         <>
           <LinkTab />
-          <MainSubmitButton onSubmit={handleSubmit} />
+          <MainSubmitButton
+            onSubmit={handleSubmit}
+            errors={errors}
+            isSubmitting={isSubmitting}
+          />
         </>
       )}
     </Formik>

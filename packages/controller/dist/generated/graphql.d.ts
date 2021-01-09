@@ -29,7 +29,6 @@ export declare type ErrorInterface = {
 };
 export declare type Sub = {
     __typename?: 'Sub';
-    sub_id: Scalars['String'];
     displayName: Scalars['String'];
     name: Scalars['String'];
     picture_url?: Maybe<Scalars['String']>;
@@ -38,6 +37,10 @@ export declare type SubError = ErrorInterface & {
     __typename?: 'SubError';
     path: Scalars['String'];
     message: Scalars['String'];
+};
+export declare type JoinSub = {
+    __typename?: 'JoinSub';
+    sub: Sub;
 };
 export declare type User = {
     __typename?: 'User';
@@ -98,6 +101,7 @@ export declare type Query = {
     __typename?: 'Query';
     getPosts: Array<Post>;
     getComments?: Maybe<Array<Comment>>;
+    getJoinSub?: Maybe<Array<JoinSub>>;
     me?: Maybe<User>;
     logout?: Maybe<Scalars['String']>;
     isEmailExists: Scalars['Boolean'];
@@ -129,6 +133,7 @@ export declare type Mutation = {
     editComment?: Maybe<CommentError>;
     deleteComment?: Maybe<CommentError>;
     createSubBluedit?: Maybe<SubError>;
+    joinSubBluedit?: Maybe<SubError>;
     register?: Maybe<UserError>;
     login?: Maybe<UserError>;
     loginFaceBook?: Maybe<UserError>;
@@ -169,6 +174,9 @@ export declare type MutationDeleteCommentArgs = {
 };
 export declare type MutationCreateSubBlueditArgs = {
     subInput: SubInput;
+};
+export declare type MutationJoinSubBlueditArgs = {
+    subName: Scalars['String'];
 };
 export declare type MutationRegisterArgs = {
     userInput: UserInputType;
@@ -325,6 +333,20 @@ export declare type CheckEmailQueryVariables = Exact<{
 export declare type CheckEmailQuery = ({
     __typename?: 'Query';
 } & Pick<Query, 'isEmailExists'>);
+export declare type GetJoinedSubQueryVariables = Exact<{
+    [key: string]: never;
+}>;
+export declare type GetJoinedSubQuery = ({
+    __typename?: 'Query';
+} & {
+    getJoinSub?: Maybe<Array<({
+        __typename?: 'JoinSub';
+    } & {
+        sub: ({
+            __typename?: 'Sub';
+        } & Pick<Sub, 'displayName' | 'name' | 'picture_url'>);
+    })>>;
+});
 export declare type CreatePostMutationVariables = Exact<{
     postData: PostInputMarkDown;
 }>;
@@ -425,6 +447,16 @@ export declare function useCheckEmailLazyQuery(baseOptions?: Apollo.LazyQueryHoo
 export declare type CheckEmailQueryHookResult = ReturnType<typeof useCheckEmailQuery>;
 export declare type CheckEmailLazyQueryHookResult = ReturnType<typeof useCheckEmailLazyQuery>;
 export declare type CheckEmailQueryResult = Apollo.QueryResult<CheckEmailQuery, CheckEmailQueryVariables>;
+export declare const GetJoinedSubDocument: Apollo.DocumentNode;
+export declare function useGetJoinedSubQuery(baseOptions?: Apollo.QueryHookOptions<GetJoinedSubQuery, GetJoinedSubQueryVariables>): Apollo.QueryResult<GetJoinedSubQuery, Exact<{
+    [key: string]: never;
+}>>;
+export declare function useGetJoinedSubLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetJoinedSubQuery, GetJoinedSubQueryVariables>): Apollo.QueryTuple<GetJoinedSubQuery, Exact<{
+    [key: string]: never;
+}>>;
+export declare type GetJoinedSubQueryHookResult = ReturnType<typeof useGetJoinedSubQuery>;
+export declare type GetJoinedSubLazyQueryHookResult = ReturnType<typeof useGetJoinedSubLazyQuery>;
+export declare type GetJoinedSubQueryResult = Apollo.QueryResult<GetJoinedSubQuery, GetJoinedSubQueryVariables>;
 export declare const CreatePostDocument: Apollo.DocumentNode;
 export declare type CreatePostMutationFn = Apollo.MutationFunction<CreatePostMutation, CreatePostMutationVariables>;
 export declare function useCreatePostMutation(baseOptions?: Apollo.MutationHookOptions<CreatePostMutation, CreatePostMutationVariables>): Apollo.MutationTuple<CreatePostMutation, Exact<{

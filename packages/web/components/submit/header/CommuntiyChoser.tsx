@@ -1,11 +1,9 @@
+import { useGetJoinSub } from '@bluedit/controller';
 import { Select } from 'antd';
 import Image from 'next/image';
 import { FC } from 'react';
 import { SelectOption } from '../main/SelectOption';
 import styles from './../../../styles/submit.module.css';
-
-interface MainChoserProps {}
-
 const SelectPlaceHolder = (
   <div className={styles.select__placeholder}>
     <div>
@@ -20,17 +18,25 @@ const SelectPlaceHolder = (
   </div>
 );
 export const MainChoser: FC = () => {
+  const { data, loading } = useGetJoinSub();
   return (
     <>
       <Select
-        showSearch
         placeholder={SelectPlaceHolder}
         optionFilterProp="children"
         className={styles.submit__main__choser}
+        onChange={() => {}}
       >
-        <Select.Option value={'One'}>
-          <SelectOption value={'kyawmyotun'} />
-        </Select.Option>
+        {!loading &&
+          data &&
+          data.getJoinSub &&
+          data.getJoinSub.map((join) => {
+            return (
+              <Select.Option value={join.sub.name} key={join.sub.name}>
+                <SelectOption value={'r/' + join.sub.name} />
+              </Select.Option>
+            );
+          })}
       </Select>
       ,{' '}
     </>
