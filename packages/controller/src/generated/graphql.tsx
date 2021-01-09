@@ -26,7 +26,6 @@ export type ErrorInterface = {
 
 export type Sub = {
   __typename?: 'Sub';
-  sub_id: Scalars['String'];
   displayName: Scalars['String'];
   name: Scalars['String'];
   picture_url?: Maybe<Scalars['String']>;
@@ -36,6 +35,11 @@ export type SubError = ErrorInterface & {
   __typename?: 'SubError';
   path: Scalars['String'];
   message: Scalars['String'];
+};
+
+export type JoinSub = {
+  __typename?: 'JoinSub';
+  sub: Sub;
 };
 
 export type User = {
@@ -104,6 +108,7 @@ export type Query = {
   __typename?: 'Query';
   getPosts: Array<Post>;
   getComments?: Maybe<Array<Comment>>;
+  getJoinSub?: Maybe<Array<JoinSub>>;
   me?: Maybe<User>;
   logout?: Maybe<Scalars['String']>;
   isEmailExists: Scalars['Boolean'];
@@ -143,6 +148,7 @@ export type Mutation = {
   editComment?: Maybe<CommentError>;
   deleteComment?: Maybe<CommentError>;
   createSubBluedit?: Maybe<SubError>;
+  joinSubBluedit?: Maybe<SubError>;
   register?: Maybe<UserError>;
   login?: Maybe<UserError>;
   loginFaceBook?: Maybe<UserError>;
@@ -205,6 +211,11 @@ export type MutationDeleteCommentArgs = {
 
 export type MutationCreateSubBlueditArgs = {
   subInput: SubInput;
+};
+
+
+export type MutationJoinSubBlueditArgs = {
+  subName: Scalars['String'];
 };
 
 
@@ -407,6 +418,20 @@ export type CheckEmailQueryVariables = Exact<{
 export type CheckEmailQuery = (
   { __typename?: 'Query' }
   & Pick<Query, 'isEmailExists'>
+);
+
+export type GetJoinedSubQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetJoinedSubQuery = (
+  { __typename?: 'Query' }
+  & { getJoinSub?: Maybe<Array<(
+    { __typename?: 'JoinSub' }
+    & { sub: (
+      { __typename?: 'Sub' }
+      & Pick<Sub, 'displayName' | 'name' | 'picture_url'>
+    ) }
+  )>> }
 );
 
 export type CreatePostMutationVariables = Exact<{
@@ -702,6 +727,42 @@ export function useCheckEmailLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type CheckEmailQueryHookResult = ReturnType<typeof useCheckEmailQuery>;
 export type CheckEmailLazyQueryHookResult = ReturnType<typeof useCheckEmailLazyQuery>;
 export type CheckEmailQueryResult = Apollo.QueryResult<CheckEmailQuery, CheckEmailQueryVariables>;
+export const GetJoinedSubDocument = gql`
+    query getJoinedSub {
+  getJoinSub {
+    sub {
+      displayName
+      name
+      picture_url
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetJoinedSubQuery__
+ *
+ * To run a query within a React component, call `useGetJoinedSubQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetJoinedSubQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetJoinedSubQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetJoinedSubQuery(baseOptions?: Apollo.QueryHookOptions<GetJoinedSubQuery, GetJoinedSubQueryVariables>) {
+        return Apollo.useQuery<GetJoinedSubQuery, GetJoinedSubQueryVariables>(GetJoinedSubDocument, baseOptions);
+      }
+export function useGetJoinedSubLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetJoinedSubQuery, GetJoinedSubQueryVariables>) {
+          return Apollo.useLazyQuery<GetJoinedSubQuery, GetJoinedSubQueryVariables>(GetJoinedSubDocument, baseOptions);
+        }
+export type GetJoinedSubQueryHookResult = ReturnType<typeof useGetJoinedSubQuery>;
+export type GetJoinedSubLazyQueryHookResult = ReturnType<typeof useGetJoinedSubLazyQuery>;
+export type GetJoinedSubQueryResult = Apollo.QueryResult<GetJoinedSubQuery, GetJoinedSubQueryVariables>;
 export const CreatePostDocument = gql`
     mutation createPost($postData: PostInputMarkDown!) {
   createPostWithMarkDown(postData: $postData) {

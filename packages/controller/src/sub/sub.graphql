@@ -1,0 +1,9 @@
+query getJoinedSub {
+  getJoinSub {
+    sub {
+      displayName
+      name
+      picture_url
+    }
+  }
+}
