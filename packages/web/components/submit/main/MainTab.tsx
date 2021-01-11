@@ -1,5 +1,6 @@
 import { Tabs } from 'antd';
 import { FC } from 'react';
+import { SubBlueditState } from '../store';
 import styles from './../../../styles/submit.module.css';
 import { ImageForm } from './form/ImageForm';
 import { LinkForm } from './form/LinkForm';
@@ -35,7 +36,7 @@ export const MainTap: FC = () => {
         <ImageForm />
       </TabPane>
       <TabPane tab={LinkTabHeader} key="3">
-        <LinkForm />
+        <LinkForm subName={SubBlueditState.getSubBleditState()} />
       </TabPane>
     </Tabs>
   );

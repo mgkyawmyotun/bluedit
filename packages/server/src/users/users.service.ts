@@ -233,7 +233,9 @@ export class UsersService {
   }
   private setUserSession(user_id: string): void {
     const { session } = this.context;
+    // console.log(session);
     session.user = user_id;
+    // console.log(session.user);
   }
   private createPasswordResetLink(userId: string): string {
     const id = v4();
