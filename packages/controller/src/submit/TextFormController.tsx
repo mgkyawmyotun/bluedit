@@ -2,9 +2,9 @@ import { FetchResult } from '@apollo/client';
 import { FC } from 'react';
 import { GraphQlClient } from '../ApolloClient';
 import {
-  CreatePostMutation,
+  CreatePostWithMarkDownMutation,
   PostInputMarkDown,
-  useCreatePostMutation,
+  useCreatePostWithMarkDownMutation,
 } from '../generated/graphql';
 
 interface TextFormControllerProps {
@@ -14,14 +14,18 @@ interface TextFormControllerProps {
     submitPost: (
       postData: PostInputMarkDown
     ) => Promise<
-      FetchResult<CreatePostMutation, Record<string, any>, Record<string, any>>
+      FetchResult<
+        CreatePostWithMarkDownMutation,
+        Record<string, any>,
+        Record<string, any>
+      >
     >;
   }) => JSX.Element;
 }
 export const TextFormController: FC<TextFormControllerProps> = ({
   children,
 }) => {
-  const [createPost, {}] = useCreatePostMutation({
+  const [createPost, {}] = useCreatePostWithMarkDownMutation({
     client: GraphQlClient.getClient(),
   });
   const submitPost = (postData: PostInputMarkDown) => {

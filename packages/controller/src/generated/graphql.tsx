@@ -434,14 +434,27 @@ export type GetJoinedSubQuery = (
   )>> }
 );
 
-export type CreatePostMutationVariables = Exact<{
+export type CreatePostWithMarkDownMutationVariables = Exact<{
   postData: PostInputMarkDown;
 }>;
 
 
-export type CreatePostMutation = (
+export type CreatePostWithMarkDownMutation = (
   { __typename?: 'Mutation' }
   & { createPostWithMarkDown?: Maybe<(
+    { __typename?: 'PostError' }
+    & Pick<PostError, 'path' | 'message'>
+  )> }
+);
+
+export type CreatePostWithLinkMutationVariables = Exact<{
+  postData: PostInputLink;
+}>;
+
+
+export type CreatePostWithLinkMutation = (
+  { __typename?: 'Mutation' }
+  & { createPostWithLink?: Maybe<(
     { __typename?: 'PostError' }
     & Pick<PostError, 'path' | 'message'>
   )> }
@@ -763,39 +776,72 @@ export function useGetJoinedSubLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type GetJoinedSubQueryHookResult = ReturnType<typeof useGetJoinedSubQuery>;
 export type GetJoinedSubLazyQueryHookResult = ReturnType<typeof useGetJoinedSubLazyQuery>;
 export type GetJoinedSubQueryResult = Apollo.QueryResult<GetJoinedSubQuery, GetJoinedSubQueryVariables>;
-export const CreatePostDocument = gql`
-    mutation createPost($postData: PostInputMarkDown!) {
+export const CreatePostWithMarkDownDocument = gql`
+    mutation createPostWithMarkDown($postData: PostInputMarkDown!) {
   createPostWithMarkDown(postData: $postData) {
     path
     message
   }
 }
     `;
-export type CreatePostMutationFn = Apollo.MutationFunction<CreatePostMutation, CreatePostMutationVariables>;
+export type CreatePostWithMarkDownMutationFn = Apollo.MutationFunction<CreatePostWithMarkDownMutation, CreatePostWithMarkDownMutationVariables>;
 
 /**
- * __useCreatePostMutation__
+ * __useCreatePostWithMarkDownMutation__
  *
- * To run a mutation, you first call `useCreatePostMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreatePostMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useCreatePostWithMarkDownMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePostWithMarkDownMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [createPostMutation, { data, loading, error }] = useCreatePostMutation({
+ * const [createPostWithMarkDownMutation, { data, loading, error }] = useCreatePostWithMarkDownMutation({
  *   variables: {
  *      postData: // value for 'postData'
  *   },
  * });
  */
-export function useCreatePostMutation(baseOptions?: Apollo.MutationHookOptions<CreatePostMutation, CreatePostMutationVariables>) {
-        return Apollo.useMutation<CreatePostMutation, CreatePostMutationVariables>(CreatePostDocument, baseOptions);
+export function useCreatePostWithMarkDownMutation(baseOptions?: Apollo.MutationHookOptions<CreatePostWithMarkDownMutation, CreatePostWithMarkDownMutationVariables>) {
+        return Apollo.useMutation<CreatePostWithMarkDownMutation, CreatePostWithMarkDownMutationVariables>(CreatePostWithMarkDownDocument, baseOptions);
       }
-export type CreatePostMutationHookResult = ReturnType<typeof useCreatePostMutation>;
-export type CreatePostMutationResult = Apollo.MutationResult<CreatePostMutation>;
-export type CreatePostMutationOptions = Apollo.BaseMutationOptions<CreatePostMutation, CreatePostMutationVariables>;
+export type CreatePostWithMarkDownMutationHookResult = ReturnType<typeof useCreatePostWithMarkDownMutation>;
+export type CreatePostWithMarkDownMutationResult = Apollo.MutationResult<CreatePostWithMarkDownMutation>;
+export type CreatePostWithMarkDownMutationOptions = Apollo.BaseMutationOptions<CreatePostWithMarkDownMutation, CreatePostWithMarkDownMutationVariables>;
+export const CreatePostWithLinkDocument = gql`
+    mutation createPostWithLink($postData: PostInputLink!) {
+  createPostWithLink(postData: $postData) {
+    path
+    message
+  }
+}
+    `;
+export type CreatePostWithLinkMutationFn = Apollo.MutationFunction<CreatePostWithLinkMutation, CreatePostWithLinkMutationVariables>;
+
+/**
+ * __useCreatePostWithLinkMutation__
+ *
+ * To run a mutation, you first call `useCreatePostWithLinkMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePostWithLinkMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPostWithLinkMutation, { data, loading, error }] = useCreatePostWithLinkMutation({
+ *   variables: {
+ *      postData: // value for 'postData'
+ *   },
+ * });
+ */
+export function useCreatePostWithLinkMutation(baseOptions?: Apollo.MutationHookOptions<CreatePostWithLinkMutation, CreatePostWithLinkMutationVariables>) {
+        return Apollo.useMutation<CreatePostWithLinkMutation, CreatePostWithLinkMutationVariables>(CreatePostWithLinkDocument, baseOptions);
+      }
+export type CreatePostWithLinkMutationHookResult = ReturnType<typeof useCreatePostWithLinkMutation>;
+export type CreatePostWithLinkMutationResult = Apollo.MutationResult<CreatePostWithLinkMutation>;
+export type CreatePostWithLinkMutationOptions = Apollo.BaseMutationOptions<CreatePostWithLinkMutation, CreatePostWithLinkMutationVariables>;
 export const AddVoteDocument = gql`
     mutation addVote($voteData: Vote!) {
   addVote(voteData: $voteData) {

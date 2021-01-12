@@ -5,7 +5,7 @@ var ApolloClient_1 = require("../ApolloClient");
 var graphql_1 = require("../generated/graphql");
 var TextFormController = function (_a) {
     var children = _a.children;
-    var _b = graphql_1.useCreatePostMutation({
+    var _b = graphql_1.useCreatePostWithMarkDownMutation({
         client: ApolloClient_1.GraphQlClient.getClient(),
     }), createPost = _b[0], _c = _b[1];
     var submitPost = function (postData) {

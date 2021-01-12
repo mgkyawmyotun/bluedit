@@ -347,13 +347,23 @@ export declare type GetJoinedSubQuery = ({
         } & Pick<Sub, 'displayName' | 'name' | 'picture_url'>);
     })>>;
 });
-export declare type CreatePostMutationVariables = Exact<{
+export declare type CreatePostWithMarkDownMutationVariables = Exact<{
     postData: PostInputMarkDown;
 }>;
-export declare type CreatePostMutation = ({
+export declare type CreatePostWithMarkDownMutation = ({
     __typename?: 'Mutation';
 } & {
     createPostWithMarkDown?: Maybe<({
+        __typename?: 'PostError';
+    } & Pick<PostError, 'path' | 'message'>)>;
+});
+export declare type CreatePostWithLinkMutationVariables = Exact<{
+    postData: PostInputLink;
+}>;
+export declare type CreatePostWithLinkMutation = ({
+    __typename?: 'Mutation';
+} & {
+    createPostWithLink?: Maybe<({
         __typename?: 'PostError';
     } & Pick<PostError, 'path' | 'message'>)>;
 });
@@ -457,14 +467,22 @@ export declare function useGetJoinedSubLazyQuery(baseOptions?: Apollo.LazyQueryH
 export declare type GetJoinedSubQueryHookResult = ReturnType<typeof useGetJoinedSubQuery>;
 export declare type GetJoinedSubLazyQueryHookResult = ReturnType<typeof useGetJoinedSubLazyQuery>;
 export declare type GetJoinedSubQueryResult = Apollo.QueryResult<GetJoinedSubQuery, GetJoinedSubQueryVariables>;
-export declare const CreatePostDocument: Apollo.DocumentNode;
-export declare type CreatePostMutationFn = Apollo.MutationFunction<CreatePostMutation, CreatePostMutationVariables>;
-export declare function useCreatePostMutation(baseOptions?: Apollo.MutationHookOptions<CreatePostMutation, CreatePostMutationVariables>): Apollo.MutationTuple<CreatePostMutation, Exact<{
+export declare const CreatePostWithMarkDownDocument: Apollo.DocumentNode;
+export declare type CreatePostWithMarkDownMutationFn = Apollo.MutationFunction<CreatePostWithMarkDownMutation, CreatePostWithMarkDownMutationVariables>;
+export declare function useCreatePostWithMarkDownMutation(baseOptions?: Apollo.MutationHookOptions<CreatePostWithMarkDownMutation, CreatePostWithMarkDownMutationVariables>): Apollo.MutationTuple<CreatePostWithMarkDownMutation, Exact<{
     postData: PostInputMarkDown;
 }>>;
-export declare type CreatePostMutationHookResult = ReturnType<typeof useCreatePostMutation>;
-export declare type CreatePostMutationResult = Apollo.MutationResult<CreatePostMutation>;
-export declare type CreatePostMutationOptions = Apollo.BaseMutationOptions<CreatePostMutation, CreatePostMutationVariables>;
+export declare type CreatePostWithMarkDownMutationHookResult = ReturnType<typeof useCreatePostWithMarkDownMutation>;
+export declare type CreatePostWithMarkDownMutationResult = Apollo.MutationResult<CreatePostWithMarkDownMutation>;
+export declare type CreatePostWithMarkDownMutationOptions = Apollo.BaseMutationOptions<CreatePostWithMarkDownMutation, CreatePostWithMarkDownMutationVariables>;
+export declare const CreatePostWithLinkDocument: Apollo.DocumentNode;
+export declare type CreatePostWithLinkMutationFn = Apollo.MutationFunction<CreatePostWithLinkMutation, CreatePostWithLinkMutationVariables>;
+export declare function useCreatePostWithLinkMutation(baseOptions?: Apollo.MutationHookOptions<CreatePostWithLinkMutation, CreatePostWithLinkMutationVariables>): Apollo.MutationTuple<CreatePostWithLinkMutation, Exact<{
+    postData: PostInputLink;
+}>>;
+export declare type CreatePostWithLinkMutationHookResult = ReturnType<typeof useCreatePostWithLinkMutation>;
+export declare type CreatePostWithLinkMutationResult = Apollo.MutationResult<CreatePostWithLinkMutation>;
+export declare type CreatePostWithLinkMutationOptions = Apollo.BaseMutationOptions<CreatePostWithLinkMutation, CreatePostWithLinkMutationVariables>;
 export declare const AddVoteDocument: Apollo.DocumentNode;
 export declare type AddVoteMutationFn = Apollo.MutationFunction<AddVoteMutation, AddVoteMutationVariables>;
 export declare function useAddVoteMutation(baseOptions?: Apollo.MutationHookOptions<AddVoteMutation, AddVoteMutationVariables>): Apollo.MutationTuple<AddVoteMutation, Exact<{

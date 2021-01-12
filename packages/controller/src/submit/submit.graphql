@@ -1,5 +1,12 @@
-mutation createPost($postData: PostInputMarkDown!) {
+mutation createPostWithMarkDown($postData: PostInputMarkDown!) {
   createPostWithMarkDown(postData: $postData) {
+    path
+    message
+  }
+}
+
+mutation createPostWithLink($postData: PostInputLink!) {
+  createPostWithLink(postData: $postData) {
     path
     message
   }
