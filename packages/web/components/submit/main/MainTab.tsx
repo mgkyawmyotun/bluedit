@@ -30,7 +30,7 @@ export const MainTap: FC = () => {
   return (
     <Tabs className={styles.submit__tab}>
       <TabPane tab={<PostTabHeader />} key="1" animated>
-        <TextForm />
+        <TextForm subName={SubBlueditState.getSubBleditState()} />
       </TabPane>
       <TabPane tab={<ImageVideoTabHeader />} key="2">
         <ImageForm />

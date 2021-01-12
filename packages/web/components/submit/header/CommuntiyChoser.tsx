@@ -32,6 +32,7 @@ export const MainChoser: FC<{ subName: SubBluedit }> = observer(
             subName.setName(value.toString());
           }}
           value={subName.subBlueditName}
+          loading={loading}
         >
           {!loading &&
             data &&

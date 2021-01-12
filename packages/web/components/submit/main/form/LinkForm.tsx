@@ -2,13 +2,19 @@ import { postLinkValidation } from '@bluedit/common';
 import { LinkFormController } from '@bluedit/controller';
 import { Formik } from 'formik';
 import { observer } from 'mobx-react';
+import { useRouter } from 'next/router';
 import { FC } from 'react';
-import { forgetToChoseNotification } from '../../../common/Notification';
+import {
+  forgetToChoseNotification,
+  postSuccessNotification,
+  serverErrorNotification,
+} from '../../../common/Notification';
 import { SubBluedit } from '../../store';
 import { MainSubmitButton } from '../SubmitButton';
 import { LinkTab } from '../tab/LinkTab';
 
 export const LinkForm: FC<{ subName: SubBluedit }> = observer(({ subName }) => {
+  const { push } = useRouter();
   return (
     <LinkFormController>
       {({ submitPost }) => (
@@ -20,9 +26,7 @@ export const LinkForm: FC<{ subName: SubBluedit }> = observer(({ subName }) => {
           }}
           validationSchema={postLinkValidation}
           onSubmit={async (values, helpers) => {
-            console.log(subName.subBlueditName);
             if (subName.subBlueditName === undefined) {
-              console.log('Error');
               forgetToChoseNotification();
               helpers.setSubmitting(false);
               return;
@@ -33,8 +37,15 @@ export const LinkForm: FC<{ subName: SubBluedit }> = observer(({ subName }) => {
                 title: values.title,
                 subbluedit: subName.subBlueditName,
               });
-            } catch (error) {}
+            } catch (error) {
+              serverErrorNotification();
+              helpers.setSubmitting(false);
+              return;
+            }
+
+            postSuccessNotification();
             helpers.setSubmitting(false);
+            push('/');
           }}
           validateOnBlur
         >

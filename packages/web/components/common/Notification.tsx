@@ -51,3 +51,10 @@ export const forgetToChoseNotification = () => {
     type: 'error',
   });
 };
+
+export const postSuccessNotification = () =>
+  openNotification({
+    description: 'Post Created Successfully',
+    message: 'Post Create',
+    type: 'success',
+  });
