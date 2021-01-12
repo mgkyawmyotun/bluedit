@@ -44,3 +44,10 @@ export const serverErrorNotification = () => {
     type: 'error',
   });
 };
+export const forgetToChoseNotification = () => {
+  openNotification({
+    message: 'Chose Community',
+    description: 'Please Chose Community You Went To Post',
+    type: 'error',
+  });
+};

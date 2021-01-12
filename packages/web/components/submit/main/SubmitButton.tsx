@@ -37,7 +37,7 @@ export const MainSubmitButton: FC<MainSubmitButton> = ({
           onSubmit={onSubmit}
           onClick={onSubmit}
           loading={isSubmitting}
-          // disabled={error}
+          disabled={!!(errors.link || errors.title)}
         >
           Submit
         </Button>

@@ -1,12 +1,12 @@
 import { makeAutoObservable } from 'mobx';
 export class SubBluedit {
-  subBlueditName: string = '';
+  subBlueditName: string = undefined;
 
   constructor() {
     makeAutoObservable(this);
   }
   setName(name: string) {
-    this.subBlueditName = '';
+    this.subBlueditName = name;
   }
 }
 export class SubBlueditState {

@@ -2,6 +2,7 @@ import { postLinkValidation } from '@bluedit/common';
 import { Formik } from 'formik';
 import { observer } from 'mobx-react';
 import { FC } from 'react';
+import { forgetToChoseNotification } from '../../../common/Notification';
 import { SubBluedit } from '../../store';
 import { MainSubmitButton } from '../SubmitButton';
 import { LinkTab } from '../tab/LinkTab';
@@ -16,9 +17,11 @@ export const LinkForm: FC<{ subName: SubBluedit }> = observer(({ subName }) => {
       }}
       validationSchema={postLinkValidation}
       onSubmit={(values, helpers) => {
-        subName.setName('onetwothree');
-        console.log(subName.subBlueditName);
-        console.log('HEllo From Submit');
+        if (subName.subBlueditName === undefined) {
+          forgetToChoseNotification();
+          helpers.setSubmitting(false);
+          return;
+        }
         helpers.setSubmitting(false);
       }}
       validateOnBlur
