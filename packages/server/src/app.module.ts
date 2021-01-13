@@ -1,6 +1,7 @@
 import { BullModule } from '@nestjs/bull';
 import { DynamicModule, Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
+import { ServeStaticModule } from '@nestjs/serve-static';
 import { Request } from 'express';
 import { Session } from 'express-session';
 import { join } from 'path';
@@ -28,6 +29,10 @@ export class AppModule {
     return {
       module: AppModule,
       imports: [
+        ServeStaticModule.forRoot({
+          rootPath: join(__dirname, '..', 'images'),
+          serveRoot: '/images/',
+        }),
         options.connectionType == 'test' ? TEST_CONNECTION : DEV_CONNECTION,
         BullModule.forRoot({
           redis: {

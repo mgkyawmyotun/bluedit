@@ -8,7 +8,9 @@ import { CardContentTitle } from './cardContentTitle';
 
 interface CardContentProps {}
 export const CardContent: FC = () => {
-  const { link, post_text, title } = useContext(PostContext);
+  const { link, post_text, title, images } = useContext(PostContext);
+
+  console.log(images);
   return (
     <Col className={styles.card__content}>
       <Col>

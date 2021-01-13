@@ -22,11 +22,31 @@ export class AppController {
   }
   @Post('upload')
   @UseGuards(IsAuthGuard)
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(
+    FileInterceptor('file', {
+      limits: { fileSize: 5e6 },
+      fileFilter: (_, file, callback) => {
+        if (file.originalname.match(/\.(jpg)$|\.(png)$|\.(jpeg)$/)) {
+          callback(null, true);
+          return;
+        }
+        callback(null, false);
+      },
+    }),
+  )
   uploadFile(@UploadedFile() file) {
+    if (!file) {
+      return null;
+    }
     const fileName = `${Date.now() + Math.random() + '' + file.originalname}`;
-    const path = join(__dirname, '..', 'images', fileName);
-    writeFile(path, file.buffer, () => {});
+    try {
+      const path = join(__dirname, '..', 'images', fileName);
+      writeFile(path, file.buffer, () => {});
+    } catch (error) {
+      return {
+        status: 'Error',
+      };
+    }
     return { fileName };
   }
   @Get('remove/:fileName')
