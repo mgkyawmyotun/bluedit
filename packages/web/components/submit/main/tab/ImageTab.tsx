@@ -69,7 +69,17 @@ export const ImageVideoTab: FC = () => {
     setFileList(fileList);
   };
   const handleRemove = (file) => {
-    console.log(file);
+    if (file.response) {
+      // fetch();
+      fetch(
+        process.env.NEXT_PUBLIC_SERVER + 'remove/' + file.response.fileName,
+        {
+          credentials: 'include',
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => console.log(data));
+    }
   };
 
   return (

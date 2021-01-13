@@ -1,13 +1,14 @@
 import {
   Controller,
   Get,
+  Param,
   Post,
   UploadedFile,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { writeFile } from 'fs';
+import { unlinkSync, writeFile } from 'fs';
 import { join } from 'path';
 import { IsAuthGuard } from 'src/shared/is-auth.guard';
 import { AppService } from './app.service';
@@ -27,5 +28,18 @@ export class AppController {
     const path = join(__dirname, '..', 'images', fileName);
     writeFile(path, file.buffer, () => {});
     return { fileName };
+  }
+  @Get('remove/:fileName')
+  @UseGuards(IsAuthGuard)
+  removeFile(@Param('fileName') fileName: string) {
+    try {
+      const path = join(__dirname, '..', 'images', fileName);
+      unlinkSync(path);
+    } catch (error) {
+      return {
+        status: 'Error,Cannot Delete',
+      };
+    }
+    return { status: 'Completed' };
   }
 }
