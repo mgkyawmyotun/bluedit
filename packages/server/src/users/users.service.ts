@@ -97,14 +97,14 @@ export class UsersService {
         message: error.message,
       };
     }
-    const userAlereadyExists = await this.usersRepository.findOne(
-      {
-        email: email,
-      },
-      { select: ['password', 'user_id'] },
-    );
 
-    if (!userAlereadyExists) {
+    const [userAlreadyExists] = await this.usersRepository
+      .createQueryBuilder()
+      .select('user_id,password')
+      .where('email=:mail', { mail: email })
+      .andWhere('password is not null')
+      .execute();
+    if (!userAlreadyExists) {
       return {
         path: 'email/password',
         message: 'Invalid Email or Password',
@@ -112,7 +112,7 @@ export class UsersService {
     }
     const isValidPassword = await bcrypt.compare(
       password,
-      userAlereadyExists.password,
+      userAlreadyExists.password,
     );
     if (!isValidPassword) {
       return {
@@ -120,7 +120,7 @@ export class UsersService {
         message: 'Invalid Email or Password',
       };
     }
-    this.setUserSession(userAlereadyExists.user_id);
+    this.setUserSession(userAlreadyExists.user_id);
     return null;
   }
   async logout() {
@@ -144,15 +144,15 @@ export class UsersService {
     const { data: UserData }: { data: FaceBookUserProfile } = await axios.get(
       UserProfileUrl,
     );
-    const userAlereadyExists = await this.usersRepository
+    const [userAlreadyExists] = await this.usersRepository
       .createQueryBuilder()
       .select('user_id')
       .where('email=:mail', { mail: UserData.email })
       .andWhere('password is null')
       .execute();
 
-    if (userAlereadyExists.length > 0) {
-      this.setUserSession(userAlereadyExists.user_id);
+    if (userAlreadyExists) {
+      this.setUserSession(userAlreadyExists.user_id);
       return null;
     }
     const user = this.usersRepository.create({

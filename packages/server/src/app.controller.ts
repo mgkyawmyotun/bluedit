@@ -3,11 +3,13 @@ import {
   Get,
   Post,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { writeFile } from 'fs';
 import { join } from 'path';
+import { IsAuthGuard } from 'src/shared/is-auth.guard';
 import { AppService } from './app.service';
 @Controller()
 export class AppController {
@@ -18,15 +20,12 @@ export class AppController {
     return this.appService.getHello();
   }
   @Post('upload')
+  @UseGuards(IsAuthGuard)
   @UseInterceptors(FileInterceptor('file'))
   uploadFile(@UploadedFile() file) {
-    console.log(file);
-    const path = join(
-      __dirname,
-      '..',
-      'images',
-      `${Date.now() + Math.random() + '' + file.originalname}`,
-    );
+    const fileName = `${Date.now() + Math.random() + '' + file.originalname}`;
+    const path = join(__dirname, '..', 'images', fileName);
     writeFile(path, file.buffer, () => {});
+    return { fileName };
   }
 }

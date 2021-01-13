@@ -34,6 +34,7 @@ async function bootstrap() {
       },
     },
   );
+
   app.use(sessionMiddleWare);
 
   await app.listen(4000);

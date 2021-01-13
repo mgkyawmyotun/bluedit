@@ -2,6 +2,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { message, Upload } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import { UploadFile } from 'antd/lib/upload/interface';
+import { useField } from 'formik';
 import { FC, useState } from 'react';
 import { Title } from './Title';
 function getBase64(file: any) {
@@ -23,6 +24,7 @@ export const ImageVideoTab: FC = () => {
   const [previewVisible, setPreviewVisible] = useState<boolean>(false);
   const [previewTitle, setPreviewTitle] = useState<string>();
   const [previewImage, setPreviewImage] = useState<string>();
+  const [field, meta, helpers] = useField<string[]>({ name: 'imagePaths' });
   const beforeUpload = (file: UploadFile<Blob>) => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
     if (!isJpgOrPng) {
@@ -58,7 +60,17 @@ export const ImageVideoTab: FC = () => {
       file.name || file.url.substring(file.url.lastIndexOf('/') + 1)
     );
   };
-  const handleChange = ({ fileList }) => setFileList(fileList);
+  const handleChange = ({ fileList }) => {
+    console.log(
+      fileList
+        .filter((file) => file.status === 'done')
+        .map((x) => x.response.fileName)
+    );
+    setFileList(fileList);
+  };
+  const handleRemove = (file) => {
+    console.log(file);
+  };
 
   return (
     <div>
@@ -68,10 +80,13 @@ export const ImageVideoTab: FC = () => {
           listType="picture-card"
           accept=".jpg, .jpeg, .png"
           action="http://localhost:4000/upload"
+          withCredentials={true}
           fileList={fileList}
           onPreview={handlePreview}
           onChange={handleChange}
           beforeUpload={beforeUpload}
+          showUploadList
+          onRemove={handleRemove}
         >
           {fileList.length >= 5 ? null : uploadButton}
         </Upload>
