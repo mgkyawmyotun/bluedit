@@ -19,7 +19,6 @@ export const LinkForm: FC<{ subName: SubBluedit }> = observer(({ subName }) => {
     <LinkFormController>
       {({ submitPost }) => (
         <Formik
-          enableReinitialize
           initialValues={{
             title: '',
             link: '',
@@ -53,6 +52,7 @@ export const LinkForm: FC<{ subName: SubBluedit }> = observer(({ subName }) => {
             <>
               <LinkTab />
               <MainSubmitButton
+                value="link"
                 onSubmit={handleSubmit}
                 errors={errors}
                 isSubmitting={isSubmitting}

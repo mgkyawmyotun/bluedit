@@ -54,6 +54,7 @@ export const TextForm: FC<{ subName: SubBluedit }> = observer(({ subName }) => {
             <>
               <PostTab />
               <MainSubmitButton
+                value="post_text"
                 onSubmit={handleSubmit}
                 errors={errors}
                 isSubmitting={isSubmitting}

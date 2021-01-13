@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.useRemoveVoteMutation = exports.RemoveVoteDocument = exports.useIsVotedLazyQuery = exports.useIsVotedQuery = exports.IsVotedDocument = exports.useAddVoteMutation = exports.AddVoteDocument = exports.useCreatePostWithLinkMutation = exports.CreatePostWithLinkDocument = exports.useCreatePostWithMarkDownMutation = exports.CreatePostWithMarkDownDocument = exports.useGetJoinedSubLazyQuery = exports.useGetJoinedSubQuery = exports.GetJoinedSubDocument = exports.useCheckEmailLazyQuery = exports.useCheckEmailQuery = exports.CheckEmailDocument = exports.useCreateUserMutation = exports.CreateUserDocument = exports.useGetPostsLazyQuery = exports.useGetPostsQuery = exports.GetPostsDocument = exports.useUserLazyQuery = exports.useUserQuery = exports.UserDocument = exports.useLogoutLazyQuery = exports.useLogoutQuery = exports.LogoutDocument = exports.useLoginUserMutation = exports.LoginUserDocument = exports.useContinueWithFaceBookMutation = exports.ContinueWithFaceBookDocument = exports.VoteType = void 0;
+exports.useRemoveVoteMutation = exports.RemoveVoteDocument = exports.useIsVotedLazyQuery = exports.useIsVotedQuery = exports.IsVotedDocument = exports.useAddVoteMutation = exports.AddVoteDocument = exports.useCreatePostWithImageMutation = exports.CreatePostWithImageDocument = exports.useCreatePostWithLinkMutation = exports.CreatePostWithLinkDocument = exports.useCreatePostWithMarkDownMutation = exports.CreatePostWithMarkDownDocument = exports.useGetJoinedSubLazyQuery = exports.useGetJoinedSubQuery = exports.GetJoinedSubDocument = exports.useCheckEmailLazyQuery = exports.useCheckEmailQuery = exports.CheckEmailDocument = exports.useCreateUserMutation = exports.CreateUserDocument = exports.useGetPostsLazyQuery = exports.useGetPostsQuery = exports.GetPostsDocument = exports.useUserLazyQuery = exports.useUserQuery = exports.UserDocument = exports.useLogoutLazyQuery = exports.useLogoutQuery = exports.LogoutDocument = exports.useLoginUserMutation = exports.LoginUserDocument = exports.useContinueWithFaceBookMutation = exports.ContinueWithFaceBookDocument = exports.VoteType = void 0;
 var client_1 = require("@apollo/client");
 var Apollo = __importStar(require("@apollo/client"));
 var VoteType;
@@ -101,12 +101,17 @@ function useCreatePostWithLinkMutation(baseOptions) {
     return Apollo.useMutation(exports.CreatePostWithLinkDocument, baseOptions);
 }
 exports.useCreatePostWithLinkMutation = useCreatePostWithLinkMutation;
-exports.AddVoteDocument = client_1.gql(templateObject_11 || (templateObject_11 = __makeTemplateObject(["\n    mutation addVote($voteData: Vote!) {\n  addVote(voteData: $voteData) {\n    message\n    path\n  }\n}\n    "], ["\n    mutation addVote($voteData: Vote!) {\n  addVote(voteData: $voteData) {\n    message\n    path\n  }\n}\n    "])));
+exports.CreatePostWithImageDocument = client_1.gql(templateObject_11 || (templateObject_11 = __makeTemplateObject(["\n    mutation createPostWithImage($postData: PostInputImage!) {\n  createPostWithImage(postData: $postData) {\n    path\n    message\n  }\n}\n    "], ["\n    mutation createPostWithImage($postData: PostInputImage!) {\n  createPostWithImage(postData: $postData) {\n    path\n    message\n  }\n}\n    "])));
+function useCreatePostWithImageMutation(baseOptions) {
+    return Apollo.useMutation(exports.CreatePostWithImageDocument, baseOptions);
+}
+exports.useCreatePostWithImageMutation = useCreatePostWithImageMutation;
+exports.AddVoteDocument = client_1.gql(templateObject_12 || (templateObject_12 = __makeTemplateObject(["\n    mutation addVote($voteData: Vote!) {\n  addVote(voteData: $voteData) {\n    message\n    path\n  }\n}\n    "], ["\n    mutation addVote($voteData: Vote!) {\n  addVote(voteData: $voteData) {\n    message\n    path\n  }\n}\n    "])));
 function useAddVoteMutation(baseOptions) {
     return Apollo.useMutation(exports.AddVoteDocument, baseOptions);
 }
 exports.useAddVoteMutation = useAddVoteMutation;
-exports.IsVotedDocument = client_1.gql(templateObject_12 || (templateObject_12 = __makeTemplateObject(["\n    query isVoted($post_id: String!) {\n  isVoted(post_id: $post_id)\n}\n    "], ["\n    query isVoted($post_id: String!) {\n  isVoted(post_id: $post_id)\n}\n    "])));
+exports.IsVotedDocument = client_1.gql(templateObject_13 || (templateObject_13 = __makeTemplateObject(["\n    query isVoted($post_id: String!) {\n  isVoted(post_id: $post_id)\n}\n    "], ["\n    query isVoted($post_id: String!) {\n  isVoted(post_id: $post_id)\n}\n    "])));
 function useIsVotedQuery(baseOptions) {
     return Apollo.useQuery(exports.IsVotedDocument, baseOptions);
 }
@@ -115,10 +120,10 @@ function useIsVotedLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.IsVotedDocument, baseOptions);
 }
 exports.useIsVotedLazyQuery = useIsVotedLazyQuery;
-exports.RemoveVoteDocument = client_1.gql(templateObject_13 || (templateObject_13 = __makeTemplateObject(["\n    mutation removeVote($voteData: Vote!) {\n  removeVote(voteData: $voteData) {\n    message\n    path\n  }\n}\n    "], ["\n    mutation removeVote($voteData: Vote!) {\n  removeVote(voteData: $voteData) {\n    message\n    path\n  }\n}\n    "])));
+exports.RemoveVoteDocument = client_1.gql(templateObject_14 || (templateObject_14 = __makeTemplateObject(["\n    mutation removeVote($voteData: Vote!) {\n  removeVote(voteData: $voteData) {\n    message\n    path\n  }\n}\n    "], ["\n    mutation removeVote($voteData: Vote!) {\n  removeVote(voteData: $voteData) {\n    message\n    path\n  }\n}\n    "])));
 function useRemoveVoteMutation(baseOptions) {
     return Apollo.useMutation(exports.RemoveVoteDocument, baseOptions);
 }
 exports.useRemoveVoteMutation = useRemoveVoteMutation;
-var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5, templateObject_6, templateObject_7, templateObject_8, templateObject_9, templateObject_10, templateObject_11, templateObject_12, templateObject_13;
+var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5, templateObject_6, templateObject_7, templateObject_8, templateObject_9, templateObject_10, templateObject_11, templateObject_12, templateObject_13, templateObject_14;
 //# sourceMappingURL=graphql.js.map

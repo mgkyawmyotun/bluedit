@@ -24,7 +24,7 @@ export const ImageVideoTab: FC = () => {
   const [previewVisible, setPreviewVisible] = useState<boolean>(false);
   const [previewTitle, setPreviewTitle] = useState<string>();
   const [previewImage, setPreviewImage] = useState<string>();
-  const [field, meta, helpers] = useField<string[]>({ name: 'imagePaths' });
+  const [field, meta, helpers] = useField<string[]>({ name: 'images' });
   const beforeUpload = (file: UploadFile<Blob>) => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
     if (!isJpgOrPng) {
@@ -61,7 +61,7 @@ export const ImageVideoTab: FC = () => {
     );
   };
   const handleChange = ({ fileList }) => {
-    console.log(
+    helpers.setValue(
       fileList
         .filter((file) => file.status === 'done')
         .map((x) => x.response.fileName)

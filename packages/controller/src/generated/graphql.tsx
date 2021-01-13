@@ -460,6 +460,19 @@ export type CreatePostWithLinkMutation = (
   )> }
 );
 
+export type CreatePostWithImageMutationVariables = Exact<{
+  postData: PostInputImage;
+}>;
+
+
+export type CreatePostWithImageMutation = (
+  { __typename?: 'Mutation' }
+  & { createPostWithImage?: Maybe<(
+    { __typename?: 'PostError' }
+    & Pick<PostError, 'path' | 'message'>
+  )> }
+);
+
 export type AddVoteMutationVariables = Exact<{
   voteData: Vote;
 }>;
@@ -842,6 +855,39 @@ export function useCreatePostWithLinkMutation(baseOptions?: Apollo.MutationHookO
 export type CreatePostWithLinkMutationHookResult = ReturnType<typeof useCreatePostWithLinkMutation>;
 export type CreatePostWithLinkMutationResult = Apollo.MutationResult<CreatePostWithLinkMutation>;
 export type CreatePostWithLinkMutationOptions = Apollo.BaseMutationOptions<CreatePostWithLinkMutation, CreatePostWithLinkMutationVariables>;
+export const CreatePostWithImageDocument = gql`
+    mutation createPostWithImage($postData: PostInputImage!) {
+  createPostWithImage(postData: $postData) {
+    path
+    message
+  }
+}
+    `;
+export type CreatePostWithImageMutationFn = Apollo.MutationFunction<CreatePostWithImageMutation, CreatePostWithImageMutationVariables>;
+
+/**
+ * __useCreatePostWithImageMutation__
+ *
+ * To run a mutation, you first call `useCreatePostWithImageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePostWithImageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPostWithImageMutation, { data, loading, error }] = useCreatePostWithImageMutation({
+ *   variables: {
+ *      postData: // value for 'postData'
+ *   },
+ * });
+ */
+export function useCreatePostWithImageMutation(baseOptions?: Apollo.MutationHookOptions<CreatePostWithImageMutation, CreatePostWithImageMutationVariables>) {
+        return Apollo.useMutation<CreatePostWithImageMutation, CreatePostWithImageMutationVariables>(CreatePostWithImageDocument, baseOptions);
+      }
+export type CreatePostWithImageMutationHookResult = ReturnType<typeof useCreatePostWithImageMutation>;
+export type CreatePostWithImageMutationResult = Apollo.MutationResult<CreatePostWithImageMutation>;
+export type CreatePostWithImageMutationOptions = Apollo.BaseMutationOptions<CreatePostWithImageMutation, CreatePostWithImageMutationVariables>;
 export const AddVoteDocument = gql`
     mutation addVote($voteData: Vote!) {
   addVote(voteData: $voteData) {

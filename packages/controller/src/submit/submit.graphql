@@ -11,3 +11,9 @@ mutation createPostWithLink($postData: PostInputLink!) {
     message
   }
 }
+mutation createPostWithImage($postData: PostInputImage!) {
+  createPostWithImage(postData: $postData) {
+    path
+    message
+  }
+}

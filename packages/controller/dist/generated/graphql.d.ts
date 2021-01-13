@@ -367,6 +367,16 @@ export declare type CreatePostWithLinkMutation = ({
         __typename?: 'PostError';
     } & Pick<PostError, 'path' | 'message'>)>;
 });
+export declare type CreatePostWithImageMutationVariables = Exact<{
+    postData: PostInputImage;
+}>;
+export declare type CreatePostWithImageMutation = ({
+    __typename?: 'Mutation';
+} & {
+    createPostWithImage?: Maybe<({
+        __typename?: 'PostError';
+    } & Pick<PostError, 'path' | 'message'>)>;
+});
 export declare type AddVoteMutationVariables = Exact<{
     voteData: Vote;
 }>;
@@ -483,6 +493,14 @@ export declare function useCreatePostWithLinkMutation(baseOptions?: Apollo.Mutat
 export declare type CreatePostWithLinkMutationHookResult = ReturnType<typeof useCreatePostWithLinkMutation>;
 export declare type CreatePostWithLinkMutationResult = Apollo.MutationResult<CreatePostWithLinkMutation>;
 export declare type CreatePostWithLinkMutationOptions = Apollo.BaseMutationOptions<CreatePostWithLinkMutation, CreatePostWithLinkMutationVariables>;
+export declare const CreatePostWithImageDocument: Apollo.DocumentNode;
+export declare type CreatePostWithImageMutationFn = Apollo.MutationFunction<CreatePostWithImageMutation, CreatePostWithImageMutationVariables>;
+export declare function useCreatePostWithImageMutation(baseOptions?: Apollo.MutationHookOptions<CreatePostWithImageMutation, CreatePostWithImageMutationVariables>): Apollo.MutationTuple<CreatePostWithImageMutation, Exact<{
+    postData: PostInputImage;
+}>>;
+export declare type CreatePostWithImageMutationHookResult = ReturnType<typeof useCreatePostWithImageMutation>;
+export declare type CreatePostWithImageMutationResult = Apollo.MutationResult<CreatePostWithImageMutation>;
+export declare type CreatePostWithImageMutationOptions = Apollo.BaseMutationOptions<CreatePostWithImageMutation, CreatePostWithImageMutationVariables>;
 export declare const AddVoteDocument: Apollo.DocumentNode;
 export declare type AddVoteMutationFn = Apollo.MutationFunction<AddVoteMutation, AddVoteMutationVariables>;
 export declare function useAddVoteMutation(baseOptions?: Apollo.MutationHookOptions<AddVoteMutation, AddVoteMutationVariables>): Apollo.MutationTuple<AddVoteMutation, Exact<{

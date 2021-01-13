@@ -6,17 +6,20 @@ import styles from './../../../styles/submit.module.css';
 interface MainSubmitButton {
   onSubmit?: (e: any) => void;
   errors: FormikErrors<{
+    [key: string]: string;
     title: string;
-    link: string;
   }>;
   isSubmitting: boolean;
+  value: string;
 }
 export const MainSubmitButton: FC<MainSubmitButton> = ({
   onSubmit,
   errors,
   isSubmitting,
+  value,
 }) => {
   const { push } = useRouter();
+  console.log(errors);
   return (
     <div className={styles.main__submit__button}>
       <div>
@@ -37,7 +40,7 @@ export const MainSubmitButton: FC<MainSubmitButton> = ({
           onSubmit={onSubmit}
           onClick={onSubmit}
           loading={isSubmitting}
-          disabled={!!(errors.link || errors.title)}
+          disabled={!!(errors[value] || errors.title)}
         >
           Submit
         </Button>

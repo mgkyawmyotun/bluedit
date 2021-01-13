@@ -33,7 +33,7 @@ export const MainTap: FC = () => {
         <TextForm subName={SubBlueditState.getSubBleditState()} />
       </TabPane>
       <TabPane tab={<ImageVideoTabHeader />} key="2">
-        <ImageForm />
+        <ImageForm subName={SubBlueditState.getSubBleditState()} />
       </TabPane>
       <TabPane tab={<LinkTabHeader />} key="3">
         <LinkForm subName={SubBlueditState.getSubBleditState()} />
