@@ -19,6 +19,8 @@
 .card__content {
   margin: 8px 0px 0px 20px;
 
+  width: 100%;
+
 }
 
 .card__content__markdown {
@@ -188,10 +190,52 @@
   font-weight: 600;
 }
 
+.content__image {
+  margin: 20px 20px 20px 0px;
+  padding: 20px;
+  display: flex;
+  min-width: 200px;
+  text-align: center;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.content__image__right {
+  font-size: 40px;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 50%;
+  color: #757575;
+  margin-left: 10px;
+}
+
+.content__image__left {
+  font-size: 40px;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 50%;
+  color: #757575;
+  margin-right: 10px;
+
+}
+
+.content__image__left:hover {
+  border-radius: 50%;
+  color: rgb(87, 87, 248);
+  background-color: #cecfcf;
+}
+
+.content__image__right:hover {
+  border-radius: 50%;
+  color: rgb(240, 80, 80);
+  background-color: #cecfcf;
+}
+
 
 @media only screen and (max-width: 600px) {
   .content__title {
-    font-size: 12px;
+    font-size: 16px;
     font-weight: 500;
     line-height: 10px;
   }
@@ -203,4 +247,5 @@
     height: inherit;
     padding-top: 8px;
   }
+
 }
