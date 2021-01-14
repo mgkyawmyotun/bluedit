@@ -1,4 +1,4 @@
-import { useGetJoinSub } from '@bluedit/controller';
+import { useGetJoinSub, useUserContext } from '@bluedit/controller';
 import { Select } from 'antd';
 import { observer } from 'mobx-react';
 import Image from 'next/image';
@@ -22,6 +22,8 @@ const SelectPlaceHolder = (
 export const MainChoser: FC<{ subName: SubBluedit }> = observer(
   ({ subName }) => {
     const { data, loading } = useGetJoinSub();
+    const { data: userdata } = useUserContext();
+
     return (
       <>
         <Select
@@ -36,11 +38,31 @@ export const MainChoser: FC<{ subName: SubBluedit }> = observer(
         >
           {!loading &&
             data &&
+            userdata &&
             data.getJoinSub &&
-            data.getJoinSub.map((join) => {
+            [
+              {
+                sub: {
+                  displayName: userdata.me.displayName,
+                  picture_url: userdata.me.picture_url,
+                  name: '',
+                  username: userdata.me.username,
+                  isUser: true,
+                },
+              },
+              ,
+              ...data.getJoinSub,
+            ].map((join) => {
               return (
                 <Select.Option value={join.sub.name} key={join.sub.name}>
-                  <SelectOption value={'r/' + join.sub.name} />
+                  <SelectOption
+                    value={
+                      (join.sub as any).isUser
+                        ? 'u/' + (join.sub as any).username
+                        : 'r/' + join.sub.name
+                    }
+                    src={join.sub.picture_url}
+                  />
                 </Select.Option>
               );
             })}
