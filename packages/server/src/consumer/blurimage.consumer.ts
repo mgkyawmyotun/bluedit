@@ -1,32 +1,34 @@
 import { Process, Processor } from '@nestjs/bull';
 import { Job } from 'bull';
-import Jimp from 'jimp';
+import * as Jimp from 'jimp/dist';
 import { join } from 'path';
 import { blur_i_m } from './consumer.name';
 export interface BlurImageInterface {
-  imagePath: string;
+  imageName: string;
 }
 @Processor(blur_i_m)
 export class BlurImageConsumer {
   constructor() {}
   @Process()
   async blurTheImage(job: Job<BlurImageInterface>) {
-    const path = join(
+    const dir__path = join(
       __dirname,
       '..',
       '..',
       'images',
       'blur',
-      job.data.imagePath,
+      job.data.imageName,
     );
-    Jimp.read(job.data.imagePath)
-      .then(lenna => {
-        lenna
-          .resize(250, 250)
-          .quality(50)
-          .blur(5)
-          .write(path);
-      })
-      .catch(console.log);
+    const path = join(__dirname, '..', '..', 'images', job.data.imageName);
+    try {
+      const image = await Jimp.read(path);
+      image
+        .resize(250, 250)
+        .quality(50)
+        .blur(5)
+        .write(dir__path, err => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

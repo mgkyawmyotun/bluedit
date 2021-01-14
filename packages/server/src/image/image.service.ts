@@ -1,6 +1,9 @@
+import { InjectQueue } from '@nestjs/bull';
 import { Injectable } from '@nestjs/common';
+import { Queue } from 'bull';
 import { unlinkSync, writeFile } from 'fs';
 import { join } from 'path';
+import { blur_i_m } from './../consumer/consumer.name';
 type FileType = {
   fieldname: string;
   originalname: string;
@@ -14,7 +17,7 @@ type FileType = {
 };
 @Injectable()
 export class ImageService {
-  constructor() {}
+  constructor(@InjectQueue(blur_i_m) private blurImageQueue: Queue) {}
   saveImage(file: FileType) {
     if (!file) {
       return null;
@@ -22,14 +25,13 @@ export class ImageService {
     const fileName = `${Date.now() + Math.random() + '' + file.originalname}`;
     try {
       const path = join(__dirname, '..', '..', 'images', fileName);
-      writeFile(path, file.buffer, err => {
-        console.log(err);
-      });
+      writeFile(path, file.buffer, err => {});
     } catch (error) {
       return {
         status: 'Error',
       };
     }
+    this.blurImageQueue.add({ imageName: fileName });
     return { fileName };
   }
   removeImage(fileName: string) {

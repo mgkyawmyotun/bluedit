@@ -6,6 +6,7 @@ import { join } from 'path';
 import * as redis from 'redis';
 import { AppModule } from './app.module';
 import { REDIS_HOST, REDIS_PORT, SESSION_SECRECT } from './config';
+
 const RedisStore = connectRedis(session);
 // redis.createClient().flushall();
 export const store = new RedisStore({
