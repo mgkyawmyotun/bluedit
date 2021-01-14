@@ -12,6 +12,7 @@ import { CommentsModule } from './comments/comments.module';
 import { REDIS_HOST, REDIS_PORT } from './config';
 import { DEV_CONNECTION, TEST_CONNECTION } from './connections';
 import { ConsumerModule } from './consumer/consumer.module';
+import { ImageModule } from './image/image.module';
 import { sessionMiddleWare } from './main';
 import { PostsModule } from './posts/posts.module';
 import { SharedModule } from './shared/shared.module';
@@ -102,6 +103,7 @@ export class AppModule {
         CommentsModule,
         CacheControllerModule,
         ConsumerModule,
+        ImageModule,
       ],
       controllers: [AppController],
       providers: [AppService],

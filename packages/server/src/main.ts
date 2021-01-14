@@ -1,6 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import * as connectRedis from 'connect-redis';
 import * as session from 'express-session';
+import { existsSync, mkdirSync } from 'fs';
+import { join } from 'path';
 import * as redis from 'redis';
 import { AppModule } from './app.module';
 import { REDIS_HOST, REDIS_PORT, SESSION_SECRECT } from './config';
@@ -39,4 +41,16 @@ async function bootstrap() {
 
   await app.listen(4000);
 }
+createFoldersIfNotExits();
 bootstrap();
+
+function createFoldersIfNotExits() {
+  const dir = join(__dirname, '..', 'images');
+  if (!existsSync(dir)) {
+    mkdirSync(dir);
+  }
+  const dir1 = join(__dirname, '..', 'images', 'blur');
+  if (!existsSync(dir1)) {
+    mkdirSync(dir1);
+  }
+}

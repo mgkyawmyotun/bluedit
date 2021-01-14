@@ -16,7 +16,6 @@ export const CardContent: FC = () => {
     if (images) return <CardContentImage images={images} />;
     return null;
   };
-  console.log(images);
   return (
     <Col className={styles.card__content}>
       <Col>

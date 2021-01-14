@@ -19,7 +19,7 @@
 .card__content {
   margin: 8px 0px 0px 20px;
 
-  width: 100%;
+
 
 }
 
@@ -199,6 +199,8 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  /* width: 800px; */
+  width: auto;
 }
 
 .content__image__right {
@@ -232,6 +234,19 @@
   background-color: #cecfcf;
 }
 
+.content__image__main {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  min-width: 100px;
+  min-height: 60px;
+  max-width: 800px;
+  max-height: 600px;
+
+}
 
 @media only screen and (max-width: 600px) {
   .content__title {
@@ -246,6 +261,104 @@
     min-width: 30px;
     height: inherit;
     padding-top: 8px;
+  }
+
+
+}
+
+
+
+/* 
+  Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .content__image {
+    padding: 20px;
+    display: flex;
+    min-width: 200px;
+    text-align: center;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* width: 800px; */
+    width: 350px;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) 
+  */
+@media only screen and (min-width: 600px) {
+  .content__image {
+    padding: 20px;
+    display: flex;
+    min-width: 200px;
+    text-align: center;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* width: 800px; */
+    margin-left: 15%;
+    width: 400px;
+  }
+
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+
+@media only screen and (min-width: 768px) {
+
+  .content__image {
+    padding: 20px;
+    display: flex;
+    min-width: 200px;
+    text-align: center;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* width: 800px; */
+    margin-left: 15%;
+    width: 600px;
+  }
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) 
+  */
+
+@media only screen and (min-width: 992px) {
+  .content__image {
+    padding: 20px;
+    display: flex;
+    min-width: 200px;
+    text-align: center;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* width: 800px; */
+    width: 650px;
+    margin-left: 20%;
+  }
+
+
+}
+
+/* Extra large devices (large 
+  laptops and desktops, 
+  1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .content__image {
+    padding: 20px;
+    display: flex;
+    min-width: 200px;
+    text-align: center;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* width: 800px; */
+    margin: 20px 20px 20px 0px;
+    max-width: 1200px;
+    min-width: 600px;
+    width: 600px;
+    margin-left: 15%;
   }
 
 }
