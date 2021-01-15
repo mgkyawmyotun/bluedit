@@ -1,6 +1,6 @@
 [build]
   base="/packages/web"
-  command = "npm run build" 
+  command = "lerna run boostrap && lerna run build  && npm run build" 
 
 
 [[plugins]]
