@@ -1,5 +1,5 @@
 [build]
-  base="/pacakges/web"
+  base="/packages/web"
   command = "npm run build" 
 
 
