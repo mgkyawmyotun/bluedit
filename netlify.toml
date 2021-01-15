@@ -1,8 +1,3 @@
 [build]
-  base="/packages/web"
-  command = "lerna run boostrap && lerna run build  && npm run build" 
-
-
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
+  command = "npm run build:web && npm run start" 
   
