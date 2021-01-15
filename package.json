@@ -4,5 +4,8 @@
   "devDependencies": {
     "lerna": "^3.22.1"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "scripts": {
+    "build": "lerna run build --scope {@bluedit/controller,@bluedit/common,@bluedit/web}"
+  }
 }

@@ -1,7 +1,6 @@
 [build]
-  base = "/packages/web"
+  base = "/"
   publish="/"
-  # Default build command.
-  command = "lerna run bootstrap && lerna run build --scope @bluedit/web"
+  command = "npm run build"
 
   
