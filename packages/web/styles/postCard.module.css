@@ -7,6 +7,10 @@
   margin: 20px 20px 20px 20px;
 }
 
+.card__body:hover {
+  border: 1px solid #949494;
+}
+
 .card__vote {
   background-color: #F8F9FA;
   width: 46px;
@@ -20,7 +24,7 @@
   margin: 8px 0px 0px 20px;
 
 
-
+  cursor: pointer;
 }
 
 .card__content__markdown {
