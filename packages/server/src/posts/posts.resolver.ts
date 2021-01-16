@@ -27,6 +27,10 @@ export class PostResolver {
   async getPosts() {
     return this.postService.getPosts();
   }
+  @Query(returns => Post)
+  async getPost(@Args('post_id') post_id: string) {
+    return this.postService.getPost(post_id);
+  }
   @Mutation(returns => PostError, { nullable: true })
   @UseGuards(IsAuthGuard)
   async createPostWithMarkDown(

@@ -24,4 +24,12 @@ export class PostsService {
     this.postsCacheService.setPosts(posts);
     return posts;
   }
+
+  public async getPost(post_id: string) {
+    const post = await this.postRepository.findOne(post_id, {
+      relations: ['sub', 'user'],
+    });
+    console.log(post);
+    return post;
+  }
 }

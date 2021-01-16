@@ -85,6 +85,7 @@ type CommentError implements ErrorInterface {
 
 type Query {
   getPosts: [Post!]!
+  getPost(post_id: String!): Post!
   getComments(post_id: String!): [Comment!]
   getJoinSub: [JoinSub!]
   me: User
