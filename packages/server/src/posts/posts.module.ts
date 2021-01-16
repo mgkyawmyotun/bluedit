@@ -11,6 +11,7 @@ import { PostDeleteService } from './deleteposts.service';
 import { PostEditService } from './editposts.service';
 import { PostResolver } from './posts.resolver';
 import { PostsService } from './posts.service';
+import { PostsController } from './posts.controller';
 
 @Module({
   imports: [
@@ -29,5 +30,6 @@ import { PostsService } from './posts.service';
     PostDeleteService,
     PostEditService,
   ],
+  controllers: [PostsController],
 })
 export class PostsModule {}

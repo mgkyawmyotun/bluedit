@@ -29,7 +29,7 @@ export class PostsService {
     const post = await this.postRepository.findOne(post_id, {
       relations: ['sub', 'user'],
     });
-    console.log(post);
+    // console.log(post);
     return post;
   }
 }

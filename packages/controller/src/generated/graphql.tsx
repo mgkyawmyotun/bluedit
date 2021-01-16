@@ -107,12 +107,18 @@ export type CommentError = ErrorInterface & {
 export type Query = {
   __typename?: 'Query';
   getPosts: Array<Post>;
+  getPost: Post;
   getComments?: Maybe<Array<Comment>>;
   getJoinSub?: Maybe<Array<JoinSub>>;
   me?: Maybe<User>;
   logout?: Maybe<Scalars['String']>;
   isEmailExists: Scalars['Boolean'];
   isVoted?: Maybe<VoteType>;
+};
+
+
+export type QueryGetPostArgs = {
+  post_id: Scalars['String'];
 };
 
 
@@ -395,6 +401,26 @@ export type GetPostsQuery = (
       & Pick<User, 'username' | 'picture_url'>
     ) }
   )> }
+);
+
+export type GetPostQueryVariables = Exact<{
+  post_id: Scalars['String'];
+}>;
+
+
+export type GetPostQuery = (
+  { __typename?: 'Query' }
+  & { getPost: (
+    { __typename?: 'Post' }
+    & Pick<Post, 'post_id' | 'post_text' | 'title' | 'link' | 'vote_count' | 'images' | 'videos' | 'comment_count' | 'created_at'>
+    & { sub?: Maybe<(
+      { __typename?: 'Sub' }
+      & Pick<Sub, 'name' | 'picture_url'>
+    )>, user: (
+      { __typename?: 'User' }
+      & Pick<User, 'username' | 'picture_url'>
+    ) }
+  ) }
 );
 
 export type CreateUserMutationVariables = Exact<{
@@ -689,6 +715,55 @@ export function useGetPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<G
 export type GetPostsQueryHookResult = ReturnType<typeof useGetPostsQuery>;
 export type GetPostsLazyQueryHookResult = ReturnType<typeof useGetPostsLazyQuery>;
 export type GetPostsQueryResult = Apollo.QueryResult<GetPostsQuery, GetPostsQueryVariables>;
+export const GetPostDocument = gql`
+    query getPost($post_id: String!) {
+  getPost(post_id: $post_id) {
+    post_id
+    post_text
+    title
+    link
+    sub {
+      name
+      picture_url
+    }
+    vote_count
+    images
+    videos
+    user {
+      username
+      picture_url
+    }
+    comment_count
+    created_at
+  }
+}
+    `;
+
+/**
+ * __useGetPostQuery__
+ *
+ * To run a query within a React component, call `useGetPostQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostQuery({
+ *   variables: {
+ *      post_id: // value for 'post_id'
+ *   },
+ * });
+ */
+export function useGetPostQuery(baseOptions: Apollo.QueryHookOptions<GetPostQuery, GetPostQueryVariables>) {
+        return Apollo.useQuery<GetPostQuery, GetPostQueryVariables>(GetPostDocument, baseOptions);
+      }
+export function useGetPostLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostQuery, GetPostQueryVariables>) {
+          return Apollo.useLazyQuery<GetPostQuery, GetPostQueryVariables>(GetPostDocument, baseOptions);
+        }
+export type GetPostQueryHookResult = ReturnType<typeof useGetPostQuery>;
+export type GetPostLazyQueryHookResult = ReturnType<typeof useGetPostLazyQuery>;
+export type GetPostQueryResult = Apollo.QueryResult<GetPostQuery, GetPostQueryVariables>;
 export const CreateUserDocument = gql`
     mutation createUser($userInput: UserInputType!) {
   register(userInput: $userInput) {

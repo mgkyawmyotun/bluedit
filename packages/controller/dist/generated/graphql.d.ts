@@ -100,12 +100,16 @@ export declare type CommentError = ErrorInterface & {
 export declare type Query = {
     __typename?: 'Query';
     getPosts: Array<Post>;
+    getPost: Post;
     getComments?: Maybe<Array<Comment>>;
     getJoinSub?: Maybe<Array<JoinSub>>;
     me?: Maybe<User>;
     logout?: Maybe<Scalars['String']>;
     isEmailExists: Scalars['Boolean'];
     isVoted?: Maybe<VoteType>;
+};
+export declare type QueryGetPostArgs = {
+    post_id: Scalars['String'];
 };
 export declare type QueryGetCommentsArgs = {
     post_id: Scalars['String'];
@@ -317,6 +321,23 @@ export declare type GetPostsQuery = ({
         } & Pick<User, 'username' | 'picture_url'>);
     })>;
 });
+export declare type GetPostQueryVariables = Exact<{
+    post_id: Scalars['String'];
+}>;
+export declare type GetPostQuery = ({
+    __typename?: 'Query';
+} & {
+    getPost: ({
+        __typename?: 'Post';
+    } & Pick<Post, 'post_id' | 'post_text' | 'title' | 'link' | 'vote_count' | 'images' | 'videos' | 'comment_count' | 'created_at'> & {
+        sub?: Maybe<({
+            __typename?: 'Sub';
+        } & Pick<Sub, 'name' | 'picture_url'>)>;
+        user: ({
+            __typename?: 'User';
+        } & Pick<User, 'username' | 'picture_url'>);
+    });
+});
 export declare type CreateUserMutationVariables = Exact<{
     userInput: UserInputType;
 }>;
@@ -449,6 +470,16 @@ export declare function useGetPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export declare type GetPostsQueryHookResult = ReturnType<typeof useGetPostsQuery>;
 export declare type GetPostsLazyQueryHookResult = ReturnType<typeof useGetPostsLazyQuery>;
 export declare type GetPostsQueryResult = Apollo.QueryResult<GetPostsQuery, GetPostsQueryVariables>;
+export declare const GetPostDocument: Apollo.DocumentNode;
+export declare function useGetPostQuery(baseOptions: Apollo.QueryHookOptions<GetPostQuery, GetPostQueryVariables>): Apollo.QueryResult<GetPostQuery, Exact<{
+    post_id: string;
+}>>;
+export declare function useGetPostLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostQuery, GetPostQueryVariables>): Apollo.QueryTuple<GetPostQuery, Exact<{
+    post_id: string;
+}>>;
+export declare type GetPostQueryHookResult = ReturnType<typeof useGetPostQuery>;
+export declare type GetPostLazyQueryHookResult = ReturnType<typeof useGetPostLazyQuery>;
+export declare type GetPostQueryResult = Apollo.QueryResult<GetPostQuery, GetPostQueryVariables>;
 export declare const CreateUserDocument: Apollo.DocumentNode;
 export declare type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, CreateUserMutationVariables>;
 export declare function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserMutation, CreateUserMutationVariables>): Apollo.MutationTuple<CreateUserMutation, Exact<{
