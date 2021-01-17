@@ -1,26 +1,11 @@
-import { Layout } from 'antd';
 import 'draft-js/dist/Draft.css';
-import { GetServerSideProps } from 'next';
-import Head from 'next/head';
-import { NavBar } from '../components/navbar';
+import { WithNavBar } from '../components/common/withNavBar';
 import { SubmitForm } from '../components/submit';
-export default function Submit() {
+function Submit() {
   return (
     <>
-      <Head>
-        <title>Submit To Bluedit</title>
-        <meta charSet="utf-8" />
-      </Head>
-      <Layout>
-        <NavBar />
-        <SubmitForm />
-      </Layout>
+      <SubmitForm />
     </>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  return {
-    props: {},
-  };
-};
+export default WithNavBar(Submit, 'Submit To Bluedit');

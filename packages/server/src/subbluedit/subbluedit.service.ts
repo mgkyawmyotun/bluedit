@@ -33,11 +33,25 @@ export class SubblueditService {
           user: { user_id: this.userAuthHelpService.getUser() },
         })
         .execute();
+      this.joinSub(name);
     } catch (error) {
       return sqlError(error, 'subbluedit', 'name');
     }
   }
   async joinSub(subName: string): Promise<SubError> {
+    const join = await this.joinRepository.findOne({
+      where: {
+        sub: { name: subName },
+        user: { user_id: this.userAuthHelpService.getUser() },
+      },
+      relations: ['sub'],
+    });
+    if (join) {
+      return {
+        path: 'subName',
+        message: 'Already Joined',
+      };
+    }
     const joinEntity = this.joinRepository.create({
       sub: { name: subName },
       user: { user_id: this.userAuthHelpService.getUser() },
