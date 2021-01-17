@@ -44,7 +44,6 @@ export const CardContentImage: FC<CardContentImageProps> = ({ images }) => {
     }
     setPointer((value) => value + 1);
   };
-  const image = () => images[pointer];
   return (
     <div className={styles.content__image}>
       <LeftOutlined

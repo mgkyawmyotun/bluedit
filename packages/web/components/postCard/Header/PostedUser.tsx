@@ -7,8 +7,8 @@ export const PostedUser: FC = () => {
   return (
     <span className={styles.header__user}>
       Posted By{' '}
-      <Link href={'u/' + user.username}>
-        <a className={styles.header__user__link}>{'u/' + user.username}</a>
+      <Link href={'/u/' + user.username}>
+        <a className={styles.header__user__link}>{'/u/' + user.username}</a>
       </Link>
     </span>
   );

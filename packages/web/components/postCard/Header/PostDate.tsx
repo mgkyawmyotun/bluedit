@@ -5,6 +5,7 @@ import styles from './../../../styles/postCard.module.css';
 import { timeAgo } from './../../common/utils';
 
 interface PostDateProps {}
+const parseDate = (date_data: string) => +date_data || date_data;
 export const PostDate: FC = () => {
   const { created_at } = useContext(PostContext);
 
@@ -12,9 +13,9 @@ export const PostDate: FC = () => {
     <span className={styles.header__date}>
       <Tooltip
         placement={'top'}
-        title={new Date(created_at).toLocaleDateString()}
+        title={new Date(parseDate(created_at)).toLocaleDateString()}
       >
-        {timeAgo(created_at)}
+        {timeAgo(parseDate(created_at))}
       </Tooltip>
     </span>
   );

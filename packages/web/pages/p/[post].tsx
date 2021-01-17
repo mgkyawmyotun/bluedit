@@ -1,7 +1,9 @@
-import { GetPostQuery } from '@bluedit/controller';
+import { GetPostQuery, Post } from '@bluedit/controller';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import React, { FC } from 'react';
+import { WithMainLayout } from '../../components/common/withMainLayout';
 import { WithNavBar } from '../../components/common/withNavBar';
+import { PostCard } from '../../components/postCard';
 
 interface PageProps {}
 export const getServerSideProps: GetServerSideProps<{
@@ -17,9 +19,9 @@ export const getServerSideProps: GetServerSideProps<{
     method: 'POST',
     credentials: 'include',
   });
-  const res: { data: { getPost: GetPostQuery } } = await raw_res.json();
+  const res: { data: GetPostQuery } = await raw_res.json();
   if (res.data) {
-    const post = res.data.getPost;
+    const post = res.data;
     return {
       props: { post },
     };
@@ -31,7 +33,11 @@ export const getServerSideProps: GetServerSideProps<{
 const Page: FC<
   PageProps & InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ post }) => {
-  return <h1>{JSON.stringify(post)}</h1>;
+  return (
+    <>
+      <PostCard post={post.getPost as Post} />
+    </>
+  );
 };
 
-export default WithNavBar(Page, 'Post');
+export default WithNavBar(WithMainLayout(Page), 'Post');

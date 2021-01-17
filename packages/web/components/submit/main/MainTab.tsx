@@ -17,7 +17,7 @@ const PostTabHeader = memo(() => (
 const ImageVideoTabHeader = memo(() => (
   <div className={styles.tab__img}>
     <div></div>
-    <div>{'Images&Videos'}</div>
+    <div>{'Images'}</div>
   </div>
 ));
 const LinkTabHeader = memo(() => (
