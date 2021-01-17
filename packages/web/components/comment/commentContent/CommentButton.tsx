@@ -19,7 +19,7 @@ export const CommentButton: FC<CommentButtonProps> = ({
   onSubmit,
 }) => {
   return (
-    <>
+    <div className={styles.comment__button__main}>
       <Button
         size={'large'}
         type="primary"
@@ -32,6 +32,6 @@ export const CommentButton: FC<CommentButtonProps> = ({
       >
         Comment
       </Button>
-    </>
+    </div>
   );
 };

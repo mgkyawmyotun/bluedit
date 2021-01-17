@@ -225,6 +225,7 @@
   color: #757575;
   margin-right: 10px;
 
+
 }
 
 .content__image__left:hover {
@@ -261,8 +262,6 @@
 
   .card__vote {
     background-color: #F8F9FA;
-    width: 46px;
-    min-width: 30px;
     height: inherit;
     padding-top: 8px;
   }
