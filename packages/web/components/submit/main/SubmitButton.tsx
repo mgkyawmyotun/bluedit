@@ -19,7 +19,6 @@ export const MainSubmitButton: FC<MainSubmitButton> = ({
   value,
 }) => {
   const { push } = useRouter();
-  console.log(errors);
   return (
     <div className={styles.main__submit__button}>
       <div>

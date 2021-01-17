@@ -1,6 +1,8 @@
 import { GetPostQuery, Post } from '@bluedit/controller';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import React, { FC } from 'react';
+import { Comment } from '../../components/comment';
+import { PostCommentContext } from '../../components/common/PostCommentContext';
 import { WithMainLayout } from '../../components/common/withMainLayout';
 import { WithNavBar } from '../../components/common/withNavBar';
 import { PostCard } from '../../components/postCard';
@@ -34,9 +36,10 @@ const Page: FC<
   PageProps & InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ post }) => {
   return (
-    <>
+    <PostCommentContext.Provider value={{ withComment: true }}>
       <PostCard post={post.getPost as Post} />
-    </>
+      <Comment />
+    </PostCommentContext.Provider>
   );
 };
 

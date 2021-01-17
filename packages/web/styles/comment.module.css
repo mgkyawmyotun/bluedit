@@ -1,0 +1,45 @@
+.comment__main {
+  background-color: #FFFFFF;
+  border: 1px solid #DBDBDB;
+  box-sizing: border-box;
+  max-width: 100%;
+  min-height: 100px;
+  border-radius: 2%;
+  margin: 20px 20px 20px 20px;
+  padding: 20px 40px 40px 40px;
+}
+
+.comment__header {
+  font-size: 18px;
+  font-weight: 600;
+
+}
+
+.comment__link {
+  padding-left: 10px;
+  font-size: 14px;
+  color: #4E3FFB;
+  font-weight: normal;
+  cursor: pointer;
+
+}
+
+.comment__link:hover {
+
+  text-decoration: underline;
+}
+
+.comment__button {
+  background-color: #ABABAB;
+  color: white;
+  font-weight: 500;
+  width: 100px;
+  align-self: flex-end;
+  border: none;
+  margin-top: 20px;
+}
+
+.comment__button:hover {
+  background-color: #ABABAB;
+  color: white;
+}
