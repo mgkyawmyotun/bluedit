@@ -37,8 +37,11 @@ export const useComment = (post_id: string) => {
   const { data, loading } = useGetCommentsQuery({
     variables: { post_id },
     client: GraphQlClient.getClient(),
+    fetchPolicy: 'network-only',
   });
   useEffect(() => {
+    // refetch();
+
     if (data && !loading) {
       setComments(data);
     }

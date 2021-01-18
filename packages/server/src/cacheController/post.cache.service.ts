@@ -18,4 +18,10 @@ export class PostsCacheService {
   public deletePosts() {
     return this.cacheManager.del(KEYS.POSTS);
   }
+  public async updatePost(post: PostEntity) {
+    const posts = await this.getPosts();
+    const index = posts.findIndex(old_post => old_post.post_id == post.post_id);
+    posts[index] = post;
+    this.updatePosts(posts);
+  }
 }

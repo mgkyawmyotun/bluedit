@@ -20,6 +20,7 @@ var useComment = function (post_id) {
     var _b = graphql_1.useGetCommentsQuery({
         variables: { post_id: post_id },
         client: ApolloClient_1.GraphQlClient.getClient(),
+        fetchPolicy: 'network-only',
     }), data = _b.data, loading = _b.loading;
     react_1.useEffect(function () {
         if (data && !loading) {
