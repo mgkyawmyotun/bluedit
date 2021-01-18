@@ -50,3 +50,22 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.comment__sort {
+  display: flex;
+  align-items: center;
+
+
+}
+
+.comment__sort__text {
+  font-size: 18px;
+  font-weight: 500;
+  margin-left: 20px;
+
+}
+
+.comment__sort__option {
+  margin-left: 20px;
+
+}

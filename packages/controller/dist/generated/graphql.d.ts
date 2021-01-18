@@ -268,6 +268,16 @@ export declare type Subscription = {
 export declare type SubscriptionVoteAddedArgs = {
     post_id: Scalars['String'];
 };
+export declare type CreateCommentMutationVariables = Exact<{
+    commentInput: CommentInput;
+}>;
+export declare type CreateCommentMutation = ({
+    __typename?: 'Mutation';
+} & {
+    createComment?: Maybe<({
+        __typename?: 'CommentError';
+    } & Pick<CommentError, 'path' | 'message'>)>;
+});
 export declare type ContinueWithFaceBookMutationVariables = Exact<{
     accessToken: Scalars['String'];
 }>;
@@ -320,23 +330,6 @@ export declare type GetPostsQuery = ({
             __typename?: 'User';
         } & Pick<User, 'username' | 'picture_url'>);
     })>;
-});
-export declare type GetPostQueryVariables = Exact<{
-    post_id: Scalars['String'];
-}>;
-export declare type GetPostQuery = ({
-    __typename?: 'Query';
-} & {
-    getPost: ({
-        __typename?: 'Post';
-    } & Pick<Post, 'post_id' | 'post_text' | 'title' | 'link' | 'vote_count' | 'images' | 'videos' | 'comment_count' | 'created_at'> & {
-        sub?: Maybe<({
-            __typename?: 'Sub';
-        } & Pick<Sub, 'name' | 'picture_url'>)>;
-        user: ({
-            __typename?: 'User';
-        } & Pick<User, 'username' | 'picture_url'>);
-    });
 });
 export declare type CreateUserMutationVariables = Exact<{
     userInput: UserInputType;
@@ -424,6 +417,14 @@ export declare type RemoveVoteMutation = ({
         __typename?: 'VoteError';
     } & Pick<VoteError, 'message' | 'path'>)>;
 });
+export declare const CreateCommentDocument: Apollo.DocumentNode;
+export declare type CreateCommentMutationFn = Apollo.MutationFunction<CreateCommentMutation, CreateCommentMutationVariables>;
+export declare function useCreateCommentMutation(baseOptions?: Apollo.MutationHookOptions<CreateCommentMutation, CreateCommentMutationVariables>): Apollo.MutationTuple<CreateCommentMutation, Exact<{
+    commentInput: CommentInput;
+}>>;
+export declare type CreateCommentMutationHookResult = ReturnType<typeof useCreateCommentMutation>;
+export declare type CreateCommentMutationResult = Apollo.MutationResult<CreateCommentMutation>;
+export declare type CreateCommentMutationOptions = Apollo.BaseMutationOptions<CreateCommentMutation, CreateCommentMutationVariables>;
 export declare const ContinueWithFaceBookDocument: Apollo.DocumentNode;
 export declare type ContinueWithFaceBookMutationFn = Apollo.MutationFunction<ContinueWithFaceBookMutation, ContinueWithFaceBookMutationVariables>;
 export declare function useContinueWithFaceBookMutation(baseOptions?: Apollo.MutationHookOptions<ContinueWithFaceBookMutation, ContinueWithFaceBookMutationVariables>): Apollo.MutationTuple<ContinueWithFaceBookMutation, Exact<{
@@ -470,16 +471,6 @@ export declare function useGetPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export declare type GetPostsQueryHookResult = ReturnType<typeof useGetPostsQuery>;
 export declare type GetPostsLazyQueryHookResult = ReturnType<typeof useGetPostsLazyQuery>;
 export declare type GetPostsQueryResult = Apollo.QueryResult<GetPostsQuery, GetPostsQueryVariables>;
-export declare const GetPostDocument: Apollo.DocumentNode;
-export declare function useGetPostQuery(baseOptions: Apollo.QueryHookOptions<GetPostQuery, GetPostQueryVariables>): Apollo.QueryResult<GetPostQuery, Exact<{
-    post_id: string;
-}>>;
-export declare function useGetPostLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostQuery, GetPostQueryVariables>): Apollo.QueryTuple<GetPostQuery, Exact<{
-    post_id: string;
-}>>;
-export declare type GetPostQueryHookResult = ReturnType<typeof useGetPostQuery>;
-export declare type GetPostLazyQueryHookResult = ReturnType<typeof useGetPostLazyQuery>;
-export declare type GetPostQueryResult = Apollo.QueryResult<GetPostQuery, GetPostQueryVariables>;
 export declare const CreateUserDocument: Apollo.DocumentNode;
 export declare type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, CreateUserMutationVariables>;
 export declare function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserMutation, CreateUserMutationVariables>): Apollo.MutationTuple<CreateUserMutation, Exact<{

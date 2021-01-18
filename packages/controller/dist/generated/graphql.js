@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.useRemoveVoteMutation = exports.RemoveVoteDocument = exports.useIsVotedLazyQuery = exports.useIsVotedQuery = exports.IsVotedDocument = exports.useAddVoteMutation = exports.AddVoteDocument = exports.useCreatePostWithImageMutation = exports.CreatePostWithImageDocument = exports.useCreatePostWithLinkMutation = exports.CreatePostWithLinkDocument = exports.useCreatePostWithMarkDownMutation = exports.CreatePostWithMarkDownDocument = exports.useGetJoinedSubLazyQuery = exports.useGetJoinedSubQuery = exports.GetJoinedSubDocument = exports.useCheckEmailLazyQuery = exports.useCheckEmailQuery = exports.CheckEmailDocument = exports.useCreateUserMutation = exports.CreateUserDocument = exports.useGetPostLazyQuery = exports.useGetPostQuery = exports.GetPostDocument = exports.useGetPostsLazyQuery = exports.useGetPostsQuery = exports.GetPostsDocument = exports.useUserLazyQuery = exports.useUserQuery = exports.UserDocument = exports.useLogoutLazyQuery = exports.useLogoutQuery = exports.LogoutDocument = exports.useLoginUserMutation = exports.LoginUserDocument = exports.useContinueWithFaceBookMutation = exports.ContinueWithFaceBookDocument = exports.VoteType = void 0;
+exports.useRemoveVoteMutation = exports.RemoveVoteDocument = exports.useIsVotedLazyQuery = exports.useIsVotedQuery = exports.IsVotedDocument = exports.useAddVoteMutation = exports.AddVoteDocument = exports.useCreatePostWithImageMutation = exports.CreatePostWithImageDocument = exports.useCreatePostWithLinkMutation = exports.CreatePostWithLinkDocument = exports.useCreatePostWithMarkDownMutation = exports.CreatePostWithMarkDownDocument = exports.useGetJoinedSubLazyQuery = exports.useGetJoinedSubQuery = exports.GetJoinedSubDocument = exports.useCheckEmailLazyQuery = exports.useCheckEmailQuery = exports.CheckEmailDocument = exports.useCreateUserMutation = exports.CreateUserDocument = exports.useGetPostsLazyQuery = exports.useGetPostsQuery = exports.GetPostsDocument = exports.useUserLazyQuery = exports.useUserQuery = exports.UserDocument = exports.useLogoutLazyQuery = exports.useLogoutQuery = exports.LogoutDocument = exports.useLoginUserMutation = exports.LoginUserDocument = exports.useContinueWithFaceBookMutation = exports.ContinueWithFaceBookDocument = exports.useCreateCommentMutation = exports.CreateCommentDocument = exports.VoteType = void 0;
 var client_1 = require("@apollo/client");
 var Apollo = __importStar(require("@apollo/client"));
 var VoteType;
@@ -31,17 +31,22 @@ var VoteType;
     VoteType["Up"] = "UP";
     VoteType["Down"] = "DOWN";
 })(VoteType = exports.VoteType || (exports.VoteType = {}));
-exports.ContinueWithFaceBookDocument = client_1.gql(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    mutation ContinueWithFaceBook($accessToken: String!) {\n  loginFaceBook(accessToken: $accessToken) {\n    path\n    message\n  }\n}\n    "], ["\n    mutation ContinueWithFaceBook($accessToken: String!) {\n  loginFaceBook(accessToken: $accessToken) {\n    path\n    message\n  }\n}\n    "])));
+exports.CreateCommentDocument = client_1.gql(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    mutation createComment($commentInput: CommentInput!) {\n  createComment(commentInput: $commentInput) {\n    path\n    message\n  }\n}\n    "], ["\n    mutation createComment($commentInput: CommentInput!) {\n  createComment(commentInput: $commentInput) {\n    path\n    message\n  }\n}\n    "])));
+function useCreateCommentMutation(baseOptions) {
+    return Apollo.useMutation(exports.CreateCommentDocument, baseOptions);
+}
+exports.useCreateCommentMutation = useCreateCommentMutation;
+exports.ContinueWithFaceBookDocument = client_1.gql(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n    mutation ContinueWithFaceBook($accessToken: String!) {\n  loginFaceBook(accessToken: $accessToken) {\n    path\n    message\n  }\n}\n    "], ["\n    mutation ContinueWithFaceBook($accessToken: String!) {\n  loginFaceBook(accessToken: $accessToken) {\n    path\n    message\n  }\n}\n    "])));
 function useContinueWithFaceBookMutation(baseOptions) {
     return Apollo.useMutation(exports.ContinueWithFaceBookDocument, baseOptions);
 }
 exports.useContinueWithFaceBookMutation = useContinueWithFaceBookMutation;
-exports.LoginUserDocument = client_1.gql(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n    mutation LoginUser($loginInput: UserLoginInput!) {\n  login(loginInput: $loginInput) {\n    path\n    message\n  }\n}\n    "], ["\n    mutation LoginUser($loginInput: UserLoginInput!) {\n  login(loginInput: $loginInput) {\n    path\n    message\n  }\n}\n    "])));
+exports.LoginUserDocument = client_1.gql(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n    mutation LoginUser($loginInput: UserLoginInput!) {\n  login(loginInput: $loginInput) {\n    path\n    message\n  }\n}\n    "], ["\n    mutation LoginUser($loginInput: UserLoginInput!) {\n  login(loginInput: $loginInput) {\n    path\n    message\n  }\n}\n    "])));
 function useLoginUserMutation(baseOptions) {
     return Apollo.useMutation(exports.LoginUserDocument, baseOptions);
 }
 exports.useLoginUserMutation = useLoginUserMutation;
-exports.LogoutDocument = client_1.gql(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n    query Logout {\n  logout\n}\n    "], ["\n    query Logout {\n  logout\n}\n    "])));
+exports.LogoutDocument = client_1.gql(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n    query Logout {\n  logout\n}\n    "], ["\n    query Logout {\n  logout\n}\n    "])));
 function useLogoutQuery(baseOptions) {
     return Apollo.useQuery(exports.LogoutDocument, baseOptions);
 }
@@ -50,7 +55,7 @@ function useLogoutLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.LogoutDocument, baseOptions);
 }
 exports.useLogoutLazyQuery = useLogoutLazyQuery;
-exports.UserDocument = client_1.gql(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n    query User {\n  me {\n    username\n    displayName\n    email\n    picture_url\n  }\n}\n    "], ["\n    query User {\n  me {\n    username\n    displayName\n    email\n    picture_url\n  }\n}\n    "])));
+exports.UserDocument = client_1.gql(templateObject_5 || (templateObject_5 = __makeTemplateObject(["\n    query User {\n  me {\n    username\n    displayName\n    email\n    picture_url\n  }\n}\n    "], ["\n    query User {\n  me {\n    username\n    displayName\n    email\n    picture_url\n  }\n}\n    "])));
 function useUserQuery(baseOptions) {
     return Apollo.useQuery(exports.UserDocument, baseOptions);
 }
@@ -59,7 +64,7 @@ function useUserLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.UserDocument, baseOptions);
 }
 exports.useUserLazyQuery = useUserLazyQuery;
-exports.GetPostsDocument = client_1.gql(templateObject_5 || (templateObject_5 = __makeTemplateObject(["\n    query getPosts {\n  getPosts {\n    post_id\n    post_text\n    title\n    link\n    sub {\n      name\n      picture_url\n    }\n    vote_count\n    images\n    videos\n    user {\n      username\n      picture_url\n    }\n    comment_count\n    created_at\n  }\n}\n    "], ["\n    query getPosts {\n  getPosts {\n    post_id\n    post_text\n    title\n    link\n    sub {\n      name\n      picture_url\n    }\n    vote_count\n    images\n    videos\n    user {\n      username\n      picture_url\n    }\n    comment_count\n    created_at\n  }\n}\n    "])));
+exports.GetPostsDocument = client_1.gql(templateObject_6 || (templateObject_6 = __makeTemplateObject(["\n    query getPosts {\n  getPosts {\n    post_id\n    post_text\n    title\n    link\n    sub {\n      name\n      picture_url\n    }\n    vote_count\n    images\n    videos\n    user {\n      username\n      picture_url\n    }\n    comment_count\n    created_at\n  }\n}\n    "], ["\n    query getPosts {\n  getPosts {\n    post_id\n    post_text\n    title\n    link\n    sub {\n      name\n      picture_url\n    }\n    vote_count\n    images\n    videos\n    user {\n      username\n      picture_url\n    }\n    comment_count\n    created_at\n  }\n}\n    "])));
 function useGetPostsQuery(baseOptions) {
     return Apollo.useQuery(exports.GetPostsDocument, baseOptions);
 }
@@ -68,15 +73,6 @@ function useGetPostsLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.GetPostsDocument, baseOptions);
 }
 exports.useGetPostsLazyQuery = useGetPostsLazyQuery;
-exports.GetPostDocument = client_1.gql(templateObject_6 || (templateObject_6 = __makeTemplateObject(["\n    query getPost($post_id: String!) {\n  getPost(post_id: $post_id) {\n    post_id\n    post_text\n    title\n    link\n    sub {\n      name\n      picture_url\n    }\n    vote_count\n    images\n    videos\n    user {\n      username\n      picture_url\n    }\n    comment_count\n    created_at\n  }\n}\n    "], ["\n    query getPost($post_id: String!) {\n  getPost(post_id: $post_id) {\n    post_id\n    post_text\n    title\n    link\n    sub {\n      name\n      picture_url\n    }\n    vote_count\n    images\n    videos\n    user {\n      username\n      picture_url\n    }\n    comment_count\n    created_at\n  }\n}\n    "])));
-function useGetPostQuery(baseOptions) {
-    return Apollo.useQuery(exports.GetPostDocument, baseOptions);
-}
-exports.useGetPostQuery = useGetPostQuery;
-function useGetPostLazyQuery(baseOptions) {
-    return Apollo.useLazyQuery(exports.GetPostDocument, baseOptions);
-}
-exports.useGetPostLazyQuery = useGetPostLazyQuery;
 exports.CreateUserDocument = client_1.gql(templateObject_7 || (templateObject_7 = __makeTemplateObject(["\n    mutation createUser($userInput: UserInputType!) {\n  register(userInput: $userInput) {\n    message\n    path\n  }\n}\n    "], ["\n    mutation createUser($userInput: UserInputType!) {\n  register(userInput: $userInput) {\n    message\n    path\n  }\n}\n    "])));
 function useCreateUserMutation(baseOptions) {
     return Apollo.useMutation(exports.CreateUserDocument, baseOptions);

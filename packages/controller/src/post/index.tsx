@@ -1,11 +1,9 @@
 import { QueryTuple } from '@apollo/client';
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import { GraphQlClient } from '../ApolloClient';
 import {
   Exact,
-  GetPostQuery,
   GetPostsQuery,
-  useGetPostQuery,
   useGetPostsLazyQuery,
 } from '../generated/graphql';
 export type postQueryType = QueryTuple<
@@ -23,16 +21,16 @@ export const PostController: FC<PostControllerInterface> = ({ children }) => {
   });
   return children(postQuery);
 };
-export const usePost = (post_id: string) => {
-  const [post, setPost] = useState<GetPostQuery>();
-  const { data, loading } = useGetPostQuery({
-    client: GraphQlClient.getClient(),
-    variables: { post_id },
-  });
-  useEffect(() => {
-    if (data && !loading) {
-      setPost(data);
-    }
-  }, [data, loading]);
-  return post;
-};
+// export const usePost = (post_id: string) => {
+//   const [post, setPost] = useState<GetPostQuery>();
+//   const { data, loading } = useGetPostQuery({
+//     client: GraphQlClient.getClient(),
+//     variables: { post_id },
+//   });
+//   useEffect(() => {
+//     if (data && !loading) {
+//       setPost(data);
+//     }
+//   }, [data, loading]);
+//   return post;
+// };

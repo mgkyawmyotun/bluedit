@@ -1,0 +1,6 @@
+mutation createComment($commentInput: CommentInput!) {
+  createComment(commentInput: $commentInput) {
+    path
+    message
+  }
+}
