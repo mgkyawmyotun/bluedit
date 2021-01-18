@@ -1,10 +1,12 @@
 import { FetchResult } from '@apollo/client';
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { GraphQlClient } from '../ApolloClient';
 import {
   CommentInput,
   CreateCommentMutation,
+  GetCommentsQuery,
   useCreateCommentMutation,
+  useGetCommentsQuery,
 } from '../generated/graphql';
 interface CommentControllerProps {
   children: ({
@@ -29,4 +31,17 @@ export const CommentController: FC<CommentControllerProps> = ({ children }) => {
     return createComment({ variables: { commentInput: commentData } });
   };
   return children({ submitComment });
+};
+export const useComment = (post_id: string) => {
+  const [comments, setComments] = useState<GetCommentsQuery>();
+  const { data, loading } = useGetCommentsQuery({
+    variables: { post_id },
+    client: GraphQlClient.getClient(),
+  });
+  useEffect(() => {
+    if (data && !loading) {
+      setComments(data);
+    }
+  }, [data, loading]);
+  return comments;
 };

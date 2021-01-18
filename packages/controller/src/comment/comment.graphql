@@ -4,3 +4,14 @@ mutation createComment($commentInput: CommentInput!) {
     message
   }
 }
+query getComments($post_id: String!) {
+  getComments(post_id: $post_id) {
+    comment_text
+    comment_id
+    user {
+      displayName
+      username
+      picture_url
+    }
+  }
+}

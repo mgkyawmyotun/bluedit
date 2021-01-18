@@ -21,7 +21,10 @@ export const CommentContent: FC<CommentContentProps> = () => {
             comment_text: '', //comment_text
             post_id: query.post as string,
           }}
-          onSubmit={async ({ comment_text, post_id }, { setSubmitting }) => {
+          onSubmit={async (
+            { comment_text, post_id },
+            { setSubmitting, ...helpers }
+          ) => {
             try {
               const result = await submitComment({ comment_text, post_id });
               if (result.data.createComment) {
@@ -32,6 +35,7 @@ export const CommentContent: FC<CommentContentProps> = () => {
                 'Comment cannot create might be server error,Try again Later'
               );
             }
+
             commentSuccessNotfication();
             setSubmitting(false);
           }}
