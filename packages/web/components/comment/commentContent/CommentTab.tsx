@@ -14,11 +14,11 @@ export const CommentTab: FC<CommentTabProps> = () => {
       <Tabs>
         <Tabs.TabPane tab={'Text Editor'} key="1">
           <div className={styles.text__editor}>
-            <TextEditor />
+            <TextEditor name={'comment_text'} />
           </div>
         </Tabs.TabPane>
         <Tabs.TabPane tab={'MarkDown'} key="2">
-          <MarkDownEditor />
+          <MarkDownEditor name={'comment_text'} />
         </Tabs.TabPane>
       </Tabs>
     </div>

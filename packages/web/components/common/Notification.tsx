@@ -58,3 +58,15 @@ export const postSuccessNotification = () =>
     message: 'Post Create',
     type: 'success',
   });
+export const commentSuccessNotfication = () =>
+  openNotification({
+    description: 'Comment Created Successfully',
+    message: 'Comment Create',
+    type: 'success',
+  });
+export const commentErrorNotfication = (des: string) =>
+  openNotification({
+    description: des,
+    message: 'Comment Cannot Create',
+    type: 'error',
+  });

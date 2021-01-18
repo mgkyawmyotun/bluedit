@@ -1,4 +1,5 @@
 export * from './ApolloClient';
+export * from './comment';
 export * from './context';
 export * from './facebook';
 export * from './generated/graphql';

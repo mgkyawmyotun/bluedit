@@ -3,13 +3,15 @@ import React from 'react';
 import RichTextEditor, { EditorValue } from 'react-rte';
 import { getTextAlignClassName } from 'react-rte/lib/lib/blockStyleFunctions';
 import 'react-rte/lib/RichTextEditor.css';
-interface EditorProps {}
+interface EditorProps {
+  name: string;
+}
 
-export const TextEditor: React.FC<EditorProps> = ({}) => {
+export const TextEditor: React.FC<EditorProps> = ({ name }) => {
   const [value, setValue] = React.useState<EditorValue>(
     RichTextEditor.createEmptyValue()
   );
-  const [field, meta, helpers] = useField({ name: 'post_text' });
+  const [field, meta, helpers] = useField({ name });
   return (
     <RichTextEditor
       onChange={(newValue) => {

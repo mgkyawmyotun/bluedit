@@ -11,6 +11,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./ApolloClient"), exports);
+__exportStar(require("./comment"), exports);
 __exportStar(require("./context"), exports);
 __exportStar(require("./facebook"), exports);
 __exportStar(require("./generated/graphql"), exports);
