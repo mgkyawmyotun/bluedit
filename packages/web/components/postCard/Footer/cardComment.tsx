@@ -1,3 +1,4 @@
+import { useCommentAddedSub } from '@bluedit/controller';
 import { Col, Row } from 'antd';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -8,6 +9,7 @@ interface CardCommentProps {}
 export const CardComment: FC = () => {
   const { push } = useRouter();
   const { post_id, comment_count } = useContext(PostContext);
+  const comment_count_new = useCommentAddedSub(post_id);
   return (
     <Col
       className={styles.card__comment__box}
@@ -15,7 +17,9 @@ export const CardComment: FC = () => {
     >
       <Row className={styles.card__comment} justify={'space-between'}>
         <Image src="/comment.svg" width={15} height={18}></Image>
-        <span>{comment_count} comments</span>
+        <span>
+          {comment_count_new ? comment_count_new : comment_count} comments
+        </span>
       </Row>
     </Col>
   );

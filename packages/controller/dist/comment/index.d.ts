@@ -8,5 +8,7 @@ interface CommentControllerProps {
 }
 export declare const CommentController: FC<CommentControllerProps>;
 export declare const useComment: (post_id: string) => GetCommentsQuery | undefined;
+export declare const useCommentAddedSub: (post_id: string) => number | undefined;
+export declare const useNewCommentAddedSub: (post_id: string) => any;
 export {};
 //# sourceMappingURL=index.d.ts.map

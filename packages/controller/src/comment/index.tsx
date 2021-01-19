@@ -1,4 +1,4 @@
-import { FetchResult } from '@apollo/client';
+import { FetchResult, gql, useSubscription } from '@apollo/client';
 import { FC, useEffect, useState } from 'react';
 import { GraphQlClient } from '../ApolloClient';
 import {
@@ -40,11 +40,49 @@ export const useComment = (post_id: string) => {
     fetchPolicy: 'network-only',
   });
   useEffect(() => {
-    // refetch();
-
     if (data && !loading) {
       setComments(data);
     }
   }, [data, loading]);
   return comments;
+};
+const COMMENT_ADDED_SUB = gql`
+  subscription commentAdded($post_id: String!) {
+    commentAdded(post_id: $post_id)
+  }
+`;
+
+export const useCommentAddedSub = (post_id: string) => {
+  const [comment_count, setComment_Count] = useState<number>();
+  const { data, loading } = useSubscription(COMMENT_ADDED_SUB, {
+    variables: { post_id },
+    client: GraphQlClient.getClient(),
+  });
+  useEffect(() => {
+    if (data && !loading) {
+      setComment_Count(data.commentAdded);
+    }
+  }, [data]);
+  return comment_count;
+};
+const NEW_COMMENT_ADDED = gql`
+  subscription newCommentAdded($post_id: String!) {
+    newCommentAdded(post_id: $post_id) {
+      comment_text
+      user {
+        displayName
+        username
+        picture_url
+      }
+      comment_id
+    }
+  }
+`;
+export const useNewCommentAddedSub = (post_id: string) => {
+  const { data } = useSubscription(NEW_COMMENT_ADDED, {
+    variables: { post_id },
+    client: GraphQlClient.getClient(),
+  });
+
+  return data && data.newCommentAdded;
 };

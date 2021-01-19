@@ -52,7 +52,6 @@ export class UpdateCommentConsumer {
   @Process(process_new_comment)
   async newCommentAdded(job: Job<NewCommentInterface>) {
     const { comment_id } = job.data;
-    console.log(comment_id);
     try {
       const new_comment = await this.commentRepository.findOne(comment_id, {
         relations: ['user', 'post'],
