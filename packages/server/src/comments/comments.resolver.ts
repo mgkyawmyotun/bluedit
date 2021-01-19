@@ -1,6 +1,6 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
-import { COMMENT_ADDED } from './../shared/gql.contstant';
+import { COMMENT_ADDED, NEW_COMMENT_ADDED } from './../shared/gql.contstant';
 import { pubSub } from './../shared/GraphqlPubSub';
 import { IsAuthGuard } from './../shared/is-auth.guard';
 import { CommentsService } from './comments.service';
@@ -42,5 +42,9 @@ export class CommentsResolver {
   @Subscription(returns => Number)
   commentAdded(@Args('post_id') post_id: string) {
     return pubSub.asyncIterator(COMMENT_ADDED + post_id);
+  }
+  @Subscription(returns => Comment)
+  newCommentAdded(@Args('post_id') post_id: string) {
+    return pubSub.asyncIterator(NEW_COMMENT_ADDED + post_id);
   }
 }

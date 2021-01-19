@@ -194,5 +194,6 @@ input Vote {
 
 type Subscription {
   commentAdded(post_id: String!): Float!
+  newCommentAdded(post_id: String!): Comment!
   voteAdded(post_id: String!): Float!
 }

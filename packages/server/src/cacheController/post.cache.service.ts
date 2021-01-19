@@ -2,7 +2,6 @@ import { CACHE_MANAGER, Inject, Injectable } from '@nestjs/common';
 import { Cache } from 'cache-manager';
 import { PostEntity } from './../posts/posts.entity';
 import { KEYS } from './cacheKeys';
-
 @Injectable()
 export class PostsCacheService {
   constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {}

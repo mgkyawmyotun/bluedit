@@ -1,2 +1,3 @@
 export const VOTE_ADDED = 'VOTED_ADDED';
 export const COMMENT_ADDED = 'COMMENT_ADDED';
+export const NEW_COMMENT_ADDED = 'NEW_COMMENT_ADDED';

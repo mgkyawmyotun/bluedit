@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Queue } from 'bull';
 import { Repository } from 'typeorm';
 import { update_c_c } from '../consumer/consumer.name';
+import { process_new_comment } from './../consumer/consumer.name';
 import { shapeError } from './../shared/shapeError';
 import { UserAuthHelpService } from './../shared/userauth.service';
 import { CommentEntity } from './comments.entity';
@@ -40,6 +41,9 @@ export class CommentsService {
       });
 
       await this.commentRepository.save(comment);
+      this.commentsQueue.add(process_new_comment, {
+        comment_id: comment.comment_id,
+      });
       this.commentsQueue.add({ post_id: post_id, TYPE: 'ADD' });
     } catch (error) {
       return {
@@ -68,6 +72,7 @@ export class CommentsService {
       return null;
     }
   }
+
   async editComment({
     comment_text,
     comment_id,
@@ -90,6 +95,7 @@ export class CommentsService {
       };
     }
   }
+
   async deleteComment(comment_id: string): Promise<CommentError> {
     try {
       await commentDeleteValidation.validate({ comment_id });
