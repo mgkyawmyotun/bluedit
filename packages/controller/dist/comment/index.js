@@ -50,7 +50,7 @@ var useCommentAddedSub = function (post_id) {
     return comment_count;
 };
 exports.useCommentAddedSub = useCommentAddedSub;
-var NEW_COMMENT_ADDED = client_1.gql(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  subscription newCommentAdded($post_id: String!) {\n    newCommentAdded(post_id: $post_id) {\n      comment_text\n      user {\n        displayName\n        username\n        picture_url\n      }\n      comment_id\n    }\n  }\n"], ["\n  subscription newCommentAdded($post_id: String!) {\n    newCommentAdded(post_id: $post_id) {\n      comment_text\n      user {\n        displayName\n        username\n        picture_url\n      }\n      comment_id\n    }\n  }\n"])));
+var NEW_COMMENT_ADDED = client_1.gql(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  subscription newCommentAdded($post_id: String!) {\n    newCommentAdded(post_id: $post_id) {\n      comment_text\n      user {\n        displayName\n        username\n        picture_url\n      }\n      comment_id\n      created_at\n    }\n  }\n"], ["\n  subscription newCommentAdded($post_id: String!) {\n    newCommentAdded(post_id: $post_id) {\n      comment_text\n      user {\n        displayName\n        username\n        picture_url\n      }\n      comment_id\n      created_at\n    }\n  }\n"])));
 var useNewCommentAddedSub = function (post_id) {
     var data = client_1.useSubscription(NEW_COMMENT_ADDED, {
         variables: { post_id: post_id },

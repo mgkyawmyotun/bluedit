@@ -75,6 +75,7 @@ const NEW_COMMENT_ADDED = gql`
         picture_url
       }
       comment_id
+      created_at
     }
   }
 `;

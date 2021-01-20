@@ -36,7 +36,7 @@ function useCreateCommentMutation(baseOptions) {
     return Apollo.useMutation(exports.CreateCommentDocument, baseOptions);
 }
 exports.useCreateCommentMutation = useCreateCommentMutation;
-exports.GetCommentsDocument = client_1.gql(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n    query getComments($post_id: String!) {\n  getComments(post_id: $post_id) {\n    comment_text\n    comment_id\n    user {\n      displayName\n      username\n      picture_url\n    }\n  }\n}\n    "], ["\n    query getComments($post_id: String!) {\n  getComments(post_id: $post_id) {\n    comment_text\n    comment_id\n    user {\n      displayName\n      username\n      picture_url\n    }\n  }\n}\n    "])));
+exports.GetCommentsDocument = client_1.gql(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n    query getComments($post_id: String!) {\n  getComments(post_id: $post_id) {\n    comment_text\n    comment_id\n    user {\n      displayName\n      username\n      picture_url\n    }\n    created_at\n  }\n}\n    "], ["\n    query getComments($post_id: String!) {\n  getComments(post_id: $post_id) {\n    comment_text\n    comment_id\n    user {\n      displayName\n      username\n      picture_url\n    }\n    created_at\n  }\n}\n    "])));
 function useGetCommentsQuery(baseOptions) {
     return Apollo.useQuery(exports.GetCommentsDocument, baseOptions);
 }

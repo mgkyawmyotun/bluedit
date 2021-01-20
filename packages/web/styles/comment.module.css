@@ -70,12 +70,11 @@
 }
 
 .comment__card__avatar {
-  margin: 10px;
+  margin-right: 10px;
 }
 
 .comment__card {
   display: flex;
-  align-items: center;
 
 }
 
@@ -85,5 +84,12 @@
 }
 
 .comment__card__right__top {
+  display: flex;
   flex-direction: row;
+  align-items: center;
+}
+
+.comment__card__name {
+  padding: 2px;
+
 }

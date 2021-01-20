@@ -91,6 +91,7 @@ export declare type Comment = {
     comment_text: Scalars['String'];
     comment_id: Scalars['String'];
     user: User;
+    created_at: Scalars['String'];
 };
 export declare type CommentError = ErrorInterface & {
     __typename?: 'CommentError';
@@ -263,7 +264,15 @@ export declare type Vote = {
 };
 export declare type Subscription = {
     __typename?: 'Subscription';
+    commentAdded: Scalars['Float'];
+    newCommentAdded: Comment;
     voteAdded: Scalars['Float'];
+};
+export declare type SubscriptionCommentAddedArgs = {
+    post_id: Scalars['String'];
+};
+export declare type SubscriptionNewCommentAddedArgs = {
+    post_id: Scalars['String'];
 };
 export declare type SubscriptionVoteAddedArgs = {
     post_id: Scalars['String'];
@@ -286,7 +295,7 @@ export declare type GetCommentsQuery = ({
 } & {
     getComments?: Maybe<Array<({
         __typename?: 'Comment';
-    } & Pick<Comment, 'comment_text' | 'comment_id'> & {
+    } & Pick<Comment, 'comment_text' | 'comment_id' | 'created_at'> & {
         user: ({
             __typename?: 'User';
         } & Pick<User, 'displayName' | 'username' | 'picture_url'>);

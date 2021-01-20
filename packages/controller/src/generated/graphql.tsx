@@ -96,6 +96,7 @@ export type Comment = {
   comment_text: Scalars['String'];
   comment_id: Scalars['String'];
   user: User;
+  created_at: Scalars['String'];
 };
 
 export type CommentError = ErrorInterface & {
@@ -332,7 +333,19 @@ export type Vote = {
 
 export type Subscription = {
   __typename?: 'Subscription';
+  commentAdded: Scalars['Float'];
+  newCommentAdded: Comment;
   voteAdded: Scalars['Float'];
+};
+
+
+export type SubscriptionCommentAddedArgs = {
+  post_id: Scalars['String'];
+};
+
+
+export type SubscriptionNewCommentAddedArgs = {
+  post_id: Scalars['String'];
 };
 
 
@@ -362,7 +375,7 @@ export type GetCommentsQuery = (
   { __typename?: 'Query' }
   & { getComments?: Maybe<Array<(
     { __typename?: 'Comment' }
-    & Pick<Comment, 'comment_text' | 'comment_id'>
+    & Pick<Comment, 'comment_text' | 'comment_id' | 'created_at'>
     & { user: (
       { __typename?: 'User' }
       & Pick<User, 'displayName' | 'username' | 'picture_url'>
@@ -609,6 +622,7 @@ export const GetCommentsDocument = gql`
       username
       picture_url
     }
+    created_at
   }
 }
     `;

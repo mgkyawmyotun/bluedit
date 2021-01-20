@@ -13,5 +13,6 @@ query getComments($post_id: String!) {
       username
       picture_url
     }
+    created_at
   }
 }
