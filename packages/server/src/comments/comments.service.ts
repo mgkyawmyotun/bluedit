@@ -62,6 +62,7 @@ export class CommentsService {
           'users.displayName',
           'comment.comment_text',
           'comment.comment_id',
+          'comment.created_at',
           'users.username',
           'users.email',
           'users.picture_url',

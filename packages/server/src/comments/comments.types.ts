@@ -10,6 +10,8 @@ export class Comment {
   comment_id: string;
   @Field(type => User)
   user: User;
+  @Field(type => String, { nullable: false })
+  created_at: string;
 }
 
 @ObjectType({ implements: () => [ErrorInterface] })

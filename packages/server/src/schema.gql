@@ -76,6 +76,7 @@ type Comment {
   comment_text: String!
   comment_id: String!
   user: User!
+  created_at: String!
 }
 
 type CommentError implements ErrorInterface {
