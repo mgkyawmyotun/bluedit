@@ -4,7 +4,6 @@
   box-sizing: border-box;
   max-width: 100%;
   min-height: 100px;
-  border-radius: 2%;
   margin: 20px 20px 20px 20px;
   padding: 20px 40px 40px 40px;
 }
@@ -68,4 +67,23 @@
 .comment__sort__option {
   margin-left: 20px;
 
+}
+
+.comment__card__avatar {
+  margin: 10px;
+}
+
+.comment__card {
+  display: flex;
+  align-items: center;
+
+}
+
+.comment__card__right {
+  display: flex;
+  flex-direction: column;
+}
+
+.comment__card__right__top {
+  flex-direction: row;
 }

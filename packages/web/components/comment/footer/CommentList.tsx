@@ -1,6 +1,7 @@
 import { useComment, useNewCommentAddedSub } from '@bluedit/controller';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useState } from 'react';
+import { CommentCard } from './commentCard';
 
 interface CommentListProps {}
 export const CommentList: FC<CommentListProps> = () => {
@@ -20,7 +21,10 @@ export const CommentList: FC<CommentListProps> = () => {
 
   return (
     <div id="comment">
-      {comments && comments.map((comment) => <div>{comment.comment_text}</div>)}
+      {comments &&
+        comments.map((comment) => (
+          <CommentCard comment={comment} key={comment.comment_id}></CommentCard>
+        ))}
     </div>
   );
 };

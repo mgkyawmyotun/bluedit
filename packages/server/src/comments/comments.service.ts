@@ -64,6 +64,7 @@ export class CommentsService {
           'comment.comment_id',
           'users.username',
           'users.email',
+          'users.picture_url',
         ])
         .getMany();
 
