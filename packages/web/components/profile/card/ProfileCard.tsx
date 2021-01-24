@@ -3,6 +3,7 @@ import { FC } from 'react';
 import styles from './../../../styles/profile.module.css';
 import { ProfileCardBody } from './ProfileCardBody';
 import { ProfileCardTitle } from './ProfileCardTitle';
+import { ProfileSubCard } from './ProfileSubCard';
 
 interface ProfileCardProps {}
 export const ProfileCard: FC<ProfileCardProps> = () => {
@@ -16,6 +17,7 @@ export const ProfileCard: FC<ProfileCardProps> = () => {
         >
           <ProfileCardBody />
         </Card>
+        <ProfileSubCard />
       </Affix>
     </>
   );
