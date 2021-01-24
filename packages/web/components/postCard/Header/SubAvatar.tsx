@@ -7,7 +7,11 @@ interface SubAvatarProps {}
 export const SubAvatar: FC = () => {
   const { sub, user } = useContext(PostContext);
   return (
-    <Avatar size={20} style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>
+    <Avatar
+      size={20}
+      style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}
+      src={user ? user.picture_url : sub.picture_url}
+    >
       {' '}
       {user
         ? getFirstUpperName(user.username)

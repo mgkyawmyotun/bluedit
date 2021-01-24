@@ -1,5 +1,5 @@
 import { postQueryType } from '@bluedit/controller';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
 import { PostCard } from '../postCard';
 
 interface PostListProps {
@@ -8,7 +8,6 @@ interface PostListProps {
 export const PostList: FC<PostListProps> = ({
   postQuery: [fetch, { data, loading }],
 }) => {
-  const [posts, setPosts] = useState<typeof data.getPosts>();
   useEffect(() => {
     fetch();
   }, []);
