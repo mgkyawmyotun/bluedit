@@ -1,0 +1,22 @@
+.main__layout {
+  background-color: white;
+  width: 100%;
+  height: auto;
+  margin-top: 64px;
+
+}
+
+.profile__tab {
+  margin: 5px;
+  /* rotate: 300deg; */
+  /* display: none; */
+}
+
+.profile__tab__header {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.profile__tab__header:hover {
+  color: #69B0E5;
+}
