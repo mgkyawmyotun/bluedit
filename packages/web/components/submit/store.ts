@@ -12,7 +12,6 @@ export class SubBluedit {
 export class SubBlueditState {
   private static subBlueditName: SubBluedit | undefined = undefined;
   public static getSubBleditState() {
-    console.log(this.subBlueditName);
     if (this.subBlueditName) {
       return this.subBlueditName;
     }

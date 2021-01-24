@@ -4,13 +4,12 @@
   height: auto;
   margin-top: 64px;
 
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 20px;
 }
 
-.profile__tab {
-  margin: 5px;
-  /* rotate: 300deg; */
-  /* display: none; */
-}
+.profile__tab {}
 
 .profile__tab__header {
   font-size: 16px;
@@ -19,4 +18,36 @@
 
 .profile__tab__header:hover {
   color: #69B0E5;
+}
+
+.profile__card {
+  margin: 50px;
+}
+
+.profile__card__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.profile__card__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 500;
+  color: #5c5c5c;
+  padding: 10px;
+
+}
+
+.profile__card__body__vote {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+
 }
