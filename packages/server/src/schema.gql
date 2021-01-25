@@ -30,7 +30,7 @@ type JoinSub {
 type User {
   displayName: String!
   username: String!
-  email: String!
+  email: String
   picture_url: String
 }
 
@@ -100,6 +100,9 @@ type Query {
   getJoinSub: [JoinSub!]
   getUserJoinedSub(username: String!): [Sub!]
   me: User
+
+  """email can be null """
+  getUser(username: String!): User
   logout: String
   isEmailExists(email: String!): Boolean!
   isVoted(post_id: String!): VoteType

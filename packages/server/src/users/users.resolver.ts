@@ -16,6 +16,10 @@ export class UsersResolver {
   me() {
     return this.userService.me();
   }
+  @Query(returns => User, { nullable: true, description: 'email can be null ' })
+  getUser(@Args('username') username: string) {
+    return this.userService.getUser(username);
+  }
   @Query(returns => String, { nullable: true })
   logout() {
     return this.userService.logout();

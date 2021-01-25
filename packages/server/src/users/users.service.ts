@@ -35,6 +35,17 @@ export class UsersService {
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
     @Inject(CONTEXT) private context: GraphQLUserContext,
   ) {}
+  async getUser(username: string) {
+    try {
+      const user = await this.usersRepository.findOne(
+        { username },
+        { select: ['username', 'displayName', 'picture_url'] },
+      );
+      return user;
+    } catch (error) {
+      return null;
+    }
+  }
   async createUser(user: User): Promise<UserError> {
     this.logger.log('Creating User');
     try {

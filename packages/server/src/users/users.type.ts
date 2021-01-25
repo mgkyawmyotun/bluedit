@@ -9,8 +9,8 @@ export class User {
   @Field(type => String)
   username: string;
 
-  @Field(type => String)
-  email: string;
+  @Field(type => String, { nullable: true })
+  email?: string;
 
   @Field(type => String, { nullable: true })
   picture_url?: string;
