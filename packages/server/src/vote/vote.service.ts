@@ -100,6 +100,14 @@ export class VoteService {
     }
     return null;
   }
+  public async getVoteCountUser(username: string) {
+    const vote_count = await this.voteRepository
+      .createQueryBuilder('vote')
+      .leftJoin('vote.user', 'user')
+      .where('user.username = :name', { name: username })
+      .getCount();
+    return vote_count;
+  }
   private toVoteType(str: any): VoteType {
     return str === '0' ? VoteType.UP : VoteType.DOWN;
   }

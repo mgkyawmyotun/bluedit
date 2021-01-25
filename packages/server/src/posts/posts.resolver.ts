@@ -27,9 +27,13 @@ export class PostResolver {
   async getPosts() {
     return this.postService.getPosts();
   }
-  @Query(returns => Post)
+  @Query(returns => Post, { nullable: true })
   async getPost(@Args('post_id') post_id: string) {
     return this.postService.getPost(post_id);
+  }
+  @Query(returns => [Post], { nullable: true })
+  async getPostsByUser(@Args('username') username: string) {
+    return this.postService.getPostByUser(username);
   }
   @Mutation(returns => PostError, { nullable: true })
   @UseGuards(IsAuthGuard)

@@ -14,6 +14,7 @@ export const ProfileSubCard: FC<ProfileSubCardProps> = () => {
           <List
             dataSource={data.getJoinSub}
             size={'small'}
+            style={{ height: 150, overflow: 'hidden', overflowY: 'scroll' }}
             renderItem={({ sub: { name, displayName, picture_url } }) => (
               <List.Item key={name}>
                 <List.Item.Meta

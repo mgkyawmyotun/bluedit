@@ -31,4 +31,8 @@ export class VoteResolver {
   voteAdded(@Args('post_id') post_id: string) {
     return pubSub.asyncIterator(VOTE_ADDED + post_id);
   }
+  @Query(returns => Number)
+  getVoteCountUser(@Args('username') username: string) {
+    return this.voteService.getVoteCountUser(username);
+  }
 }

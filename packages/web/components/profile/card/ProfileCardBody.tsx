@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { FC } from 'react';
 import styles from './../../../styles/profile.module.css';
 interface ProfileCardBodyProps {}
+
 export const ProfileCardBody: FC<ProfileCardBodyProps> = () => {
   return (
     <div className={styles.profile__card__body}>

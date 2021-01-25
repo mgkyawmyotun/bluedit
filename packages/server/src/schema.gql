@@ -86,13 +86,16 @@ type CommentError implements ErrorInterface {
 
 type Query {
   getPosts: [Post!]!
-  getPost(post_id: String!): Post!
+  getPost(post_id: String!): Post
+  getPostsByUser(username: String!): [Post!]
   getComments(post_id: String!): [Comment!]
   getJoinSub: [JoinSub!]
+  getUserJoinedSub(username: String!): [Sub!]
   me: User
   logout: String
   isEmailExists(email: String!): Boolean!
   isVoted(post_id: String!): VoteType
+  getVoteCountUser(username: String!): Float!
 }
 
 enum VoteType {

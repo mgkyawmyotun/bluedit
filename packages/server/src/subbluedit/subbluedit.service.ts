@@ -77,9 +77,30 @@ export class SubblueditService {
         where: { user: { user_id: this.userAuthHelpService.getUser() } },
         relations: ['sub'],
       });
-      // console.log(subJoin);
       return subJoin;
     } catch (error) {
+      return null;
+    }
+  }
+  async getUserJoinedSub(username: string) {
+    try {
+      const subJoin = await this.joinRepository
+        .createQueryBuilder('subjoin')
+        .leftJoin('subjoin.user', 'user')
+        .leftJoin('subjoin.sub', 'sub')
+        .where('user.username = :name', {
+          name: username,
+        })
+        .select('sub.displayName', 'displayName')
+        .addSelect('sub.name', 'name')
+        .addSelect('sub.picture_url', 'picture_url')
+
+        .execute();
+
+      console.log(subJoin);
+      return subJoin;
+    } catch (error) {
+      console.log(error);
       return null;
     }
   }
