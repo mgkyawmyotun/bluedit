@@ -75,6 +75,23 @@ export class CommentsService {
     }
   }
 
+  async getCommentsByUser(username: string) {
+    try {
+      const comments = await this.commentRepository
+        .createQueryBuilder('comment')
+        .leftJoin('comment.user', 'user')
+        .leftJoin('comment.post', 'post')
+        .where('user.username = :name', { name: username })
+        .select('post.post_id', 'post_id')
+        .addSelect(['comment_id', 'comment_text'])
+        .addSelect('comment.created_at', 'created_at')
+        .execute();
+      return comments;
+    } catch (error) {
+      return null;
+    }
+  }
+
   async editComment({
     comment_text,
     comment_id,

@@ -9,6 +9,7 @@ import {
   CommentEditInput,
   CommentError,
   CommentInput,
+  CommentUser,
 } from './comments.types';
 
 @Resolver()
@@ -38,6 +39,10 @@ export class CommentsResolver {
   @Query(returns => [Comment], { nullable: true })
   getComments(@Args('post_id') post_id: string) {
     return this.commentService.getComments(post_id);
+  }
+  @Query(returns => [CommentUser], { nullable: true })
+  getCommentsByUser(@Args('username') username: string) {
+    return this.commentService.getCommentsByUser(username);
   }
   @Subscription(returns => Number)
   commentAdded(@Args('post_id') post_id: string) {

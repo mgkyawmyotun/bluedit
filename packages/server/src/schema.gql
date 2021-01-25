@@ -79,6 +79,13 @@ type Comment {
   created_at: String!
 }
 
+type CommentUser {
+  comment_text: String!
+  comment_id: String!
+  created_at: String!
+  post_id: String!
+}
+
 type CommentError implements ErrorInterface {
   path: String!
   message: String!
@@ -89,6 +96,7 @@ type Query {
   getPost(post_id: String!): Post
   getPostsByUser(username: String!): [Post!]
   getComments(post_id: String!): [Comment!]
+  getCommentsByUser(username: String!): [CommentUser!]
   getJoinSub: [JoinSub!]
   getUserJoinedSub(username: String!): [Sub!]
   me: User
