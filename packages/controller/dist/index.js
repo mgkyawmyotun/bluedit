@@ -19,6 +19,7 @@ __exportStar(require("./login"), exports);
 __exportStar(require("./logout"), exports);
 __exportStar(require("./me"), exports);
 __exportStar(require("./post"), exports);
+__exportStar(require("./profile"), exports);
 __exportStar(require("./register"), exports);
 __exportStar(require("./sub"), exports);
 __exportStar(require("./submit"), exports);

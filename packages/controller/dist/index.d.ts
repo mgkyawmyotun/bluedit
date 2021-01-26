@@ -7,6 +7,7 @@ export * from './login';
 export * from './logout';
 export * from './me';
 export * from './post';
+export * from './profile';
 export * from './register';
 export * from './sub';
 export * from './submit';

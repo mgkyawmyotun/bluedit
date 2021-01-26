@@ -94,10 +94,7 @@ export class SubblueditService {
         .select('sub.displayName', 'displayName')
         .addSelect('sub.name', 'name')
         .addSelect('sub.picture_url', 'picture_url')
-
         .execute();
-
-      console.log(subJoin);
       return subJoin;
     } catch (error) {
       console.log(error);

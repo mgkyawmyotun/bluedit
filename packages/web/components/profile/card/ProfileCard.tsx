@@ -1,3 +1,4 @@
+import { Sub } from '@bluedit/controller';
 import { Affix, Card } from 'antd';
 import { FC, useContext } from 'react';
 import { ProfileContext } from '../ProfileContext';
@@ -6,8 +7,16 @@ import { ProfileCardBody } from './ProfileCardBody';
 import { ProfileCardTitle } from './ProfileCardTitle';
 import { ProfileSubCard } from './ProfileSubCard';
 
-interface ProfileCardProps {}
-export const ProfileCard: FC<ProfileCardProps> = () => {
+interface ProfileCardProps {
+  joinsub: ({
+    __typename?: 'Sub';
+  } & Pick<Sub, 'displayName' | 'name' | 'picture_url'>)[];
+  comment_count: number;
+}
+export const ProfileCard: FC<ProfileCardProps> = ({
+  joinsub,
+  comment_count,
+}) => {
   const { user, vote_count } = useContext(ProfileContext);
   return (
     <>
@@ -20,11 +29,14 @@ export const ProfileCard: FC<ProfileCardProps> = () => {
             />
           }
           bordered={true}
-          style={{ width: 300 }}
+          style={{ maxWidth: 300 }}
         >
-          <ProfileCardBody vote_count={vote_count} />
+          <ProfileCardBody
+            vote_count={vote_count}
+            comment_count={comment_count}
+          />
         </Card>
-        <ProfileSubCard />
+        <ProfileSubCard joinsub={joinsub} />
       </Affix>
     </>
   );

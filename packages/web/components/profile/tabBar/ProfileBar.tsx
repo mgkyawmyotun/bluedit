@@ -1,14 +1,16 @@
 import { Tabs } from 'antd';
 import { FC } from 'react';
+import { ProfileProps } from '..';
+import { PostCard } from '../../postCard';
 import styles from './../../../styles/profile.module.css';
-interface ProfileBarProps {}
+type ProfileBarProps = ProfileProps;
 const { TabPane } = Tabs;
 const Posts = <div className={styles.profile__tab__header}> POSTS </div>;
 const Comments = <div className={styles.profile__tab__header}> COMMENTS </div>;
 const UserPosts = (
   <div className={styles.profile__tab__header}> USER POSTS </div>
 );
-export const ProfileBar: FC<ProfileBarProps> = () => {
+export const ProfileBar: FC<ProfileBarProps> = ({ comments, posts }) => {
   return (
     <div className={styles.profile__tab}>
       <Tabs
@@ -18,14 +20,12 @@ export const ProfileBar: FC<ProfileBarProps> = () => {
         type={'card'}
       >
         <TabPane tab={Posts} key="1">
-          Content of tab 1
+          {posts && posts.map((post) => <PostCard post={post}></PostCard>)}
         </TabPane>
         <TabPane tab={Comments} key="2">
-          Content of tab 2
+          <div>{JSON.stringify(comments)}</div>
         </TabPane>
-        <TabPane tab={UserPosts} key="3">
-          Content of tab 3
-        </TabPane>
+        <TabPane tab={UserPosts} key="3"></TabPane>
       </Tabs>
     </div>
   );

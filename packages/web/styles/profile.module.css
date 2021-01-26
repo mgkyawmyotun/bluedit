@@ -4,12 +4,11 @@
   height: auto;
   margin-top: 64px;
 
-  margin-left: 20px;
-  margin-right: 20px;
-  padding: 20px;
 }
 
-.profile__tab {}
+.profile__tab {
+  overflow-x: hidden;
+}
 
 .profile__tab__header {
   font-size: 16px;
@@ -21,7 +20,8 @@
 }
 
 .profile__card {
-  margin: 50px;
+  margin: 20px;
+
 }
 
 .profile__card__header {
@@ -50,4 +50,17 @@
   align-items: center;
   justify-content: space-evenly;
 
+}
+
+.profile__card__user {
+  width: 300px;
+}
+
+@media only screen and (max-width: 600px) {
+  .main__layout {
+    background-color: white;
+    width: 100%;
+    height: auto;
+    margin-top: 64px;
+  }
 }

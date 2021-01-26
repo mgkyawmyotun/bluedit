@@ -1,4 +1,4 @@
-import { User } from '@bluedit/controller';
+import { ProfileController, User } from '@bluedit/controller';
 import Layout, { Content } from 'antd/lib/layout/layout';
 import Sider from 'antd/lib/layout/Sider';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
@@ -64,14 +64,28 @@ const Me: FC<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
         )}
       </Head>
       <Layout className={styles.main__layout}>
-        <Sider className={styles.main__left} width={'20%'}></Sider>
+        <Sider className={styles.main__left} width={'15%'}></Sider>
         <ProfileContext.Provider value={{ user, vote_count }}>
-          <Content className={styles.slider}>
-            <Profile />
-          </Content>
-          <Sider className={styles.main__right} width={'30%'}>
-            <ProfileCard />
-          </Sider>
+          <ProfileController username={user.username}>
+            {({ joinsub, comments, posts }) => (
+              <>
+                <Content className={styles.slider}>
+                  <Profile
+                    posts={posts.data && (posts.data.getPostsByUser as any)}
+                    comments={comments.data && comments.data.getCommentsByUser}
+                  />
+                </Content>
+                <Sider className={styles.main__right} width={'25%'}>
+                  <ProfileCard
+                    joinsub={joinsub.data && joinsub.data.getUserJoinedSub}
+                    comment_count={
+                      comments.data && comments.data.getCommentsByUser.length
+                    }
+                  />
+                </Sider>
+              </>
+            )}
+          </ProfileController>
         </ProfileContext.Provider>
       </Layout>
     </>

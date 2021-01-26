@@ -3,9 +3,13 @@ import { FC } from 'react';
 import styles from './../../../styles/profile.module.css';
 interface ProfileCardBodyProps {
   vote_count: number;
+  comment_count: number;
 }
 
-export const ProfileCardBody: FC<ProfileCardBodyProps> = ({ vote_count }) => {
+export const ProfileCardBody: FC<ProfileCardBodyProps> = ({
+  vote_count,
+  comment_count,
+}) => {
   return (
     <div className={styles.profile__card__body}>
       <div>Votes</div>
@@ -22,7 +26,10 @@ export const ProfileCardBody: FC<ProfileCardBodyProps> = ({ vote_count }) => {
       <div className={styles.profile__card__body__vote}>
         <Image src={'/comment.svg'} width={25} height={25}></Image>
         <div style={{ padding: '10px' }}>
-          - <span style={{ fontSize: '16px', fontWeight: 'bold' }}>1000</span>
+          -{' '}
+          <span style={{ fontSize: '16px', fontWeight: 'bold' }}>
+            {comment_count}
+          </span>
         </div>
       </div>
     </div>

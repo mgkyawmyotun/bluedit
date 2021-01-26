@@ -11,6 +11,7 @@
   border: 1px solid #949494;
 }
 
+
 .card__vote {
   background-color: #F8F9FA;
   width: 46px;
@@ -419,7 +420,6 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    /* width: 800px; */
     margin: 20px 20px 20px 0px;
     max-width: 1200px;
     min-width: 600px;
