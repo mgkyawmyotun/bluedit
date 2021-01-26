@@ -17,6 +17,7 @@
 		"react-facebook-login": "^4.1.1",
 		"react-markdown": "^5.0.3",
 		"react-mde": "^11.0.0",
+		"react-responsive": "^8.2.0",
 		"react-rte": "^0.16.3",
 		"remark-gfm": "^1.0.0"
 	},

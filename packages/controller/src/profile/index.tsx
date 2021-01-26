@@ -42,6 +42,7 @@ export const ProfileController: FC<ProfileControllerProps> = ({
     const _options = {
       client: GraphQlClient.getClient(),
       variables: { username },
+      fetchPolicy: 'network-only' as any,
     };
 
     return _options;

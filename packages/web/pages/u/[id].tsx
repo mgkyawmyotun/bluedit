@@ -7,6 +7,7 @@ import React, { FC } from 'react';
 import { WithNavBar } from '../../components/common/withNavBar';
 import { Profile } from '../../components/profile';
 import { ProfileCard } from '../../components/profile/card/ProfileCard';
+import { ProfileCardContext } from '../../components/profile/card/ProfileCardContext';
 import { ProfileContext } from '../../components/profile/ProfileContext';
 import styles from './../../styles/main.module.css';
 export const getServerSideProps: GetServerSideProps<{
@@ -52,7 +53,6 @@ const Me: FC<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
   user,
   vote_count,
 }) => {
-  console.log(vote_count);
   return (
     <>
       <Head>
@@ -68,7 +68,13 @@ const Me: FC<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
         <ProfileContext.Provider value={{ user, vote_count }}>
           <ProfileController username={user.username}>
             {({ joinsub, comments, posts }) => (
-              <>
+              <ProfileCardContext.Provider
+                value={{
+                  comment_count:
+                    comments.data && comments.data.getCommentsByUser.length,
+                  joinsub: joinsub.data && joinsub.data.getUserJoinedSub,
+                }}
+              >
                 <Content className={styles.slider}>
                   <Profile
                     posts={posts.data && (posts.data.getPostsByUser as any)}
@@ -76,14 +82,9 @@ const Me: FC<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
                   />
                 </Content>
                 <Sider className={styles.main__right} width={'25%'}>
-                  <ProfileCard
-                    joinsub={joinsub.data && joinsub.data.getUserJoinedSub}
-                    comment_count={
-                      comments.data && comments.data.getCommentsByUser.length
-                    }
-                  />
+                  <ProfileCard />
                 </Sider>
-              </>
+              </ProfileCardContext.Provider>
             )}
           </ProfileController>
         </ProfileContext.Provider>

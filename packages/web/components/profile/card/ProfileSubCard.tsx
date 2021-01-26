@@ -15,7 +15,7 @@ export const ProfileSubCard: FC<ProfileSubCardProps> = ({ joinsub }) => {
       <Card
         title={'Joined SubBluedit'}
         bordered={true}
-        style={{ maxWidth: 300 }}
+        style={{ maxWidth: 300, minWidth: 250 }}
       >
         {joinsub && (
           <List
