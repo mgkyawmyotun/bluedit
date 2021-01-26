@@ -46,7 +46,7 @@ export type User = {
   __typename?: 'User';
   displayName: Scalars['String'];
   username: Scalars['String'];
-  email: Scalars['String'];
+  email?: Maybe<Scalars['String']>;
   picture_url?: Maybe<Scalars['String']>;
 };
 
@@ -99,6 +99,14 @@ export type Comment = {
   created_at: Scalars['String'];
 };
 
+export type CommentUser = {
+  __typename?: 'CommentUser';
+  comment_text: Scalars['String'];
+  comment_id: Scalars['String'];
+  created_at: Scalars['String'];
+  post_id: Scalars['String'];
+};
+
 export type CommentError = ErrorInterface & {
   __typename?: 'CommentError';
   path: Scalars['String'];
@@ -108,13 +116,19 @@ export type CommentError = ErrorInterface & {
 export type Query = {
   __typename?: 'Query';
   getPosts: Array<Post>;
-  getPost: Post;
+  getPost?: Maybe<Post>;
+  getPostsByUser?: Maybe<Array<Post>>;
   getComments?: Maybe<Array<Comment>>;
+  getCommentsByUser?: Maybe<Array<CommentUser>>;
   getJoinSub?: Maybe<Array<JoinSub>>;
+  getUserJoinedSub?: Maybe<Array<Sub>>;
   me?: Maybe<User>;
+  /** email can be null  */
+  getUser?: Maybe<User>;
   logout?: Maybe<Scalars['String']>;
   isEmailExists: Scalars['Boolean'];
   isVoted?: Maybe<VoteType>;
+  getVoteCountUser: Scalars['Float'];
 };
 
 
@@ -123,8 +137,28 @@ export type QueryGetPostArgs = {
 };
 
 
+export type QueryGetPostsByUserArgs = {
+  username: Scalars['String'];
+};
+
+
 export type QueryGetCommentsArgs = {
   post_id: Scalars['String'];
+};
+
+
+export type QueryGetCommentsByUserArgs = {
+  username: Scalars['String'];
+};
+
+
+export type QueryGetUserJoinedSubArgs = {
+  username: Scalars['String'];
+};
+
+
+export type QueryGetUserArgs = {
+  username: Scalars['String'];
 };
 
 
@@ -135,6 +169,11 @@ export type QueryIsEmailExistsArgs = {
 
 export type QueryIsVotedArgs = {
   post_id: Scalars['String'];
+};
+
+
+export type QueryGetVoteCountUserArgs = {
+  username: Scalars['String'];
 };
 
 export enum VoteType {
@@ -453,7 +492,7 @@ export type GetPostQueryVariables = Exact<{
 
 export type GetPostQuery = (
   { __typename?: 'Query' }
-  & { getPost: (
+  & { getPost?: Maybe<(
     { __typename?: 'Post' }
     & Pick<Post, 'post_id' | 'post_text' | 'title' | 'link' | 'vote_count' | 'images' | 'videos' | 'comment_count' | 'created_at'>
     & { sub?: Maybe<(
@@ -463,7 +502,53 @@ export type GetPostQuery = (
       { __typename?: 'User' }
       & Pick<User, 'username' | 'picture_url'>
     ) }
-  ) }
+  )> }
+);
+
+export type JoinSubQueryVariables = Exact<{
+  username: Scalars['String'];
+}>;
+
+
+export type JoinSubQuery = (
+  { __typename?: 'Query' }
+  & { getUserJoinedSub?: Maybe<Array<(
+    { __typename?: 'Sub' }
+    & Pick<Sub, 'displayName' | 'name' | 'picture_url'>
+  )>> }
+);
+
+export type GetPostsByUserQueryVariables = Exact<{
+  username: Scalars['String'];
+}>;
+
+
+export type GetPostsByUserQuery = (
+  { __typename?: 'Query' }
+  & { getPostsByUser?: Maybe<Array<(
+    { __typename?: 'Post' }
+    & Pick<Post, 'post_id' | 'post_text' | 'title' | 'link' | 'vote_count' | 'images' | 'videos' | 'comment_count' | 'created_at'>
+    & { sub?: Maybe<(
+      { __typename?: 'Sub' }
+      & Pick<Sub, 'name' | 'picture_url'>
+    )>, user: (
+      { __typename?: 'User' }
+      & Pick<User, 'username' | 'picture_url'>
+    ) }
+  )>> }
+);
+
+export type GetCommentsByUserQueryVariables = Exact<{
+  username: Scalars['String'];
+}>;
+
+
+export type GetCommentsByUserQuery = (
+  { __typename?: 'Query' }
+  & { getCommentsByUser?: Maybe<Array<(
+    { __typename?: 'CommentUser' }
+    & Pick<CommentUser, 'comment_text' | 'comment_id' | 'created_at' | 'post_id'>
+  )>> }
 );
 
 export type CreateUserMutationVariables = Exact<{
@@ -880,6 +965,126 @@ export function useGetPostLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Ge
 export type GetPostQueryHookResult = ReturnType<typeof useGetPostQuery>;
 export type GetPostLazyQueryHookResult = ReturnType<typeof useGetPostLazyQuery>;
 export type GetPostQueryResult = Apollo.QueryResult<GetPostQuery, GetPostQueryVariables>;
+export const JoinSubDocument = gql`
+    query JoinSub($username: String!) {
+  getUserJoinedSub(username: $username) {
+    displayName
+    name
+    picture_url
+  }
+}
+    `;
+
+/**
+ * __useJoinSubQuery__
+ *
+ * To run a query within a React component, call `useJoinSubQuery` and pass it any options that fit your needs.
+ * When your component renders, `useJoinSubQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useJoinSubQuery({
+ *   variables: {
+ *      username: // value for 'username'
+ *   },
+ * });
+ */
+export function useJoinSubQuery(baseOptions: Apollo.QueryHookOptions<JoinSubQuery, JoinSubQueryVariables>) {
+        return Apollo.useQuery<JoinSubQuery, JoinSubQueryVariables>(JoinSubDocument, baseOptions);
+      }
+export function useJoinSubLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<JoinSubQuery, JoinSubQueryVariables>) {
+          return Apollo.useLazyQuery<JoinSubQuery, JoinSubQueryVariables>(JoinSubDocument, baseOptions);
+        }
+export type JoinSubQueryHookResult = ReturnType<typeof useJoinSubQuery>;
+export type JoinSubLazyQueryHookResult = ReturnType<typeof useJoinSubLazyQuery>;
+export type JoinSubQueryResult = Apollo.QueryResult<JoinSubQuery, JoinSubQueryVariables>;
+export const GetPostsByUserDocument = gql`
+    query getPostsByUser($username: String!) {
+  getPostsByUser(username: $username) {
+    post_id
+    post_text
+    title
+    link
+    sub {
+      name
+      picture_url
+    }
+    vote_count
+    images
+    videos
+    user {
+      username
+      picture_url
+    }
+    comment_count
+    created_at
+  }
+}
+    `;
+
+/**
+ * __useGetPostsByUserQuery__
+ *
+ * To run a query within a React component, call `useGetPostsByUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostsByUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostsByUserQuery({
+ *   variables: {
+ *      username: // value for 'username'
+ *   },
+ * });
+ */
+export function useGetPostsByUserQuery(baseOptions: Apollo.QueryHookOptions<GetPostsByUserQuery, GetPostsByUserQueryVariables>) {
+        return Apollo.useQuery<GetPostsByUserQuery, GetPostsByUserQueryVariables>(GetPostsByUserDocument, baseOptions);
+      }
+export function useGetPostsByUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostsByUserQuery, GetPostsByUserQueryVariables>) {
+          return Apollo.useLazyQuery<GetPostsByUserQuery, GetPostsByUserQueryVariables>(GetPostsByUserDocument, baseOptions);
+        }
+export type GetPostsByUserQueryHookResult = ReturnType<typeof useGetPostsByUserQuery>;
+export type GetPostsByUserLazyQueryHookResult = ReturnType<typeof useGetPostsByUserLazyQuery>;
+export type GetPostsByUserQueryResult = Apollo.QueryResult<GetPostsByUserQuery, GetPostsByUserQueryVariables>;
+export const GetCommentsByUserDocument = gql`
+    query getCommentsByUser($username: String!) {
+  getCommentsByUser(username: $username) {
+    comment_text
+    comment_id
+    created_at
+    post_id
+  }
+}
+    `;
+
+/**
+ * __useGetCommentsByUserQuery__
+ *
+ * To run a query within a React component, call `useGetCommentsByUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCommentsByUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCommentsByUserQuery({
+ *   variables: {
+ *      username: // value for 'username'
+ *   },
+ * });
+ */
+export function useGetCommentsByUserQuery(baseOptions: Apollo.QueryHookOptions<GetCommentsByUserQuery, GetCommentsByUserQueryVariables>) {
+        return Apollo.useQuery<GetCommentsByUserQuery, GetCommentsByUserQueryVariables>(GetCommentsByUserDocument, baseOptions);
+      }
+export function useGetCommentsByUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCommentsByUserQuery, GetCommentsByUserQueryVariables>) {
+          return Apollo.useLazyQuery<GetCommentsByUserQuery, GetCommentsByUserQueryVariables>(GetCommentsByUserDocument, baseOptions);
+        }
+export type GetCommentsByUserQueryHookResult = ReturnType<typeof useGetCommentsByUserQuery>;
+export type GetCommentsByUserLazyQueryHookResult = ReturnType<typeof useGetCommentsByUserLazyQuery>;
+export type GetCommentsByUserQueryResult = Apollo.QueryResult<GetCommentsByUserQuery, GetCommentsByUserQueryVariables>;
 export const CreateUserDocument = gql`
     mutation createUser($userInput: UserInputType!) {
   register(userInput: $userInput) {

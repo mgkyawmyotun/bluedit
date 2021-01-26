@@ -1,0 +1,37 @@
+query JoinSub($username: String!) {
+  getUserJoinedSub(username: $username) {
+    displayName
+    name
+    picture_url
+  }
+}
+
+query getPostsByUser($username: String!) {
+  getPostsByUser(username: $username) {
+    post_id
+    post_text
+    title
+    link
+    sub {
+      name
+      picture_url
+    }
+    vote_count
+    images
+    videos
+    user {
+      username
+      picture_url
+    }
+    comment_count
+    created_at
+  }
+}
+query getCommentsByUser($username: String!) {
+  getCommentsByUser(username: $username) {
+    comment_text
+    comment_id
+    created_at
+    post_id
+  }
+}

@@ -11,9 +11,10 @@ import { ProfileContext } from '../../components/profile/ProfileContext';
 import styles from './../../styles/main.module.css';
 export const getServerSideProps: GetServerSideProps<{
   user: User;
+  vote_count: number;
 }> = async (context) => {
   const username = context.params.id;
-  const raw_res_user = await fetch('http://localhost:4000/graphql', {
+  const raw_res_user = await fetch(process.env.NEXT_PUBLIC_GQL_URI, {
     headers: {
       accept: '*/*',
       'content-type': 'application/json',
@@ -22,11 +23,24 @@ export const getServerSideProps: GetServerSideProps<{
     method: 'POST',
     credentials: 'include',
   });
-  const res: { data: { getUser: User } } = await raw_res_user.json();
-  if (res.data.getUser) {
-    const user = res.data;
+  const res_user: { data: { getUser: User } } = await raw_res_user.json();
+  const raw_res_vote = await fetch(process.env.NEXT_PUBLIC_GQL_URI, {
+    headers: {
+      accept: '*/*',
+      'content-type': 'application/json',
+    },
+    body: `{"operationName":"getVoteCountByUser","variables":{},"query":"query getVoteCountByUser {\\n  getVoteCountUser(username: \\"${username}\\")\\n}\\n"}`,
+    method: 'POST',
+  });
+  const res_vote: {
+    data: { getVoteCountUser: number };
+  } = await raw_res_vote.json();
+
+  if (res_user.data.getUser && res_vote.data) {
+    const user = res_user.data;
+    const vote_count = res_vote.data.getVoteCountUser;
     return {
-      props: { user: user.getUser },
+      props: { user: user.getUser, vote_count },
     };
   }
   return {
@@ -36,7 +50,9 @@ export const getServerSideProps: GetServerSideProps<{
 
 const Me: FC<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
   user,
+  vote_count,
 }) => {
+  console.log(vote_count);
   return (
     <>
       <Head>
@@ -49,7 +65,7 @@ const Me: FC<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
       </Head>
       <Layout className={styles.main__layout}>
         <Sider className={styles.main__left} width={'20%'}></Sider>
-        <ProfileContext.Provider value={{ user }}>
+        <ProfileContext.Provider value={{ user, vote_count }}>
           <Content className={styles.slider}>
             <Profile />
           </Content>

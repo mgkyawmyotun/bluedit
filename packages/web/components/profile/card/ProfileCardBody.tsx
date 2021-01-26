@@ -1,16 +1,21 @@
 import Image from 'next/image';
 import { FC } from 'react';
 import styles from './../../../styles/profile.module.css';
-interface ProfileCardBodyProps {}
+interface ProfileCardBodyProps {
+  vote_count: number;
+}
 
-export const ProfileCardBody: FC<ProfileCardBodyProps> = () => {
+export const ProfileCardBody: FC<ProfileCardBodyProps> = ({ vote_count }) => {
   return (
     <div className={styles.profile__card__body}>
       <div>Votes</div>
       <div className={styles.profile__card__body__vote}>
         <Image src={'/voteIcon.svg'} width={25} height={25}></Image>
         <div style={{ padding: '10px' }}>
-          - <span style={{ fontSize: '16px', fontWeight: 'bold' }}>1000</span>
+          -{' '}
+          <span style={{ fontSize: '16px', fontWeight: 'bold' }}>
+            {vote_count}
+          </span>
         </div>
       </div>
       <div style={{ marginTop: '10px' }}>Comments</div>

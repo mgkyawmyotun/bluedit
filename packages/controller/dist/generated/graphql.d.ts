@@ -46,7 +46,7 @@ export declare type User = {
     __typename?: 'User';
     displayName: Scalars['String'];
     username: Scalars['String'];
-    email: Scalars['String'];
+    email?: Maybe<Scalars['String']>;
     picture_url?: Maybe<Scalars['String']>;
 };
 export declare type UserError = ErrorInterface & {
@@ -93,6 +93,13 @@ export declare type Comment = {
     user: User;
     created_at: Scalars['String'];
 };
+export declare type CommentUser = {
+    __typename?: 'CommentUser';
+    comment_text: Scalars['String'];
+    comment_id: Scalars['String'];
+    created_at: Scalars['String'];
+    post_id: Scalars['String'];
+};
 export declare type CommentError = ErrorInterface & {
     __typename?: 'CommentError';
     path: Scalars['String'];
@@ -101,25 +108,45 @@ export declare type CommentError = ErrorInterface & {
 export declare type Query = {
     __typename?: 'Query';
     getPosts: Array<Post>;
-    getPost: Post;
+    getPost?: Maybe<Post>;
+    getPostsByUser?: Maybe<Array<Post>>;
     getComments?: Maybe<Array<Comment>>;
+    getCommentsByUser?: Maybe<Array<CommentUser>>;
     getJoinSub?: Maybe<Array<JoinSub>>;
+    getUserJoinedSub?: Maybe<Array<Sub>>;
     me?: Maybe<User>;
+    getUser?: Maybe<User>;
     logout?: Maybe<Scalars['String']>;
     isEmailExists: Scalars['Boolean'];
     isVoted?: Maybe<VoteType>;
+    getVoteCountUser: Scalars['Float'];
 };
 export declare type QueryGetPostArgs = {
     post_id: Scalars['String'];
 };
+export declare type QueryGetPostsByUserArgs = {
+    username: Scalars['String'];
+};
 export declare type QueryGetCommentsArgs = {
     post_id: Scalars['String'];
+};
+export declare type QueryGetCommentsByUserArgs = {
+    username: Scalars['String'];
+};
+export declare type QueryGetUserJoinedSubArgs = {
+    username: Scalars['String'];
+};
+export declare type QueryGetUserArgs = {
+    username: Scalars['String'];
 };
 export declare type QueryIsEmailExistsArgs = {
     email: Scalars['String'];
 };
 export declare type QueryIsVotedArgs = {
     post_id: Scalars['String'];
+};
+export declare type QueryGetVoteCountUserArgs = {
+    username: Scalars['String'];
 };
 export declare enum VoteType {
     Up = "UP",
@@ -360,7 +387,7 @@ export declare type GetPostQueryVariables = Exact<{
 export declare type GetPostQuery = ({
     __typename?: 'Query';
 } & {
-    getPost: ({
+    getPost?: Maybe<({
         __typename?: 'Post';
     } & Pick<Post, 'post_id' | 'post_text' | 'title' | 'link' | 'vote_count' | 'images' | 'videos' | 'comment_count' | 'created_at'> & {
         sub?: Maybe<({
@@ -369,7 +396,44 @@ export declare type GetPostQuery = ({
         user: ({
             __typename?: 'User';
         } & Pick<User, 'username' | 'picture_url'>);
-    });
+    })>;
+});
+export declare type JoinSubQueryVariables = Exact<{
+    username: Scalars['String'];
+}>;
+export declare type JoinSubQuery = ({
+    __typename?: 'Query';
+} & {
+    getUserJoinedSub?: Maybe<Array<({
+        __typename?: 'Sub';
+    } & Pick<Sub, 'displayName' | 'name' | 'picture_url'>)>>;
+});
+export declare type GetPostsByUserQueryVariables = Exact<{
+    username: Scalars['String'];
+}>;
+export declare type GetPostsByUserQuery = ({
+    __typename?: 'Query';
+} & {
+    getPostsByUser?: Maybe<Array<({
+        __typename?: 'Post';
+    } & Pick<Post, 'post_id' | 'post_text' | 'title' | 'link' | 'vote_count' | 'images' | 'videos' | 'comment_count' | 'created_at'> & {
+        sub?: Maybe<({
+            __typename?: 'Sub';
+        } & Pick<Sub, 'name' | 'picture_url'>)>;
+        user: ({
+            __typename?: 'User';
+        } & Pick<User, 'username' | 'picture_url'>);
+    })>>;
+});
+export declare type GetCommentsByUserQueryVariables = Exact<{
+    username: Scalars['String'];
+}>;
+export declare type GetCommentsByUserQuery = ({
+    __typename?: 'Query';
+} & {
+    getCommentsByUser?: Maybe<Array<({
+        __typename?: 'CommentUser';
+    } & Pick<CommentUser, 'comment_text' | 'comment_id' | 'created_at' | 'post_id'>)>>;
 });
 export declare type CreateUserMutationVariables = Exact<{
     userInput: UserInputType;
@@ -531,6 +595,36 @@ export declare function useGetPostLazyQuery(baseOptions?: Apollo.LazyQueryHookOp
 export declare type GetPostQueryHookResult = ReturnType<typeof useGetPostQuery>;
 export declare type GetPostLazyQueryHookResult = ReturnType<typeof useGetPostLazyQuery>;
 export declare type GetPostQueryResult = Apollo.QueryResult<GetPostQuery, GetPostQueryVariables>;
+export declare const JoinSubDocument: Apollo.DocumentNode;
+export declare function useJoinSubQuery(baseOptions: Apollo.QueryHookOptions<JoinSubQuery, JoinSubQueryVariables>): Apollo.QueryResult<JoinSubQuery, Exact<{
+    username: string;
+}>>;
+export declare function useJoinSubLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<JoinSubQuery, JoinSubQueryVariables>): Apollo.QueryTuple<JoinSubQuery, Exact<{
+    username: string;
+}>>;
+export declare type JoinSubQueryHookResult = ReturnType<typeof useJoinSubQuery>;
+export declare type JoinSubLazyQueryHookResult = ReturnType<typeof useJoinSubLazyQuery>;
+export declare type JoinSubQueryResult = Apollo.QueryResult<JoinSubQuery, JoinSubQueryVariables>;
+export declare const GetPostsByUserDocument: Apollo.DocumentNode;
+export declare function useGetPostsByUserQuery(baseOptions: Apollo.QueryHookOptions<GetPostsByUserQuery, GetPostsByUserQueryVariables>): Apollo.QueryResult<GetPostsByUserQuery, Exact<{
+    username: string;
+}>>;
+export declare function useGetPostsByUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostsByUserQuery, GetPostsByUserQueryVariables>): Apollo.QueryTuple<GetPostsByUserQuery, Exact<{
+    username: string;
+}>>;
+export declare type GetPostsByUserQueryHookResult = ReturnType<typeof useGetPostsByUserQuery>;
+export declare type GetPostsByUserLazyQueryHookResult = ReturnType<typeof useGetPostsByUserLazyQuery>;
+export declare type GetPostsByUserQueryResult = Apollo.QueryResult<GetPostsByUserQuery, GetPostsByUserQueryVariables>;
+export declare const GetCommentsByUserDocument: Apollo.DocumentNode;
+export declare function useGetCommentsByUserQuery(baseOptions: Apollo.QueryHookOptions<GetCommentsByUserQuery, GetCommentsByUserQueryVariables>): Apollo.QueryResult<GetCommentsByUserQuery, Exact<{
+    username: string;
+}>>;
+export declare function useGetCommentsByUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCommentsByUserQuery, GetCommentsByUserQueryVariables>): Apollo.QueryTuple<GetCommentsByUserQuery, Exact<{
+    username: string;
+}>>;
+export declare type GetCommentsByUserQueryHookResult = ReturnType<typeof useGetCommentsByUserQuery>;
+export declare type GetCommentsByUserLazyQueryHookResult = ReturnType<typeof useGetCommentsByUserLazyQuery>;
+export declare type GetCommentsByUserQueryResult = Apollo.QueryResult<GetCommentsByUserQuery, GetCommentsByUserQueryVariables>;
 export declare const CreateUserDocument: Apollo.DocumentNode;
 export declare type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, CreateUserMutationVariables>;
 export declare function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserMutation, CreateUserMutationVariables>): Apollo.MutationTuple<CreateUserMutation, Exact<{

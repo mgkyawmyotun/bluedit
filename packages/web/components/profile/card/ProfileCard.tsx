@@ -8,8 +8,7 @@ import { ProfileSubCard } from './ProfileSubCard';
 
 interface ProfileCardProps {}
 export const ProfileCard: FC<ProfileCardProps> = () => {
-  const { user } = useContext(ProfileContext);
-  console.log(user);
+  const { user, vote_count } = useContext(ProfileContext);
   return (
     <>
       <Affix offsetTop={80} className={styles.profile__card}>
@@ -23,7 +22,7 @@ export const ProfileCard: FC<ProfileCardProps> = () => {
           bordered={true}
           style={{ width: 300 }}
         >
-          <ProfileCardBody />
+          <ProfileCardBody vote_count={vote_count} />
         </Card>
         <ProfileSubCard />
       </Affix>
