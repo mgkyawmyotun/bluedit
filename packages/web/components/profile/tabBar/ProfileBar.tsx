@@ -2,13 +2,13 @@ import { Tabs } from 'antd';
 import { FC, useContext } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { ProfileProps } from '..';
-import { CommentCard } from '../../comment/footer/commentCard';
 import { PostCard } from '../../postCard';
 import { ProfileCardContext } from '../card/ProfileCardContext';
 import { ProfileCardUser } from '../card/ProfileCardUser';
 import { ProfileSubCard } from '../card/ProfileSubCard';
 import { ProfileContext } from '../ProfileContext';
 import styles from './../../../styles/profile.module.css';
+import { ProfileCommentCard } from './ProfileCommentCard';
 type ProfileBarProps = ProfileProps;
 const { TabPane } = Tabs;
 const Posts = <div className={styles.profile__tab__header}> POSTS </div>;
@@ -34,7 +34,7 @@ export const ProfileBar: FC<ProfileBarProps> = ({ comments, posts }) => {
         <TabPane tab={Comments} key="2">
           {comments &&
             comments.map((comment) => (
-              <CommentCard comment={{ ...comment, user } as any} />
+              <ProfileCommentCard comment={{ ...comment, user } as any} />
             ))}
         </TabPane>
         {!isDesktopOrLaptop && (

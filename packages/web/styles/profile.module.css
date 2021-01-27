@@ -58,6 +58,22 @@
   flex-direction: row;
 }
 
+.profile__comment {
+  background-color: #FFFFFF;
+  border: 1px solid #DBDBDB;
+  box-sizing: border-box;
+  max-width: 100%;
+  min-height: 100px;
+  margin: 20px 20px 20px 20px;
+  padding: 20px;
+  cursor: pointer;
+
+}
+
+.profile__comment:hover {
+  border: 1px solid #949494;
+}
+
 @media only screen and (max-width: 600px) {
   .main__layout {
     background-color: white;
