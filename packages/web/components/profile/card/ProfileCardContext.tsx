@@ -10,3 +10,14 @@ interface ProfileCardContextInterface {
 export const ProfileCardContext = createContext<ProfileCardContextInterface>(
   null
 );
+
+export const withProfileCardContext = (
+  Component: React.FC,
+  value: ProfileCardContextInterface
+) => {
+  return (props) => {
+    <ProfileCardContext.Provider value={value}>
+      <Component {...props} />
+    </ProfileCardContext.Provider>;
+  };
+};

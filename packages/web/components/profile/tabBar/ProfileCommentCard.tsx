@@ -9,6 +9,7 @@ export const ProfileCommentCard: FC<ProfileCommentCardProps> = ({
   comment,
 }) => {
   const { push } = useRouter();
+
   return (
     <div
       className={styles.profile__comment}

@@ -1,16 +1,19 @@
+import { User } from '@bluedit/controller';
 import { Card } from 'antd';
-import { FC, useContext } from 'react';
-import { ProfileContext } from '../ProfileContext';
+import { FC } from 'react';
 import { ProfileCardBody } from './ProfileCardBody';
 import { ProfileCardTitle } from './ProfileCardTitle';
 
 interface ProfileCardUserProps {
   comment_count: number;
+  user: User;
+  vote_count: number;
 }
 export const ProfileCardUser: FC<ProfileCardUserProps> = ({
   comment_count,
+  user,
+  vote_count,
 }) => {
-  const { user, vote_count } = useContext(ProfileContext);
   return (
     <>
       <Card

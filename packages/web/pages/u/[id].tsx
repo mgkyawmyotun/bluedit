@@ -65,29 +65,37 @@ const Me: FC<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
       </Head>
       <Layout className={styles.main__layout}>
         <Sider className={styles.main__left} width={'15%'}></Sider>
-        <ProfileContext.Provider value={{ user, vote_count }}>
-          <ProfileController username={user.username}>
-            {({ joinsub, comments, posts }) => (
-              <ProfileCardContext.Provider
-                value={{
-                  comment_count:
-                    comments.data && comments.data.getCommentsByUser.length,
-                  joinsub: joinsub.data && joinsub.data.getUserJoinedSub,
-                }}
-              >
-                <Content className={styles.slider}>
-                  <Profile
-                    posts={posts.data && (posts.data.getPostsByUser as any)}
-                    comments={comments.data && comments.data.getCommentsByUser}
-                  />
-                </Content>
-                <Sider className={styles.main__right} width={'25%'}>
-                  <ProfileCard />
-                </Sider>
-              </ProfileCardContext.Provider>
-            )}
-          </ProfileController>
-        </ProfileContext.Provider>
+        <ProfileController username={user.username}>
+          {({ joinsub, comments, posts }) => (
+            <>
+              <Content className={styles.slider}>
+                <Profile
+                  posts={posts.data && (posts.data.getPostsByUser as any)}
+                  comments={comments.data && comments.data.getCommentsByUser}
+                  comment_count={
+                    comments.data && comments.data.getCommentsByUser.length
+                  }
+                  joinsub={joinsub.data && joinsub.data.getUserJoinedSub}
+                  user={user}
+                  vote_count={vote_count}
+                />
+              </Content>
+              <ProfileContext.Provider value={{ user, vote_count }}>
+                <ProfileCardContext.Provider
+                  value={{
+                    comment_count:
+                      comments.data && comments.data.getCommentsByUser.length,
+                    joinsub: joinsub.data && joinsub.data.getUserJoinedSub,
+                  }}
+                >
+                  <Sider className={styles.main__right} width={'25%'}>
+                    <ProfileCard />
+                  </Sider>
+                </ProfileCardContext.Provider>
+              </ProfileContext.Provider>
+            </>
+          )}
+        </ProfileController>
       </Layout>
     </>
   );

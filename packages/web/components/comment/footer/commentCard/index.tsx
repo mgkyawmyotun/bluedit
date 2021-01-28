@@ -18,7 +18,10 @@ interface CommentCardProps {
 export const CommentCard: FC<CommentCardProps> = ({ comment }) => {
   return (
     <div className={styles.comment__card}>
-      <CommentAvatar user={comment.user} />
+      <CommentAvatar
+        username={comment.user.username}
+        picture_url={comment.user.picture_url}
+      />
       <div className={styles.comment__card__right}>
         <div className={styles.comment__card__right__top}>
           <CommentName username={comment.user.username} />
