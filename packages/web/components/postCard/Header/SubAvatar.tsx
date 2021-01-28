@@ -12,7 +12,6 @@ export const SubAvatar: FC = () => {
       style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}
       src={user ? user.picture_url : sub.picture_url}
     >
-      {' '}
       {user
         ? getFirstUpperName(user.username)
         : getFirstUpperName(sub.displayName)}

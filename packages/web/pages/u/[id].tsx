@@ -60,7 +60,7 @@ const Me: FC<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
         {user.picture_url ? (
           <link rel="shortcut icon" href={user.picture_url}></link>
         ) : (
-          <link rel="shortcut icon" href="bluedit.svg"></link>
+          <link rel="shortcut icon" href="/bluedit.svg"></link>
         )}
       </Head>
       <Layout className={styles.main__layout}>

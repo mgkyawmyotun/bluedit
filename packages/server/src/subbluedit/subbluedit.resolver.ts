@@ -25,4 +25,8 @@ export class SubblueditResolver {
   async getUserJoinedSub(@Args('username') username: string) {
     return this.subService.getUserJoinedSub(username);
   }
+  @Query(returns => Sub, { nullable: true })
+  async getSub(@Args('subName') subName: string) {
+    return this.subService.getSub(subName);
+  }
 }

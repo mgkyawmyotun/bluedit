@@ -1,5 +1,5 @@
 import Avatar from 'antd/lib/avatar/avatar';
-import { FC, memo, useEffect } from 'react';
+import { FC, memo } from 'react';
 import { getFirstUpperName } from '../../../common/utils';
 import styles from './../../../../styles/comment.module.css';
 
@@ -9,9 +9,6 @@ interface CommentAvatarProps {
 }
 export const CommentAvatar: FC<CommentAvatarProps> = memo(
   ({ username, picture_url }) => {
-    useEffect(() => {
-      console.log(' I am Render');
-    }, []);
     return (
       <div className={styles.comment__card__avatar}>
         <Avatar

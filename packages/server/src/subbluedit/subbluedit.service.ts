@@ -101,4 +101,12 @@ export class SubblueditService {
       return null;
     }
   }
+  async getSub(subName: string) {
+    try {
+      const sub = await this.subRepository.findOne(subName);
+      return sub;
+    } catch (error) {
+      return null;
+    }
+  }
 }

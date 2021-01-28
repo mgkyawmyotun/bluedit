@@ -99,6 +99,7 @@ type Query {
   getCommentsByUser(username: String!): [CommentUser!]
   getJoinSub: [JoinSub!]
   getUserJoinedSub(username: String!): [Sub!]
+  getSub(subName: String!): Sub
   me: User
 
   """email can be null """

@@ -6,7 +6,7 @@ interface SubLinkProps {}
 export const SubLink: FC = () => {
   const { sub, user } = useContext(PostContext);
   return (
-    <Link href="/blog/hello-world">
+    <Link href={sub ? '/r/' + sub.name : '/u/' + user.username}>
       <a className={styles.header__link}>
         {sub ? 'r/' + sub.name : 'u/' + user.username}
       </a>
