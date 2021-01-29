@@ -1,7 +1,6 @@
 {
 	"name": "@bluedit/web",
 	"version": "0.0.1",
-	"type": "module",
 	"private": true,
 	"dependencies": {
 		"@ant-design/icons": "^4.3.0",
