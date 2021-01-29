@@ -20,7 +20,7 @@ export const SubHeader: FC<SubHeaderProps> = () => {
         <div>{'r/' + name}</div>
       </div>
       <div className={styles.sub__header__btn}>
-        <Button>Join</Button>
+        <Button size={'large'}>Join</Button>
       </div>
     </div>
   );

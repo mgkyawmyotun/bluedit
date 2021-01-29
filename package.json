@@ -6,7 +6,7 @@
   },
   "dependencies": {},
   "scripts": {
-    "start": "lerna bootstrap",
+    "start:web": "lerna bootstrap --ignore {@bluedit/app,@bluedit/server}",
     "build:web": "lerna run build --scope {@bluedit/controller,@bluedit/common,@bluedit/web}"
   }
 }

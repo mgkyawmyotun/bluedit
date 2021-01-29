@@ -10,6 +10,7 @@ var ProfileController = function (_a) {
         var _options = {
             client: ApolloClient_1.GraphQlClient.getClient(),
             variables: { username: username },
+            fetchPolicy: 'network-only',
         };
         return _options;
     }, [username]);
