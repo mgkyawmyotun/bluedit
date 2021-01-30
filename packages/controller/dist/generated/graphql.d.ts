@@ -116,6 +116,7 @@ export declare type Query = {
     getJoinSub?: Maybe<Array<JoinSub>>;
     getUserJoinedSub?: Maybe<Array<Sub>>;
     getSub?: Maybe<Sub>;
+    isJoin: Scalars['Boolean'];
     me?: Maybe<User>;
     getUser?: Maybe<User>;
     logout?: Maybe<Scalars['String']>;
@@ -142,6 +143,9 @@ export declare type QueryGetUserJoinedSubArgs = {
     username: Scalars['String'];
 };
 export declare type QueryGetSubArgs = {
+    subName: Scalars['String'];
+};
+export declare type QueryIsJoinArgs = {
     subName: Scalars['String'];
 };
 export declare type QueryGetUserArgs = {
@@ -497,6 +501,12 @@ export declare type LeaveSubMutation = ({
         __typename?: 'SubError';
     } & Pick<SubError, 'path' | 'message'>)>;
 });
+export declare type IsJoinQueryVariables = Exact<{
+    subName: Scalars['String'];
+}>;
+export declare type IsJoinQuery = ({
+    __typename?: 'Query';
+} & Pick<Query, 'isJoin'>);
 export declare type CreatePostWithMarkDownMutationVariables = Exact<{
     postData: PostInputMarkDown;
 }>;
@@ -701,6 +711,16 @@ export declare function useLeaveSubMutation(baseOptions?: Apollo.MutationHookOpt
 export declare type LeaveSubMutationHookResult = ReturnType<typeof useLeaveSubMutation>;
 export declare type LeaveSubMutationResult = Apollo.MutationResult<LeaveSubMutation>;
 export declare type LeaveSubMutationOptions = Apollo.BaseMutationOptions<LeaveSubMutation, LeaveSubMutationVariables>;
+export declare const IsJoinDocument: Apollo.DocumentNode;
+export declare function useIsJoinQuery(baseOptions: Apollo.QueryHookOptions<IsJoinQuery, IsJoinQueryVariables>): Apollo.QueryResult<IsJoinQuery, Exact<{
+    subName: string;
+}>>;
+export declare function useIsJoinLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<IsJoinQuery, IsJoinQueryVariables>): Apollo.QueryTuple<IsJoinQuery, Exact<{
+    subName: string;
+}>>;
+export declare type IsJoinQueryHookResult = ReturnType<typeof useIsJoinQuery>;
+export declare type IsJoinLazyQueryHookResult = ReturnType<typeof useIsJoinLazyQuery>;
+export declare type IsJoinQueryResult = Apollo.QueryResult<IsJoinQuery, IsJoinQueryVariables>;
 export declare const CreatePostWithMarkDownDocument: Apollo.DocumentNode;
 export declare type CreatePostWithMarkDownMutationFn = Apollo.MutationFunction<CreatePostWithMarkDownMutation, CreatePostWithMarkDownMutationVariables>;
 export declare function useCreatePostWithMarkDownMutation(baseOptions?: Apollo.MutationHookOptions<CreatePostWithMarkDownMutation, CreatePostWithMarkDownMutationVariables>): Apollo.MutationTuple<CreatePostWithMarkDownMutation, Exact<{

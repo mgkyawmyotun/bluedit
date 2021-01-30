@@ -15,7 +15,7 @@ export const MainSub: FC<MainSubProps> = ({ sub, posts }) => {
         <SubHeader />
       </SubContext.Provider>
       {posts.map((post) => (
-        <PostCard post={post} />
+        <PostCard post={post} key={post.post_id} />
       ))}
     </div>
   );

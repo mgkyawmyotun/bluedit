@@ -34,4 +34,8 @@ export class SubblueditResolver {
   async getSub(@Args('subName') subName: string) {
     return this.subService.getSub(subName);
   }
+  @Query(returns => Boolean)
+  async isJoin(@Args('subName') subName: string) {
+    return this.subService.isJoin(subName);
+  }
 }

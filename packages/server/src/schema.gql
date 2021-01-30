@@ -101,6 +101,7 @@ type Query {
   getJoinSub: [JoinSub!]
   getUserJoinedSub(username: String!): [Sub!]
   getSub(subName: String!): Sub
+  isJoin(subName: String!): Boolean!
   me: User
 
   """email can be null """

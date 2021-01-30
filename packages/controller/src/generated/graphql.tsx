@@ -124,6 +124,7 @@ export type Query = {
   getJoinSub?: Maybe<Array<JoinSub>>;
   getUserJoinedSub?: Maybe<Array<Sub>>;
   getSub?: Maybe<Sub>;
+  isJoin: Scalars['Boolean'];
   me?: Maybe<User>;
   /** email can be null  */
   getUser?: Maybe<User>;
@@ -165,6 +166,11 @@ export type QueryGetUserJoinedSubArgs = {
 
 
 export type QueryGetSubArgs = {
+  subName: Scalars['String'];
+};
+
+
+export type QueryIsJoinArgs = {
   subName: Scalars['String'];
 };
 
@@ -630,6 +636,16 @@ export type LeaveSubMutation = (
     { __typename?: 'SubError' }
     & Pick<SubError, 'path' | 'message'>
   )> }
+);
+
+export type IsJoinQueryVariables = Exact<{
+  subName: Scalars['String'];
+}>;
+
+
+export type IsJoinQuery = (
+  { __typename?: 'Query' }
+  & Pick<Query, 'isJoin'>
 );
 
 export type CreatePostWithMarkDownMutationVariables = Exact<{
@@ -1295,6 +1311,37 @@ export function useLeaveSubMutation(baseOptions?: Apollo.MutationHookOptions<Lea
 export type LeaveSubMutationHookResult = ReturnType<typeof useLeaveSubMutation>;
 export type LeaveSubMutationResult = Apollo.MutationResult<LeaveSubMutation>;
 export type LeaveSubMutationOptions = Apollo.BaseMutationOptions<LeaveSubMutation, LeaveSubMutationVariables>;
+export const IsJoinDocument = gql`
+    query isJoin($subName: String!) {
+  isJoin(subName: $subName)
+}
+    `;
+
+/**
+ * __useIsJoinQuery__
+ *
+ * To run a query within a React component, call `useIsJoinQuery` and pass it any options that fit your needs.
+ * When your component renders, `useIsJoinQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useIsJoinQuery({
+ *   variables: {
+ *      subName: // value for 'subName'
+ *   },
+ * });
+ */
+export function useIsJoinQuery(baseOptions: Apollo.QueryHookOptions<IsJoinQuery, IsJoinQueryVariables>) {
+        return Apollo.useQuery<IsJoinQuery, IsJoinQueryVariables>(IsJoinDocument, baseOptions);
+      }
+export function useIsJoinLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<IsJoinQuery, IsJoinQueryVariables>) {
+          return Apollo.useLazyQuery<IsJoinQuery, IsJoinQueryVariables>(IsJoinDocument, baseOptions);
+        }
+export type IsJoinQueryHookResult = ReturnType<typeof useIsJoinQuery>;
+export type IsJoinLazyQueryHookResult = ReturnType<typeof useIsJoinLazyQuery>;
+export type IsJoinQueryResult = Apollo.QueryResult<IsJoinQuery, IsJoinQueryVariables>;
 export const CreatePostWithMarkDownDocument = gql`
     mutation createPostWithMarkDown($postData: PostInputMarkDown!) {
   createPostWithMarkDown(postData: $postData) {

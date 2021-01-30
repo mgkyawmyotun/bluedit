@@ -23,8 +23,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AddVoteDocument = exports.useCreatePostWithImageMutation = exports.CreatePostWithImageDocument = exports.useCreatePostWithLinkMutation = exports.CreatePostWithLinkDocument = exports.useCreatePostWithMarkDownMutation = exports.CreatePostWithMarkDownDocument = exports.useLeaveSubMutation = exports.LeaveSubDocument = exports.useJoinSubBlueEditMutation = exports.JoinSubBlueEditDocument = exports.useGetJoinedSubLazyQuery = exports.useGetJoinedSubQuery = exports.GetJoinedSubDocument = exports.useCheckEmailLazyQuery = exports.useCheckEmailQuery = exports.CheckEmailDocument = exports.useCreateUserMutation = exports.CreateUserDocument = exports.useGetCommentsByUserLazyQuery = exports.useGetCommentsByUserQuery = exports.GetCommentsByUserDocument = exports.useGetPostsByUserLazyQuery = exports.useGetPostsByUserQuery = exports.GetPostsByUserDocument = exports.useJoinSubLazyQuery = exports.useJoinSubQuery = exports.JoinSubDocument = exports.useGetPostLazyQuery = exports.useGetPostQuery = exports.GetPostDocument = exports.useGetPostsLazyQuery = exports.useGetPostsQuery = exports.GetPostsDocument = exports.useUserLazyQuery = exports.useUserQuery = exports.UserDocument = exports.useLogoutLazyQuery = exports.useLogoutQuery = exports.LogoutDocument = exports.useLoginUserMutation = exports.LoginUserDocument = exports.useContinueWithFaceBookMutation = exports.ContinueWithFaceBookDocument = exports.useGetCommentsLazyQuery = exports.useGetCommentsQuery = exports.GetCommentsDocument = exports.useCreateCommentMutation = exports.CreateCommentDocument = exports.VoteType = void 0;
-exports.useRemoveVoteMutation = exports.RemoveVoteDocument = exports.useIsVotedLazyQuery = exports.useIsVotedQuery = exports.IsVotedDocument = exports.useAddVoteMutation = void 0;
+exports.useCreatePostWithLinkMutation = exports.CreatePostWithLinkDocument = exports.useCreatePostWithMarkDownMutation = exports.CreatePostWithMarkDownDocument = exports.useIsJoinLazyQuery = exports.useIsJoinQuery = exports.IsJoinDocument = exports.useLeaveSubMutation = exports.LeaveSubDocument = exports.useJoinSubBlueEditMutation = exports.JoinSubBlueEditDocument = exports.useGetJoinedSubLazyQuery = exports.useGetJoinedSubQuery = exports.GetJoinedSubDocument = exports.useCheckEmailLazyQuery = exports.useCheckEmailQuery = exports.CheckEmailDocument = exports.useCreateUserMutation = exports.CreateUserDocument = exports.useGetCommentsByUserLazyQuery = exports.useGetCommentsByUserQuery = exports.GetCommentsByUserDocument = exports.useGetPostsByUserLazyQuery = exports.useGetPostsByUserQuery = exports.GetPostsByUserDocument = exports.useJoinSubLazyQuery = exports.useJoinSubQuery = exports.JoinSubDocument = exports.useGetPostLazyQuery = exports.useGetPostQuery = exports.GetPostDocument = exports.useGetPostsLazyQuery = exports.useGetPostsQuery = exports.GetPostsDocument = exports.useUserLazyQuery = exports.useUserQuery = exports.UserDocument = exports.useLogoutLazyQuery = exports.useLogoutQuery = exports.LogoutDocument = exports.useLoginUserMutation = exports.LoginUserDocument = exports.useContinueWithFaceBookMutation = exports.ContinueWithFaceBookDocument = exports.useGetCommentsLazyQuery = exports.useGetCommentsQuery = exports.GetCommentsDocument = exports.useCreateCommentMutation = exports.CreateCommentDocument = exports.VoteType = void 0;
+exports.useRemoveVoteMutation = exports.RemoveVoteDocument = exports.useIsVotedLazyQuery = exports.useIsVotedQuery = exports.IsVotedDocument = exports.useAddVoteMutation = exports.AddVoteDocument = exports.useCreatePostWithImageMutation = exports.CreatePostWithImageDocument = void 0;
 var client_1 = require("@apollo/client");
 var Apollo = __importStar(require("@apollo/client"));
 var VoteType;
@@ -152,27 +152,36 @@ function useLeaveSubMutation(baseOptions) {
     return Apollo.useMutation(exports.LeaveSubDocument, baseOptions);
 }
 exports.useLeaveSubMutation = useLeaveSubMutation;
-exports.CreatePostWithMarkDownDocument = client_1.gql(templateObject_17 || (templateObject_17 = __makeTemplateObject(["\n    mutation createPostWithMarkDown($postData: PostInputMarkDown!) {\n  createPostWithMarkDown(postData: $postData) {\n    path\n    message\n  }\n}\n    "], ["\n    mutation createPostWithMarkDown($postData: PostInputMarkDown!) {\n  createPostWithMarkDown(postData: $postData) {\n    path\n    message\n  }\n}\n    "])));
+exports.IsJoinDocument = client_1.gql(templateObject_17 || (templateObject_17 = __makeTemplateObject(["\n    query isJoin($subName: String!) {\n  isJoin(subName: $subName)\n}\n    "], ["\n    query isJoin($subName: String!) {\n  isJoin(subName: $subName)\n}\n    "])));
+function useIsJoinQuery(baseOptions) {
+    return Apollo.useQuery(exports.IsJoinDocument, baseOptions);
+}
+exports.useIsJoinQuery = useIsJoinQuery;
+function useIsJoinLazyQuery(baseOptions) {
+    return Apollo.useLazyQuery(exports.IsJoinDocument, baseOptions);
+}
+exports.useIsJoinLazyQuery = useIsJoinLazyQuery;
+exports.CreatePostWithMarkDownDocument = client_1.gql(templateObject_18 || (templateObject_18 = __makeTemplateObject(["\n    mutation createPostWithMarkDown($postData: PostInputMarkDown!) {\n  createPostWithMarkDown(postData: $postData) {\n    path\n    message\n  }\n}\n    "], ["\n    mutation createPostWithMarkDown($postData: PostInputMarkDown!) {\n  createPostWithMarkDown(postData: $postData) {\n    path\n    message\n  }\n}\n    "])));
 function useCreatePostWithMarkDownMutation(baseOptions) {
     return Apollo.useMutation(exports.CreatePostWithMarkDownDocument, baseOptions);
 }
 exports.useCreatePostWithMarkDownMutation = useCreatePostWithMarkDownMutation;
-exports.CreatePostWithLinkDocument = client_1.gql(templateObject_18 || (templateObject_18 = __makeTemplateObject(["\n    mutation createPostWithLink($postData: PostInputLink!) {\n  createPostWithLink(postData: $postData) {\n    path\n    message\n  }\n}\n    "], ["\n    mutation createPostWithLink($postData: PostInputLink!) {\n  createPostWithLink(postData: $postData) {\n    path\n    message\n  }\n}\n    "])));
+exports.CreatePostWithLinkDocument = client_1.gql(templateObject_19 || (templateObject_19 = __makeTemplateObject(["\n    mutation createPostWithLink($postData: PostInputLink!) {\n  createPostWithLink(postData: $postData) {\n    path\n    message\n  }\n}\n    "], ["\n    mutation createPostWithLink($postData: PostInputLink!) {\n  createPostWithLink(postData: $postData) {\n    path\n    message\n  }\n}\n    "])));
 function useCreatePostWithLinkMutation(baseOptions) {
     return Apollo.useMutation(exports.CreatePostWithLinkDocument, baseOptions);
 }
 exports.useCreatePostWithLinkMutation = useCreatePostWithLinkMutation;
-exports.CreatePostWithImageDocument = client_1.gql(templateObject_19 || (templateObject_19 = __makeTemplateObject(["\n    mutation createPostWithImage($postData: PostInputImage!) {\n  createPostWithImage(postData: $postData) {\n    path\n    message\n  }\n}\n    "], ["\n    mutation createPostWithImage($postData: PostInputImage!) {\n  createPostWithImage(postData: $postData) {\n    path\n    message\n  }\n}\n    "])));
+exports.CreatePostWithImageDocument = client_1.gql(templateObject_20 || (templateObject_20 = __makeTemplateObject(["\n    mutation createPostWithImage($postData: PostInputImage!) {\n  createPostWithImage(postData: $postData) {\n    path\n    message\n  }\n}\n    "], ["\n    mutation createPostWithImage($postData: PostInputImage!) {\n  createPostWithImage(postData: $postData) {\n    path\n    message\n  }\n}\n    "])));
 function useCreatePostWithImageMutation(baseOptions) {
     return Apollo.useMutation(exports.CreatePostWithImageDocument, baseOptions);
 }
 exports.useCreatePostWithImageMutation = useCreatePostWithImageMutation;
-exports.AddVoteDocument = client_1.gql(templateObject_20 || (templateObject_20 = __makeTemplateObject(["\n    mutation addVote($voteData: Vote!) {\n  addVote(voteData: $voteData) {\n    message\n    path\n  }\n}\n    "], ["\n    mutation addVote($voteData: Vote!) {\n  addVote(voteData: $voteData) {\n    message\n    path\n  }\n}\n    "])));
+exports.AddVoteDocument = client_1.gql(templateObject_21 || (templateObject_21 = __makeTemplateObject(["\n    mutation addVote($voteData: Vote!) {\n  addVote(voteData: $voteData) {\n    message\n    path\n  }\n}\n    "], ["\n    mutation addVote($voteData: Vote!) {\n  addVote(voteData: $voteData) {\n    message\n    path\n  }\n}\n    "])));
 function useAddVoteMutation(baseOptions) {
     return Apollo.useMutation(exports.AddVoteDocument, baseOptions);
 }
 exports.useAddVoteMutation = useAddVoteMutation;
-exports.IsVotedDocument = client_1.gql(templateObject_21 || (templateObject_21 = __makeTemplateObject(["\n    query isVoted($post_id: String!) {\n  isVoted(post_id: $post_id)\n}\n    "], ["\n    query isVoted($post_id: String!) {\n  isVoted(post_id: $post_id)\n}\n    "])));
+exports.IsVotedDocument = client_1.gql(templateObject_22 || (templateObject_22 = __makeTemplateObject(["\n    query isVoted($post_id: String!) {\n  isVoted(post_id: $post_id)\n}\n    "], ["\n    query isVoted($post_id: String!) {\n  isVoted(post_id: $post_id)\n}\n    "])));
 function useIsVotedQuery(baseOptions) {
     return Apollo.useQuery(exports.IsVotedDocument, baseOptions);
 }
@@ -181,10 +190,10 @@ function useIsVotedLazyQuery(baseOptions) {
     return Apollo.useLazyQuery(exports.IsVotedDocument, baseOptions);
 }
 exports.useIsVotedLazyQuery = useIsVotedLazyQuery;
-exports.RemoveVoteDocument = client_1.gql(templateObject_22 || (templateObject_22 = __makeTemplateObject(["\n    mutation removeVote($voteData: Vote!) {\n  removeVote(voteData: $voteData) {\n    message\n    path\n  }\n}\n    "], ["\n    mutation removeVote($voteData: Vote!) {\n  removeVote(voteData: $voteData) {\n    message\n    path\n  }\n}\n    "])));
+exports.RemoveVoteDocument = client_1.gql(templateObject_23 || (templateObject_23 = __makeTemplateObject(["\n    mutation removeVote($voteData: Vote!) {\n  removeVote(voteData: $voteData) {\n    message\n    path\n  }\n}\n    "], ["\n    mutation removeVote($voteData: Vote!) {\n  removeVote(voteData: $voteData) {\n    message\n    path\n  }\n}\n    "])));
 function useRemoveVoteMutation(baseOptions) {
     return Apollo.useMutation(exports.RemoveVoteDocument, baseOptions);
 }
 exports.useRemoveVoteMutation = useRemoveVoteMutation;
-var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5, templateObject_6, templateObject_7, templateObject_8, templateObject_9, templateObject_10, templateObject_11, templateObject_12, templateObject_13, templateObject_14, templateObject_15, templateObject_16, templateObject_17, templateObject_18, templateObject_19, templateObject_20, templateObject_21, templateObject_22;
+var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5, templateObject_6, templateObject_7, templateObject_8, templateObject_9, templateObject_10, templateObject_11, templateObject_12, templateObject_13, templateObject_14, templateObject_15, templateObject_16, templateObject_17, templateObject_18, templateObject_19, templateObject_20, templateObject_21, templateObject_22, templateObject_23;
 //# sourceMappingURL=graphql.js.map

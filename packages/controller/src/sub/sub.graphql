@@ -19,3 +19,6 @@ mutation leaveSub($subName: String!) {
     message
   }
 }
+query isJoin($subName: String!) {
+  isJoin(subName: $subName)
+}

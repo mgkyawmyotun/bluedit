@@ -1,9 +1,9 @@
-import { Button } from 'antd';
 import Avatar from 'antd/lib/avatar/avatar';
 import { FC, useContext } from 'react';
 import { getFirstUpperName } from '../../common/utils';
 import { SubContext } from '../SubContext';
 import styles from './../../../styles/sub.module.css';
+import { SubJoinLeave } from './SubJoinLeave';
 
 interface SubHeaderProps {}
 export const SubHeader: FC<SubHeaderProps> = () => {
@@ -20,7 +20,7 @@ export const SubHeader: FC<SubHeaderProps> = () => {
         <div>{'r/' + name}</div>
       </div>
       <div className={styles.sub__header__btn}>
-        <Button size={'large'}>Join</Button>
+        <SubJoinLeave />
       </div>
     </div>
   );

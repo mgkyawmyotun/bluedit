@@ -1,7 +1,8 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { GraphQlClient } from '../ApolloClient';
 import {
   useGetJoinedSubQuery,
+  useIsJoinQuery,
   useJoinSubBlueEditMutation,
   useLeaveSubMutation,
 } from '../generated/graphql';
@@ -18,9 +19,11 @@ interface JLInterface {
   children: ({
     joinSub,
     leaveSub,
+    isJoin,
   }: {
     joinSub: (subName: string) => void;
     leaveSub: (subName: string) => void;
+    isJoin: boolean;
   }) => JSX.Element;
 }
 
@@ -29,7 +32,16 @@ export const JoinLeaveController: FC<JLInterface> = ({ children }) => {
     client: GraphQlClient.getClient(),
   });
   const [leave] = useLeaveSubMutation({ client: GraphQlClient.getClient() });
+  const [isJoin, setIsJoin] = useState<boolean>(false);
+  const { data, loading } = useIsJoinQuery({
+    client: GraphQlClient.getClient(),
+  });
 
+  useEffect(() => {
+    if (!loading && data) {
+      setIsJoin(data.isJoin);
+    }
+  }, [data, loading]);
   const joinSub = async (subName: string) => {
     const data = await join({ variables: { subName } });
     if (data.data?.joinSubBluedit) {
@@ -42,5 +54,5 @@ export const JoinLeaveController: FC<JLInterface> = ({ children }) => {
       throw new Error(data.data?.leaveSub.message);
     }
   };
-  return children({ joinSub, leaveSub });
+  return children({ joinSub, leaveSub, isJoin });
 };

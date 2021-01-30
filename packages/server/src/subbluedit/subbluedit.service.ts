@@ -123,7 +123,6 @@ export class SubblueditService {
         .execute();
       return subJoin;
     } catch (error) {
-      console.log(error);
       return null;
     }
   }
@@ -134,5 +133,18 @@ export class SubblueditService {
     } catch (error) {
       return null;
     }
+  }
+  async isJoin(subName: string): Promise<boolean> {
+    const join = await this.joinRepository.findOne({
+      where: {
+        sub: { name: subName },
+        user: { user_id: this.userAuthHelpService.getUser() },
+      },
+      relations: ['sub'],
+    });
+    if (join) {
+      return true;
+    }
+    return false;
   }
 }

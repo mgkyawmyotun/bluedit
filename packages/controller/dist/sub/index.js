@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.JoinLeaveController = exports.useGetJoinSub = void 0;
+var react_1 = require("react");
 var ApolloClient_1 = require("../ApolloClient");
 var graphql_1 = require("../generated/graphql");
 var useGetJoinSub = function () {
@@ -55,6 +56,15 @@ var JoinLeaveController = function (_a) {
         client: ApolloClient_1.GraphQlClient.getClient(),
     })[0];
     var leave = graphql_1.useLeaveSubMutation({ client: ApolloClient_1.GraphQlClient.getClient() })[0];
+    var _b = react_1.useState(false), isJoin = _b[0], setIsJoin = _b[1];
+    var _c = graphql_1.useIsJoinQuery({
+        client: ApolloClient_1.GraphQlClient.getClient(),
+    }), data = _c.data, loading = _c.loading;
+    react_1.useEffect(function () {
+        if (!loading && data) {
+            setIsJoin(data.isJoin);
+        }
+    }, [data, loading]);
     var joinSub = function (subName) { return __awaiter(void 0, void 0, void 0, function () {
         var data;
         var _a, _b;
@@ -85,7 +95,7 @@ var JoinLeaveController = function (_a) {
             }
         });
     }); };
-    return children({ joinSub: joinSub, leaveSub: leaveSub });
+    return children({ joinSub: joinSub, leaveSub: leaveSub, isJoin: isJoin });
 };
 exports.JoinLeaveController = JoinLeaveController;
 //# sourceMappingURL=index.js.map
