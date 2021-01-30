@@ -7,3 +7,15 @@ query getJoinedSub {
     }
   }
 }
+mutation joinSubBlueEdit($subName: String!) {
+  joinSubBluedit(subName: $subName) {
+    path
+    message
+  }
+}
+mutation leaveSub($subName: String!) {
+  leaveSub(subName: $subName) {
+    path
+    message
+  }
+}

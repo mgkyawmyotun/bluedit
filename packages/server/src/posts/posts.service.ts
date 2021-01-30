@@ -34,10 +34,10 @@ export class PostsService {
   }
 
   public async getPostByUser(name: string) {
-    return this.getPostsBy(post => post.user.username === name);
+    return this.getPostsBy(post => post.user.username == name);
   }
   public async getPostsBySub(name: string) {
-    return this.getPostsBy(post => post.sub.name === name);
+    return this.getPostsBy(post => post.sub && post.sub.name == name);
   }
   private async getPostsBy(filter: (x: PostEntity) => boolean) {
     try {

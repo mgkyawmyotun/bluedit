@@ -118,10 +118,12 @@ export type Query = {
   getPosts: Array<Post>;
   getPost?: Maybe<Post>;
   getPostsByUser?: Maybe<Array<Post>>;
+  getPostsBySub?: Maybe<Array<Post>>;
   getComments?: Maybe<Array<Comment>>;
   getCommentsByUser?: Maybe<Array<CommentUser>>;
   getJoinSub?: Maybe<Array<JoinSub>>;
   getUserJoinedSub?: Maybe<Array<Sub>>;
+  getSub?: Maybe<Sub>;
   me?: Maybe<User>;
   /** email can be null  */
   getUser?: Maybe<User>;
@@ -142,6 +144,11 @@ export type QueryGetPostsByUserArgs = {
 };
 
 
+export type QueryGetPostsBySubArgs = {
+  subname: Scalars['String'];
+};
+
+
 export type QueryGetCommentsArgs = {
   post_id: Scalars['String'];
 };
@@ -154,6 +161,11 @@ export type QueryGetCommentsByUserArgs = {
 
 export type QueryGetUserJoinedSubArgs = {
   username: Scalars['String'];
+};
+
+
+export type QueryGetSubArgs = {
+  subName: Scalars['String'];
 };
 
 
@@ -195,6 +207,7 @@ export type Mutation = {
   deleteComment?: Maybe<CommentError>;
   createSubBluedit?: Maybe<SubError>;
   joinSubBluedit?: Maybe<SubError>;
+  leaveSub?: Maybe<SubError>;
   register?: Maybe<UserError>;
   login?: Maybe<UserError>;
   loginFaceBook?: Maybe<UserError>;
@@ -261,6 +274,11 @@ export type MutationCreateSubBlueditArgs = {
 
 
 export type MutationJoinSubBlueditArgs = {
+  subName: Scalars['String'];
+};
+
+
+export type MutationLeaveSubArgs = {
   subName: Scalars['String'];
 };
 
@@ -586,6 +604,32 @@ export type GetJoinedSubQuery = (
       & Pick<Sub, 'displayName' | 'name' | 'picture_url'>
     ) }
   )>> }
+);
+
+export type JoinSubBlueEditMutationVariables = Exact<{
+  subName: Scalars['String'];
+}>;
+
+
+export type JoinSubBlueEditMutation = (
+  { __typename?: 'Mutation' }
+  & { joinSubBluedit?: Maybe<(
+    { __typename?: 'SubError' }
+    & Pick<SubError, 'path' | 'message'>
+  )> }
+);
+
+export type LeaveSubMutationVariables = Exact<{
+  subName: Scalars['String'];
+}>;
+
+
+export type LeaveSubMutation = (
+  { __typename?: 'Mutation' }
+  & { leaveSub?: Maybe<(
+    { __typename?: 'SubError' }
+    & Pick<SubError, 'path' | 'message'>
+  )> }
 );
 
 export type CreatePostWithMarkDownMutationVariables = Exact<{
@@ -1185,6 +1229,72 @@ export function useGetJoinedSubLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type GetJoinedSubQueryHookResult = ReturnType<typeof useGetJoinedSubQuery>;
 export type GetJoinedSubLazyQueryHookResult = ReturnType<typeof useGetJoinedSubLazyQuery>;
 export type GetJoinedSubQueryResult = Apollo.QueryResult<GetJoinedSubQuery, GetJoinedSubQueryVariables>;
+export const JoinSubBlueEditDocument = gql`
+    mutation joinSubBlueEdit($subName: String!) {
+  joinSubBluedit(subName: $subName) {
+    path
+    message
+  }
+}
+    `;
+export type JoinSubBlueEditMutationFn = Apollo.MutationFunction<JoinSubBlueEditMutation, JoinSubBlueEditMutationVariables>;
+
+/**
+ * __useJoinSubBlueEditMutation__
+ *
+ * To run a mutation, you first call `useJoinSubBlueEditMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useJoinSubBlueEditMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [joinSubBlueEditMutation, { data, loading, error }] = useJoinSubBlueEditMutation({
+ *   variables: {
+ *      subName: // value for 'subName'
+ *   },
+ * });
+ */
+export function useJoinSubBlueEditMutation(baseOptions?: Apollo.MutationHookOptions<JoinSubBlueEditMutation, JoinSubBlueEditMutationVariables>) {
+        return Apollo.useMutation<JoinSubBlueEditMutation, JoinSubBlueEditMutationVariables>(JoinSubBlueEditDocument, baseOptions);
+      }
+export type JoinSubBlueEditMutationHookResult = ReturnType<typeof useJoinSubBlueEditMutation>;
+export type JoinSubBlueEditMutationResult = Apollo.MutationResult<JoinSubBlueEditMutation>;
+export type JoinSubBlueEditMutationOptions = Apollo.BaseMutationOptions<JoinSubBlueEditMutation, JoinSubBlueEditMutationVariables>;
+export const LeaveSubDocument = gql`
+    mutation leaveSub($subName: String!) {
+  leaveSub(subName: $subName) {
+    path
+    message
+  }
+}
+    `;
+export type LeaveSubMutationFn = Apollo.MutationFunction<LeaveSubMutation, LeaveSubMutationVariables>;
+
+/**
+ * __useLeaveSubMutation__
+ *
+ * To run a mutation, you first call `useLeaveSubMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLeaveSubMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [leaveSubMutation, { data, loading, error }] = useLeaveSubMutation({
+ *   variables: {
+ *      subName: // value for 'subName'
+ *   },
+ * });
+ */
+export function useLeaveSubMutation(baseOptions?: Apollo.MutationHookOptions<LeaveSubMutation, LeaveSubMutationVariables>) {
+        return Apollo.useMutation<LeaveSubMutation, LeaveSubMutationVariables>(LeaveSubDocument, baseOptions);
+      }
+export type LeaveSubMutationHookResult = ReturnType<typeof useLeaveSubMutation>;
+export type LeaveSubMutationResult = Apollo.MutationResult<LeaveSubMutation>;
+export type LeaveSubMutationOptions = Apollo.BaseMutationOptions<LeaveSubMutation, LeaveSubMutationVariables>;
 export const CreatePostWithMarkDownDocument = gql`
     mutation createPostWithMarkDown($postData: PostInputMarkDown!) {
   createPostWithMarkDown(postData: $postData) {

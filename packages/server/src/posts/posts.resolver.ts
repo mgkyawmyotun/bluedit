@@ -35,6 +35,10 @@ export class PostResolver {
   async getPostsByUser(@Args('username') username: string) {
     return this.postService.getPostByUser(username);
   }
+  @Query(returns => [Post], { nullable: true })
+  async getPostsBySub(@Args('subname') subname: string) {
+    return this.postService.getPostsBySub(subname);
+  }
   @Mutation(returns => PostError, { nullable: true })
   @UseGuards(IsAuthGuard)
   async createPostWithMarkDown(

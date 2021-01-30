@@ -17,6 +17,11 @@ export class SubblueditResolver {
   joinSub(@Args('subName') subName: string) {
     return this.subService.joinSub(subName);
   }
+  @Mutation(returns => SubError, { nullable: true, name: 'leaveSub' })
+  @UseGuards(IsAuthGuard)
+  leaveSub(@Args('subName') subName: string) {
+    return this.subService.leaveSub(subName);
+  }
   @Query(returns => [JoinSub], { nullable: true })
   async getJoinSub() {
     return this.subService.getJoinSub();

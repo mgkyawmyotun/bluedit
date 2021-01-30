@@ -1,4 +1,4 @@
-import { Sub } from '@bluedit/controller';
+import { Post, Sub } from '@bluedit/controller';
 import Layout, { Content } from 'antd/lib/layout/layout';
 import Sider from 'antd/lib/layout/Sider';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
@@ -11,9 +11,10 @@ import styles from './../../styles/main.module.css';
 interface SubCProps {}
 export const getServerSideProps: GetServerSideProps<{
   sub: Sub;
+  posts: Post[];
 }> = async (context) => {
   const subname = context.params.sub;
-  const raw_res_user = await fetch(process.env.NEXT_PUBLIC_GQL_URI, {
+  const raw_res_sub = await fetch(process.env.NEXT_PUBLIC_GQL_URI, {
     headers: {
       accept: '*/*',
       'content-type': 'application/json',
@@ -23,12 +24,23 @@ export const getServerSideProps: GetServerSideProps<{
     mode: 'cors',
     credentials: 'include',
   });
-  const res_sub: { data: { getSub: Sub } } = await raw_res_user.json();
+  const res_sub: { data: { getSub: Sub } } = await raw_res_sub.json();
+  const raw_res_sub_list = await fetch(process.env.NEXT_PUBLIC_GQL_URI, {
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: `{"operationName":"getBySub","variables":{},"query":"query getBySub {\\n  getPostsBySub(subname: \\"${subname}\\") {\\n    post_id\\n    post_text\\n    title\\n    link\\n    sub {\\n      name\\n      picture_url\\n    }\\n    vote_count\\n    images\\n    videos\\n    user {\\n      username\\n      picture_url\\n    }\\n    comment_count\\n    created_at\\n  }\\n}\\n"}`,
+    method: 'POST',
+  });
 
-  if (res_sub.data.getSub) {
+  const res_sub_list: {
+    data: { getPostsBySub: Post[] };
+  } = await raw_res_sub_list.json();
+  if (res_sub.data.getSub && res_sub_list.data) {
     const sub = res_sub.data;
+    const sub_list = res_sub_list.data;
     return {
-      props: { sub: sub.getSub },
+      props: { sub: sub.getSub, posts: sub_list.getPostsBySub },
     };
   }
   return {
@@ -38,6 +50,7 @@ export const getServerSideProps: GetServerSideProps<{
 
 const SubC: FC<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
   sub,
+  posts,
 }) => {
   return (
     <>
@@ -52,7 +65,7 @@ const SubC: FC<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
       <Layout className={styles.main__layout}>
         <Sider className={styles.main__left} width={'20%'}></Sider>
         <Content style={{ marginTop: '64px' }}>
-          <MainSub sub={sub} />
+          <MainSub sub={sub} posts={posts} />
         </Content>
         <Sider className={styles.main__left} width={'20%'}></Sider>
       </Layout>

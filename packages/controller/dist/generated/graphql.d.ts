@@ -110,10 +110,12 @@ export declare type Query = {
     getPosts: Array<Post>;
     getPost?: Maybe<Post>;
     getPostsByUser?: Maybe<Array<Post>>;
+    getPostsBySub?: Maybe<Array<Post>>;
     getComments?: Maybe<Array<Comment>>;
     getCommentsByUser?: Maybe<Array<CommentUser>>;
     getJoinSub?: Maybe<Array<JoinSub>>;
     getUserJoinedSub?: Maybe<Array<Sub>>;
+    getSub?: Maybe<Sub>;
     me?: Maybe<User>;
     getUser?: Maybe<User>;
     logout?: Maybe<Scalars['String']>;
@@ -127,6 +129,9 @@ export declare type QueryGetPostArgs = {
 export declare type QueryGetPostsByUserArgs = {
     username: Scalars['String'];
 };
+export declare type QueryGetPostsBySubArgs = {
+    subname: Scalars['String'];
+};
 export declare type QueryGetCommentsArgs = {
     post_id: Scalars['String'];
 };
@@ -135,6 +140,9 @@ export declare type QueryGetCommentsByUserArgs = {
 };
 export declare type QueryGetUserJoinedSubArgs = {
     username: Scalars['String'];
+};
+export declare type QueryGetSubArgs = {
+    subName: Scalars['String'];
 };
 export declare type QueryGetUserArgs = {
     username: Scalars['String'];
@@ -166,6 +174,7 @@ export declare type Mutation = {
     deleteComment?: Maybe<CommentError>;
     createSubBluedit?: Maybe<SubError>;
     joinSubBluedit?: Maybe<SubError>;
+    leaveSub?: Maybe<SubError>;
     register?: Maybe<UserError>;
     login?: Maybe<UserError>;
     loginFaceBook?: Maybe<UserError>;
@@ -208,6 +217,9 @@ export declare type MutationCreateSubBlueditArgs = {
     subInput: SubInput;
 };
 export declare type MutationJoinSubBlueditArgs = {
+    subName: Scalars['String'];
+};
+export declare type MutationLeaveSubArgs = {
     subName: Scalars['String'];
 };
 export declare type MutationRegisterArgs = {
@@ -465,6 +477,26 @@ export declare type GetJoinedSubQuery = ({
         } & Pick<Sub, 'displayName' | 'name' | 'picture_url'>);
     })>>;
 });
+export declare type JoinSubBlueEditMutationVariables = Exact<{
+    subName: Scalars['String'];
+}>;
+export declare type JoinSubBlueEditMutation = ({
+    __typename?: 'Mutation';
+} & {
+    joinSubBluedit?: Maybe<({
+        __typename?: 'SubError';
+    } & Pick<SubError, 'path' | 'message'>)>;
+});
+export declare type LeaveSubMutationVariables = Exact<{
+    subName: Scalars['String'];
+}>;
+export declare type LeaveSubMutation = ({
+    __typename?: 'Mutation';
+} & {
+    leaveSub?: Maybe<({
+        __typename?: 'SubError';
+    } & Pick<SubError, 'path' | 'message'>)>;
+});
 export declare type CreatePostWithMarkDownMutationVariables = Exact<{
     postData: PostInputMarkDown;
 }>;
@@ -653,6 +685,22 @@ export declare function useGetJoinedSubLazyQuery(baseOptions?: Apollo.LazyQueryH
 export declare type GetJoinedSubQueryHookResult = ReturnType<typeof useGetJoinedSubQuery>;
 export declare type GetJoinedSubLazyQueryHookResult = ReturnType<typeof useGetJoinedSubLazyQuery>;
 export declare type GetJoinedSubQueryResult = Apollo.QueryResult<GetJoinedSubQuery, GetJoinedSubQueryVariables>;
+export declare const JoinSubBlueEditDocument: Apollo.DocumentNode;
+export declare type JoinSubBlueEditMutationFn = Apollo.MutationFunction<JoinSubBlueEditMutation, JoinSubBlueEditMutationVariables>;
+export declare function useJoinSubBlueEditMutation(baseOptions?: Apollo.MutationHookOptions<JoinSubBlueEditMutation, JoinSubBlueEditMutationVariables>): Apollo.MutationTuple<JoinSubBlueEditMutation, Exact<{
+    subName: string;
+}>>;
+export declare type JoinSubBlueEditMutationHookResult = ReturnType<typeof useJoinSubBlueEditMutation>;
+export declare type JoinSubBlueEditMutationResult = Apollo.MutationResult<JoinSubBlueEditMutation>;
+export declare type JoinSubBlueEditMutationOptions = Apollo.BaseMutationOptions<JoinSubBlueEditMutation, JoinSubBlueEditMutationVariables>;
+export declare const LeaveSubDocument: Apollo.DocumentNode;
+export declare type LeaveSubMutationFn = Apollo.MutationFunction<LeaveSubMutation, LeaveSubMutationVariables>;
+export declare function useLeaveSubMutation(baseOptions?: Apollo.MutationHookOptions<LeaveSubMutation, LeaveSubMutationVariables>): Apollo.MutationTuple<LeaveSubMutation, Exact<{
+    subName: string;
+}>>;
+export declare type LeaveSubMutationHookResult = ReturnType<typeof useLeaveSubMutation>;
+export declare type LeaveSubMutationResult = Apollo.MutationResult<LeaveSubMutation>;
+export declare type LeaveSubMutationOptions = Apollo.BaseMutationOptions<LeaveSubMutation, LeaveSubMutationVariables>;
 export declare const CreatePostWithMarkDownDocument: Apollo.DocumentNode;
 export declare type CreatePostWithMarkDownMutationFn = Apollo.MutationFunction<CreatePostWithMarkDownMutation, CreatePostWithMarkDownMutationVariables>;
 export declare function useCreatePostWithMarkDownMutation(baseOptions?: Apollo.MutationHookOptions<CreatePostWithMarkDownMutation, CreatePostWithMarkDownMutationVariables>): Apollo.MutationTuple<CreatePostWithMarkDownMutation, Exact<{

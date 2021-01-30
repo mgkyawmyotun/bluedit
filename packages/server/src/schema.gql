@@ -95,6 +95,7 @@ type Query {
   getPosts: [Post!]!
   getPost(post_id: String!): Post
   getPostsByUser(username: String!): [Post!]
+  getPostsBySub(subname: String!): [Post!]
   getComments(post_id: String!): [Comment!]
   getCommentsByUser(username: String!): [CommentUser!]
   getJoinSub: [JoinSub!]
@@ -128,6 +129,7 @@ type Mutation {
   deleteComment(comment_id: String!): CommentError
   createSubBluedit(subInput: SubInput!): SubError
   joinSubBluedit(subName: String!): SubError
+  leaveSub(subName: String!): SubError
   register(userInput: UserInputType!): UserError
   login(loginInput: UserLoginInput!): UserError
   loginFaceBook(accessToken: String!): UserError

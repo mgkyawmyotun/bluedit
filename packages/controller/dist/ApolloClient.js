@@ -6,14 +6,14 @@ var ws_1 = require("@apollo/client/link/ws");
 var utilities_1 = require("@apollo/client/utilities");
 var wsLink = process.browser
     ? new ws_1.WebSocketLink({
-        uri: "ws://localhost:4000/graphql",
+        uri: "ws://" + process.env.NEXT_PUBLIC_GQL_URI,
         options: {
             reconnect: true,
         },
     })
     : null;
 var httplink = new client_1.HttpLink({
-    uri: 'http://localhost:4000/graphql',
+    uri: process.env.NEXT_PUBLIC_GQL_URI,
     credentials: 'include',
 });
 var splitLink = process.browser

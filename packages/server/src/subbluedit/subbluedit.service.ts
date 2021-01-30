@@ -71,6 +71,32 @@ export class SubblueditService {
       };
     }
   }
+  async leaveSub(subName: string) {
+    const join = await this.joinRepository.findOne({
+      where: {
+        sub: { name: subName },
+        user: { user_id: this.userAuthHelpService.getUser() },
+      },
+      relations: ['sub'],
+    });
+    if (!join) {
+      return {
+        path: 'leave subName',
+        message: 'Cannot Leave Without Join',
+      };
+    }
+    try {
+      await this.joinRepository.delete({
+        sub: { name: subName },
+        user: { user_id: this.userAuthHelpService.getUser() },
+      });
+    } catch (error) {
+      return {
+        path: 'leave subName',
+        message: 'Error at leaving sub',
+      };
+    }
+  }
   async getJoinSub() {
     try {
       const subJoin = await this.joinRepository.find({
