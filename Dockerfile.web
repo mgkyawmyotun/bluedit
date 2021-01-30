@@ -1,0 +1,13 @@
+FROM node:12-alpine
+WORKDIR /bluedit
+COPY ./package.json .
+COPY ./lerna.json . 
+RUN npm install
+COPY ./packages/web packages/web 
+COPY ./packages/controller packages/controller
+COPY ./packages/common packages/common
+RUN npm run start:web 
+RUN npm run start:web
+WORKDIR "./packages/web"
+CMD ["npm","start"]
+

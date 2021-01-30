@@ -10,7 +10,7 @@ import { getMainDefinition } from '@apollo/client/utilities';
 const wsLink = (process as any).browser
   ? new WebSocketLink({
       // if you instantiate in the server, the error will be thrown
-      uri: `ws://localhost:4000/graphql`,
+      uri: `ws://` + process.env.NEXT_PUBLIC_GQL_URI,
       options: {
         reconnect: true,
       },
@@ -18,7 +18,7 @@ const wsLink = (process as any).browser
   : null;
 
 const httplink = new HttpLink({
-  uri: 'http://localhost:4000/graphql',
+  uri: process.env.NEXT_PUBLIC_GQL_URI,
   credentials: 'include',
 });
 

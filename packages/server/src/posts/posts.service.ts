@@ -34,13 +34,19 @@ export class PostsService {
   }
 
   public async getPostByUser(name: string) {
+    return this.getPostsBy(post => post.user.username === name);
+  }
+  public async getPostsBySub(name: string) {
+    return this.getPostsBy(post => post.sub.name === name);
+  }
+  private async getPostsBy(filter: (x: PostEntity) => boolean) {
     try {
       const postsCache = await this.postsCacheService.getPosts();
       if (postsCache) {
-        return postsCache.filter(x => x.user.username === name);
+        return postsCache.filter(filter);
       }
       const posts = await this.set_cache_and_get_db_result();
-      return posts.filter(x => x.user.username === name);
+      return posts.filter(filter);
     } catch (error) {
       return null;
     }
