@@ -20,7 +20,7 @@ export const SubHeader: FC<SubHeaderProps> = () => {
         <div>{'r/' + name}</div>
       </div>
       <div className={styles.sub__header__btn}>
-        <SubJoinLeave />
+        <SubJoinLeave subName={name} />
       </div>
     </div>
   );

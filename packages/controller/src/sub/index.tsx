@@ -21,13 +21,14 @@ interface JLInterface {
     leaveSub,
     isJoin,
   }: {
-    joinSub: (subName: string) => void;
-    leaveSub: (subName: string) => void;
+    joinSub: () => void;
+    leaveSub: () => void;
     isJoin: boolean;
   }) => JSX.Element;
+  subName: string;
 }
 
-export const JoinLeaveController: FC<JLInterface> = ({ children }) => {
+export const JoinLeaveController: FC<JLInterface> = ({ children, subName }) => {
   const [join] = useJoinSubBlueEditMutation({
     client: GraphQlClient.getClient(),
   });
@@ -35,6 +36,7 @@ export const JoinLeaveController: FC<JLInterface> = ({ children }) => {
   const [isJoin, setIsJoin] = useState<boolean>(false);
   const { data, loading } = useIsJoinQuery({
     client: GraphQlClient.getClient(),
+    variables: { subName },
   });
 
   useEffect(() => {
@@ -42,17 +44,20 @@ export const JoinLeaveController: FC<JLInterface> = ({ children }) => {
       setIsJoin(data.isJoin);
     }
   }, [data, loading]);
-  const joinSub = async (subName: string) => {
+  const joinSub = async () => {
     const data = await join({ variables: { subName } });
     if (data.data?.joinSubBluedit) {
       throw new Error(data.data?.joinSubBluedit.message);
     }
+    setIsJoin(true);
   };
-  const leaveSub = async (subName: string) => {
+
+  const leaveSub = async () => {
     const data = await leave({ variables: { subName } });
     if (data.data?.leaveSub) {
       throw new Error(data.data?.leaveSub.message);
     }
+    setIsJoin(false);
   };
   return children({ joinSub, leaveSub, isJoin });
 };

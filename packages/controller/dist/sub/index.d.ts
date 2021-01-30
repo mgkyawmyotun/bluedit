@@ -5,10 +5,11 @@ export declare const useGetJoinSub: () => {
 };
 interface JLInterface {
     children: ({ joinSub, leaveSub, isJoin, }: {
-        joinSub: (subName: string) => void;
-        leaveSub: (subName: string) => void;
+        joinSub: () => void;
+        leaveSub: () => void;
         isJoin: boolean;
     }) => JSX.Element;
+    subName: string;
 }
 export declare const JoinLeaveController: FC<JLInterface>;
 export {};

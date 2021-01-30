@@ -51,7 +51,7 @@ var useGetJoinSub = function () {
 };
 exports.useGetJoinSub = useGetJoinSub;
 var JoinLeaveController = function (_a) {
-    var children = _a.children;
+    var children = _a.children, subName = _a.subName;
     var join = graphql_1.useJoinSubBlueEditMutation({
         client: ApolloClient_1.GraphQlClient.getClient(),
     })[0];
@@ -59,13 +59,14 @@ var JoinLeaveController = function (_a) {
     var _b = react_1.useState(false), isJoin = _b[0], setIsJoin = _b[1];
     var _c = graphql_1.useIsJoinQuery({
         client: ApolloClient_1.GraphQlClient.getClient(),
+        variables: { subName: subName },
     }), data = _c.data, loading = _c.loading;
     react_1.useEffect(function () {
         if (!loading && data) {
             setIsJoin(data.isJoin);
         }
     }, [data, loading]);
-    var joinSub = function (subName) { return __awaiter(void 0, void 0, void 0, function () {
+    var joinSub = function () { return __awaiter(void 0, void 0, void 0, function () {
         var data;
         var _a, _b;
         return __generator(this, function (_c) {
@@ -76,11 +77,12 @@ var JoinLeaveController = function (_a) {
                     if ((_a = data.data) === null || _a === void 0 ? void 0 : _a.joinSubBluedit) {
                         throw new Error((_b = data.data) === null || _b === void 0 ? void 0 : _b.joinSubBluedit.message);
                     }
+                    setIsJoin(true);
                     return [2];
             }
         });
     }); };
-    var leaveSub = function (subName) { return __awaiter(void 0, void 0, void 0, function () {
+    var leaveSub = function () { return __awaiter(void 0, void 0, void 0, function () {
         var data;
         var _a, _b;
         return __generator(this, function (_c) {
@@ -91,6 +93,7 @@ var JoinLeaveController = function (_a) {
                     if ((_a = data.data) === null || _a === void 0 ? void 0 : _a.leaveSub) {
                         throw new Error((_b = data.data) === null || _b === void 0 ? void 0 : _b.leaveSub.message);
                     }
+                    setIsJoin(false);
                     return [2];
             }
         });
