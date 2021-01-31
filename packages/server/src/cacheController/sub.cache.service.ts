@@ -14,6 +14,10 @@ export class SubCacheService {
   public updateSubs(subs: SubEntity[]): void {
     this.setSubs(subs);
   }
+  public async addSub(sub: SubEntity) {
+    const subs = await this.getSubs();
+    this.setSubs([...subs, sub]);
+  }
   public deleteSubs() {
     return this.cacheManager.del(KEYS.SUBS);
   }

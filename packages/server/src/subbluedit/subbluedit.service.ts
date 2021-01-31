@@ -2,6 +2,7 @@ import { subCreateValidation } from '@bluedit/common';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { SubCacheService } from './../cacheController/sub.cache.service';
 import { shapeError, sqlError } from './../shared/shapeError';
 import { UserAuthHelpService } from './../shared/userauth.service';
 import { JoinEntity } from './join.entity';
@@ -16,6 +17,7 @@ export class SubblueditService {
     private userAuthHelpService: UserAuthHelpService,
     @InjectRepository(JoinEntity)
     private joinRepository: Repository<JoinEntity>,
+    private subCacheService: SubCacheService,
   ) {}
   async createSub({ displayName, name }: SubInput): Promise<SubError> {
     try {
@@ -24,15 +26,13 @@ export class SubblueditService {
       return shapeError(error);
     }
     try {
-      await this.subRepository
-        .createQueryBuilder()
-        .insert()
-        .values({
-          name: name,
-          displayName,
-          user: { user_id: this.userAuthHelpService.getUser() },
-        })
-        .execute();
+      const sub = this.subRepository.create({
+        name,
+        displayName,
+        user: { user_id: this.userAuthHelpService.getUser() },
+      });
+      const sub_ent = await this.subRepository.save(sub);
+      this.subCacheService.addSub(sub_ent);
       this.joinSub(name);
     } catch (error) {
       return sqlError(error, 'subbluedit', 'name');
@@ -128,6 +128,12 @@ export class SubblueditService {
   }
   async getSub(subName: string) {
     try {
+      const subs = await this.subCacheService.getSubs();
+
+      if (subs) {
+        const sub = subs.find(sub => sub.name === subName);
+        return sub;
+      }
       const sub = await this.subRepository.findOne(subName);
       return sub;
     } catch (error) {
@@ -149,7 +155,12 @@ export class SubblueditService {
   }
   async getSubs() {
     try {
+      const subs_cache = await this.subCacheService.getSubs();
+      if (subs_cache) {
+        return subs_cache;
+      }
       const subs = await this.subRepository.find();
+      this.subCacheService.setSubs(subs);
       return subs;
     } catch (error) {}
   }
