@@ -27,12 +27,15 @@
 		"@types/react-facebook-login": "^4.1.2",
 		"@types/react-rte": "^0.16.1",
 		"@types/showdown": "^1.9.3",
+		"npm-link-shared": "^0.5.6",
 		"typescript": "^4.1.2"
 	},
 	"scripts": {
 		"postinstall": "npm install ../controller && npm install ../common",
 		"dev": "next dev",
+		"prebuild": "npm run link",
 		"build": "next build",
+		"link": "npm-link-shared ./node_modules/@bluedit/controller/node_modules . react",
 		"start": "next start"
 	}
 }
