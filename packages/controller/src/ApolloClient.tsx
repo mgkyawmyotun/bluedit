@@ -10,7 +10,7 @@ import { getMainDefinition } from '@apollo/client/utilities';
 const wsLink = (process as any).browser
   ? new WebSocketLink({
       // if you instantiate in the server, the error will be thrown
-      uri: `ws://` + process.env.NEXT_PUBLIC_GQL_URI,
+      uri: process.env.NEXT_PUBLIC_WS as string,
       options: {
         reconnect: true,
       },

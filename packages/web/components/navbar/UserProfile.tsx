@@ -1,3 +1,4 @@
+import { useUserContext } from '@bluedit/controller';
 import { Select } from 'antd';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
@@ -9,13 +10,14 @@ const userRoute: { value: string; path: string }[] = [
   { value: 'Logout', path: '/logout' },
 ];
 export const UserProfile: FC = () => {
+  const { data, loading } = useUserContext();
   const { push } = useRouter();
   return (
     <>
       {' '}
       <Select
         bordered={false}
-        defaultValue="UserName"
+        defaultValue={!loading && data && data.me.displayName}
         className={styles.selectBox}
         onChange={(e) => {
           push(e);

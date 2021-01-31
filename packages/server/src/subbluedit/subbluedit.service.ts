@@ -147,4 +147,10 @@ export class SubblueditService {
     }
     return false;
   }
+  async getSubs() {
+    try {
+      const subs = await this.subRepository.find();
+      return subs;
+    } catch (error) {}
+  }
 }

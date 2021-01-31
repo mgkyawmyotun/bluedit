@@ -6,7 +6,7 @@ var ws_1 = require("@apollo/client/link/ws");
 var utilities_1 = require("@apollo/client/utilities");
 var wsLink = process.browser
     ? new ws_1.WebSocketLink({
-        uri: "ws://" + process.env.NEXT_PUBLIC_GQL_URI,
+        uri: process.env.NEXT_PUBLIC_WS,
         options: {
             reconnect: true,
         },
