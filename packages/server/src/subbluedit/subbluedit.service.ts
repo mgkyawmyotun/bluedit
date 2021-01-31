@@ -6,7 +6,7 @@ import { SubCacheService } from './../cacheController/sub.cache.service';
 import { shapeError, sqlError } from './../shared/shapeError';
 import { UserAuthHelpService } from './../shared/userauth.service';
 import { JoinEntity } from './join.entity';
-import { SubError, SubInput } from './subbluedit.types';
+import { SubError, SubInput, SubSearchInput } from './subbluedit.types';
 import { SubEntity } from './subluedit.entity';
 
 @Injectable()
@@ -153,15 +153,35 @@ export class SubblueditService {
     }
     return false;
   }
-  async getSubs() {
+  async getSubs(subInput: SubSearchInput) {
     try {
       const subs_cache = await this.subCacheService.getSubs();
       if (subs_cache) {
-        return subs_cache;
+        return this.getSearchSubs({ subs: subs_cache, subInput });
       }
       const subs = await this.subRepository.find();
       this.subCacheService.setSubs(subs);
-      return subs;
+      return this.getSearchSubs({ subs, subInput });
     } catch (error) {}
+  }
+  private getSearchSubs({
+    subs,
+    subInput,
+  }: {
+    subs: SubEntity[];
+    subInput: SubSearchInput;
+  }) {
+    if (subInput.search_value.length == 0) {
+      return [];
+    }
+    let subs_filter = subs.filter(
+      sub =>
+        sub.name.includes(subInput.search_value) ||
+        sub.displayName.includes(subInput.search_value),
+    );
+    if (subInput.limit) {
+      subs_filter = subs_filter.slice(0, subInput.limit);
+    }
+    return subs_filter;
   }
 }

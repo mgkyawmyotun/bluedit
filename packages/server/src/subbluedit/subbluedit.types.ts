@@ -23,6 +23,13 @@ export class SubInput {
   @Field(type => String)
   name: string;
 }
+@InputType()
+export class SubSearchInput {
+  @Field(type => String)
+  search_value: string;
+  @Field(type => Number, { nullable: true })
+  limit?: number;
+}
 @ObjectType()
 export class JoinSub {
   @Field(type => Sub)

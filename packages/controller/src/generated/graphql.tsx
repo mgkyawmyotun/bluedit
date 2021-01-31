@@ -125,6 +125,7 @@ export type Query = {
   getUserJoinedSub?: Maybe<Array<Sub>>;
   getSub?: Maybe<Sub>;
   isJoin: Scalars['Boolean'];
+  getSubs?: Maybe<Array<Sub>>;
   me?: Maybe<User>;
   /** email can be null  */
   getUser?: Maybe<User>;
@@ -175,6 +176,11 @@ export type QueryIsJoinArgs = {
 };
 
 
+export type QueryGetSubsArgs = {
+  subInput: SubSearchInput;
+};
+
+
 export type QueryGetUserArgs = {
   username: Scalars['String'];
 };
@@ -192,6 +198,11 @@ export type QueryIsVotedArgs = {
 
 export type QueryGetVoteCountUserArgs = {
   username: Scalars['String'];
+};
+
+export type SubSearchInput = {
+  search_value: Scalars['String'];
+  limit?: Maybe<Scalars['Float']>;
 };
 
 export enum VoteType {
@@ -596,6 +607,19 @@ export type CheckEmailQueryVariables = Exact<{
 export type CheckEmailQuery = (
   { __typename?: 'Query' }
   & Pick<Query, 'isEmailExists'>
+);
+
+export type GetSearchSubsQueryVariables = Exact<{
+  subInput: SubSearchInput;
+}>;
+
+
+export type GetSearchSubsQuery = (
+  { __typename?: 'Query' }
+  & { getSubs?: Maybe<Array<(
+    { __typename?: 'Sub' }
+    & Pick<Sub, 'displayName' | 'name' | 'picture_url'>
+  )>> }
 );
 
 export type GetJoinedSubQueryVariables = Exact<{ [key: string]: never; }>;
@@ -1209,6 +1233,41 @@ export function useCheckEmailLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type CheckEmailQueryHookResult = ReturnType<typeof useCheckEmailQuery>;
 export type CheckEmailLazyQueryHookResult = ReturnType<typeof useCheckEmailLazyQuery>;
 export type CheckEmailQueryResult = Apollo.QueryResult<CheckEmailQuery, CheckEmailQueryVariables>;
+export const GetSearchSubsDocument = gql`
+    query getSearchSubs($subInput: SubSearchInput!) {
+  getSubs(subInput: $subInput) {
+    displayName
+    name
+    picture_url
+  }
+}
+    `;
+
+/**
+ * __useGetSearchSubsQuery__
+ *
+ * To run a query within a React component, call `useGetSearchSubsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSearchSubsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSearchSubsQuery({
+ *   variables: {
+ *      subInput: // value for 'subInput'
+ *   },
+ * });
+ */
+export function useGetSearchSubsQuery(baseOptions: Apollo.QueryHookOptions<GetSearchSubsQuery, GetSearchSubsQueryVariables>) {
+        return Apollo.useQuery<GetSearchSubsQuery, GetSearchSubsQueryVariables>(GetSearchSubsDocument, baseOptions);
+      }
+export function useGetSearchSubsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSearchSubsQuery, GetSearchSubsQueryVariables>) {
+          return Apollo.useLazyQuery<GetSearchSubsQuery, GetSearchSubsQueryVariables>(GetSearchSubsDocument, baseOptions);
+        }
+export type GetSearchSubsQueryHookResult = ReturnType<typeof useGetSearchSubsQuery>;
+export type GetSearchSubsLazyQueryHookResult = ReturnType<typeof useGetSearchSubsLazyQuery>;
+export type GetSearchSubsQueryResult = Apollo.QueryResult<GetSearchSubsQuery, GetSearchSubsQueryVariables>;
 export const GetJoinedSubDocument = gql`
     query getJoinedSub {
   getJoinSub {

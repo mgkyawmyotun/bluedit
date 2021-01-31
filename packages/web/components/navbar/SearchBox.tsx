@@ -46,12 +46,17 @@ export const SearchBox: FC = () => {
   return (
     <>
       <Col span={10}>
-        <Dropdown overlay={menu} placement="bottomCenter" arrow visible={true}>
+        <Dropdown overlay={menu} placement="bottomCenter" arrow visible={false}>
           <Input
             placeholder="Search ..."
             prefix={<SearchOutlined />}
             className={styles.search__box}
-            onInput={() => {}}
+            onChange={(e) => {
+              console.log(e.target.value);
+            }}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter') console.log('Click Submit');
+            }}
           />
         </Dropdown>
       </Col>

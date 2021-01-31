@@ -102,7 +102,7 @@ type Query {
   getUserJoinedSub(username: String!): [Sub!]
   getSub(subName: String!): Sub
   isJoin(subName: String!): Boolean!
-  getSubs: [Sub!]
+  getSubs(subInput: SubSearchInput!): [Sub!]
   me: User
 
   """email can be null """
@@ -111,6 +111,11 @@ type Query {
   isEmailExists(email: String!): Boolean!
   isVoted(post_id: String!): VoteType
   getVoteCountUser(username: String!): Float!
+}
+
+input SubSearchInput {
+  search_value: String!
+  limit: Float
 }
 
 enum VoteType {

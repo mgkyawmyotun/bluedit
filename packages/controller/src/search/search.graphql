@@ -1,0 +1,7 @@
+query getSearchSubs($subInput: SubSearchInput!) {
+  getSubs(subInput: $subInput) {
+    displayName
+    name
+    picture_url
+  }
+}
