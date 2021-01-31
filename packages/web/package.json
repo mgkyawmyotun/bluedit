@@ -4,10 +4,7 @@
 	"private": true,
 	"dependencies": {
 		"@ant-design/icons": "^4.3.0",
-		"@bluedit/common": "^0.0.1",
-		"@bluedit/controller": "^0.0.1",
 		"antd": "^4.9.1",
-		"copyfiles": "^2.4.1",
 		"formik": "^2.2.6",
 		"mobx": "^6.0.4",
 		"mobx-react": "^7.0.5",
@@ -32,9 +29,9 @@
 		"typescript": "^4.1.2"
 	},
 	"scripts": {
+		"postinstall": "npm install ../controller && npm install ../common",
 		"dev": "next dev",
 		"build": "next build",
-		"cp": "copyfiles ../packages/controller ./hello",
 		"start": "next start"
 	}
 }
