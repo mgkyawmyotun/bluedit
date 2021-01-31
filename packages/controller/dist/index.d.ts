@@ -9,6 +9,7 @@ export * from './me';
 export * from './post';
 export * from './profile';
 export * from './register';
+export * from './search';
 export * from './sub';
 export * from './submit';
 export * from './types';

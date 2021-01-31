@@ -5,7 +5,7 @@ import { FC, useEffect, useState } from 'react';
 import styles from '../../styles/navbar.module.css';
 import { Brand } from './Brand';
 import { LoginRegister } from './LoginRegister';
-import { SearchBox } from './SearchBox';
+import { SearchBox } from './search/SearchBox';
 import { UserProfile } from './UserProfile';
 export const NavBar: FC = () => {
   const data = useUserContext();

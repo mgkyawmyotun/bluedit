@@ -117,6 +117,7 @@ export declare type Query = {
     getUserJoinedSub?: Maybe<Array<Sub>>;
     getSub?: Maybe<Sub>;
     isJoin: Scalars['Boolean'];
+    getSubs?: Maybe<Array<Sub>>;
     me?: Maybe<User>;
     getUser?: Maybe<User>;
     logout?: Maybe<Scalars['String']>;
@@ -148,6 +149,9 @@ export declare type QueryGetSubArgs = {
 export declare type QueryIsJoinArgs = {
     subName: Scalars['String'];
 };
+export declare type QueryGetSubsArgs = {
+    subInput: SubSearchInput;
+};
 export declare type QueryGetUserArgs = {
     username: Scalars['String'];
 };
@@ -159,6 +163,10 @@ export declare type QueryIsVotedArgs = {
 };
 export declare type QueryGetVoteCountUserArgs = {
     username: Scalars['String'];
+};
+export declare type SubSearchInput = {
+    search_value: Scalars['String'];
+    limit?: Maybe<Scalars['Float']>;
 };
 export declare enum VoteType {
     Up = "UP",
@@ -467,6 +475,16 @@ export declare type CheckEmailQueryVariables = Exact<{
 export declare type CheckEmailQuery = ({
     __typename?: 'Query';
 } & Pick<Query, 'isEmailExists'>);
+export declare type GetSearchSubsQueryVariables = Exact<{
+    subInput: SubSearchInput;
+}>;
+export declare type GetSearchSubsQuery = ({
+    __typename?: 'Query';
+} & {
+    getSubs?: Maybe<Array<({
+        __typename?: 'Sub';
+    } & Pick<Sub, 'displayName' | 'name' | 'picture_url'>)>>;
+});
 export declare type GetJoinedSubQueryVariables = Exact<{
     [key: string]: never;
 }>;
@@ -685,6 +703,16 @@ export declare function useCheckEmailLazyQuery(baseOptions?: Apollo.LazyQueryHoo
 export declare type CheckEmailQueryHookResult = ReturnType<typeof useCheckEmailQuery>;
 export declare type CheckEmailLazyQueryHookResult = ReturnType<typeof useCheckEmailLazyQuery>;
 export declare type CheckEmailQueryResult = Apollo.QueryResult<CheckEmailQuery, CheckEmailQueryVariables>;
+export declare const GetSearchSubsDocument: Apollo.DocumentNode;
+export declare function useGetSearchSubsQuery(baseOptions: Apollo.QueryHookOptions<GetSearchSubsQuery, GetSearchSubsQueryVariables>): Apollo.QueryResult<GetSearchSubsQuery, Exact<{
+    subInput: SubSearchInput;
+}>>;
+export declare function useGetSearchSubsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSearchSubsQuery, GetSearchSubsQueryVariables>): Apollo.QueryTuple<GetSearchSubsQuery, Exact<{
+    subInput: SubSearchInput;
+}>>;
+export declare type GetSearchSubsQueryHookResult = ReturnType<typeof useGetSearchSubsQuery>;
+export declare type GetSearchSubsLazyQueryHookResult = ReturnType<typeof useGetSearchSubsLazyQuery>;
+export declare type GetSearchSubsQueryResult = Apollo.QueryResult<GetSearchSubsQuery, GetSearchSubsQueryVariables>;
 export declare const GetJoinedSubDocument: Apollo.DocumentNode;
 export declare function useGetJoinedSubQuery(baseOptions?: Apollo.QueryHookOptions<GetJoinedSubQuery, GetJoinedSubQueryVariables>): Apollo.QueryResult<GetJoinedSubQuery, Exact<{
     [key: string]: never;

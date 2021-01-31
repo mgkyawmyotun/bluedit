@@ -8,7 +8,7 @@ import {
   useGetSearchSubsLazyQuery,
 } from '../generated/graphql';
 
-type SubSearchType =
+export type SubSearchType =
   | ({
       __typename?: 'Sub' | undefined;
     } & Pick<Sub, 'displayName' | 'name' | 'picture_url'>)[]
