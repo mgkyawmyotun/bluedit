@@ -93,8 +93,6 @@ export class UsersService {
   }
   async me() {
     const { session } = this.context;
-
-    this.logger.log('Getting User From Session', session.user);
     const user = await this.usersRepository.findOne({ user_id: session.user });
     return user;
   }
